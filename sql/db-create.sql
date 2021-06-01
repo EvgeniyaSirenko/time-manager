@@ -15,7 +15,7 @@ DROP TABLE IF EXISTS category;
 -- -----------------------------------------------------
 
 CREATE TABLE role (
-  id INT NOT NULL AUTO_INCREMENT,
+  id INT NOT NULL,
   name VARCHAR(10) NULL UNIQUE,
   PRIMARY KEY (id));
 
@@ -29,7 +29,7 @@ CREATE TABLE participant (
   last_name VARCHAR(20) NOT NULL,
   login VARCHAR(20) NOT NULL UNIQUE,
   password VARCHAR(10) NOT NULL,
-  -- locale_name VARCHAR(20),
+  locale_name VARCHAR(20),
   role_id INT NOT NULL,
   PRIMARY KEY (id),
   INDEX fk_participant_role1_idx (role_id ASC) VISIBLE,
@@ -92,14 +92,15 @@ CREATE TABLE IF NOT EXISTS participant_activity (
 -- -----------------------------------------------------
 
 -- role
-INSERT INTO role (id, name) VALUES(DEFAULT, "admin");
-INSERT INTO role (id, name) VALUES(DEFAULT, "user");
+-- Role entity is ENUM, so the numeration must start from 0 
+INSERT INTO role (id, name) VALUES(0, "admin");
+INSERT INTO role (id, name) VALUES(1, "user");
 
 -- participant
 SET @text = "admin";
-INSERT INTO participant (id, first_name, last_name, login, password, role_id) VALUES(DEFAULT, @text, @text, @text, @text, (SELECT id FROM role WHERE name = @text));
+INSERT INTO participant VALUES(DEFAULT, @text, @text, @text, @text, NULL, (SELECT id FROM role WHERE name = @text));
 SET @text = "user";
-INSERT INTO participant (id, first_name, last_name, login, password, role_id) VALUES(DEFAULT, @text, @text, @text, @text, (SELECT id FROM role WHERE name = @text));
+INSERT INTO participant VALUES(DEFAULT, @text, @text, @text, @text, NULL, (SELECT id FROM role WHERE name = @text));
 
 -- category
 INSERT INTO category (id, name) VALUES(DEFAULT, "physical");
@@ -120,8 +121,3 @@ INSERT INTO participant_activity (participant_id, activity_id, duration) VALUES(
 INSERT INTO participant_activity (participant_id, activity_id, duration) VALUES((SELECT id FROM participant WHERE login = "user"), (SELECT id FROM activity WHERE name = "writing"), 120);
 INSERT INTO participant_activity (participant_id, activity_id, duration) VALUES((SELECT id FROM participant WHERE login = "user"), (SELECT id FROM activity WHERE name = "running"), 150);
 INSERT INTO participant_activity (participant_id, activity_id, duration) VALUES((SELECT id FROM participant WHERE login = "user"), (SELECT id FROM activity WHERE name = "watching"), 180);
-
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

@@ -7,10 +7,10 @@
 		maxTotal="100" maxIdle="30"
 		maxWaitMillis="10000" 
 		
-		username="testuser" password="testpass"
+		username="root" password="Pavlyk1984"
 		driverClassName="com.mysql.cj.jdbc.Driver"
 		
-		defaultAutoCommit="true" 
+		defaultAutoCommit="false" 
 		defaultTransactionIsolation="READ_COMMITTED"
 		
 		url="jdbc:mysql://localhost:3306/timedb" />

@@ -1,12 +1,17 @@
 package com.epam.db.entity;
 
-public class Participant {
+import java.io.Serializable;
 
+public class Participant implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String firstName;
 	private String lastName;
 	private String login;
 	private String password;
+	private String localeName;
+	private int roleId;
 
 	public int getId() {
 		return id;
@@ -48,10 +53,28 @@ public class Participant {
 		this.password = password;
 	}
 
+	public int getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
+	}
+
+	public String getLocaleName() {
+		return localeName;
+	}
+
+	public void setLocaleName(String localeName) {
+		this.localeName = localeName;
+	}
+
 	@Override
 	public String toString() {
 		return "Participant [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", login=" + login
-				+ "]";
+				+ ", localeName=" + localeName + ", roleId=" + roleId + "]";
 	}
+	
+
 
 }
