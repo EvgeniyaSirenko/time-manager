@@ -5,10 +5,7 @@
 <tr>
 <td id="header">
 
-<c:if test="${not empty user}">
-<%--=========================================================================== 
-This is the user menu. 
-===========================================================================--%> 
+<c:if test="${not empty participant}">
 
 <div id="leftHeader">
 
@@ -17,9 +14,9 @@ This is the user menu.
 <%--=========================================================================== 
 This way we define the ADMIN MENU. 
 ===========================================================================--%> 
-		<c:when test="${userRole.name == 'admin' }">
-			<a href="controller?command=listOrders">
-				<fmt:message key="header_jspf.anchor.all_orders"/>
+		<c:when test="${participantRole.name == 'admin' }">
+			<a href="controller?command=adminInfo">
+				<fmt:message key="participants"/>
 			</a> &nbsp;
 		</c:when>
 
@@ -27,42 +24,28 @@ This way we define the ADMIN MENU.
 <%--=========================================================================== 
 This way we define the USER MENU.
 ===========================================================================--%> 
-		<c:when test="${userRole.name == 'client'}">
-			<a href="controller?command=listMenu">
-				<fmt:message key="header_jspf.anchor.menu"/>
+		<c:when test="${participantRole.name == 'client'}">
+			<a href="controller?command=participantActivities">
+				<fmt:message key="My activities"/>
+			</a> &nbsp;
+			
+			<a href="controller?command=participantAddActivity">
+				<fmt:message key="Add activity TODO"/>
+			</a> &nbsp;
+			
+			<a href="controller?command=participantAccount">
+				<fmt:message key="My account"/>
 			</a> &nbsp;
 		</c:when>
 	</c:choose>
 	
 <%--=========================================================================== 
-This way we define the settings anchor.
+Menu for all participants.
 ===========================================================================--%> 
-	<a href="controller?command=viewSettings">
-		<fmt:message key="header_jspf.anchor.settings"/>
-	</a> &nbsp;
 
-</div>
-
-<%--=========================================================================== 
-This way we define the menu located at the right of header. 
-===========================================================================--%> 
 <div id="rightHeader" >
-
-<%--=========================================================================== 
-Type user name if the user object is presented in the current session.  
-===========================================================================--%> 
-	<c:out value="${user.firstName} ${user.lastName}"/>
-	
-<%--=========================================================================== 
-Type user role name if the user object is presented in the current session.  
-===========================================================================--%> 
-	<c:if test="${not empty userRole}">
-		<c:out value="(${userRole.name})"/>
-	</c:if>
-
-<%--=========================================================================== 
-Type link to logout  
-===========================================================================--%> 
+		 Hello, ${participant.firstName}!
+		
 	<a href="controller?command=logout">
 		<fmt:message key="header_jspf.anchor.logout"/>
 	</a> 	
@@ -70,13 +53,7 @@ Type link to logout
 </div>
 </c:if>
 
-<c:if test="${empty user and title ne 'Login'}">
-	<div id="rightHeader">
-		<a href="login.jsp">
-			<fmt:message key="header_jspf.anchor.login"/>
-		</a>
-	</div>
-</c:if>
+
 
 	</td>
 </tr>

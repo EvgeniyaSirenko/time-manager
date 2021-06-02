@@ -62,7 +62,7 @@ public class LoginCommand extends Command {
 				forward = Path.PAGE__ADMIN_PAGE;
 
 			if (participantRole == Role.CLIENT)
-				forward = Path.PAGE__PARTICIPANT_PAGE;
+				forward = Path.PAGE__PARTICIPANT_MAIN_PAGE;
 
 			session.setAttribute("participant", participant);
 			log.trace("Set the session attribute: participant --> " + participant);

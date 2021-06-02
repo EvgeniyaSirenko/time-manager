@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.logging.log4j.Logger;
-
 import org.apache.logging.log4j.LogManager;
 
 /**
@@ -22,14 +21,17 @@ public class CommandContainer {
 		commands.put("login", new LoginCommand());		
 		commands.put("logout", new LogoutCommand());
 		commands.put("registration", new RegistrationCommand());
-//		commands.put("viewSettings", new ViewSettingsCommand());
+//		commands.put("viewSettings", new PartiCommand());
 //		commands.put("updateSettings", new UpdateSettingsCommand());
 
 		// client commands
-//		commands.put("listMenu", new ListMenuCommand());
+		commands.put("participantMainPage", new ParticipantMainPageCommand());
+		commands.put("participantAccount", new ParticipantAccountCommand());
+		commands.put("participantActivities", new ParticipantActivitiesCommand());
+		commands.put("participantUpdate", new ParticipantUpdateCommand());
 
 		// admin commands
-//		commands.put("listOrders", new ListOrdersCommand());
+		commands.put("adminInfo", new AdminInfoCommand());
 
 		log.debug("Command container was successfully initialized");
 		log.trace("Number of commands --> " + commands.size());

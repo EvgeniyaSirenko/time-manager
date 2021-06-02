@@ -50,16 +50,24 @@ public class Controller extends HttpServlet {
 		System.out.println("Controller#doPost");
 
 		String address = "error.jsp";
-		String commandName = req.getParameter("command");
-		Command command = CommandContainer.getCommand(commandName);
 		
+		String commandName = req.getParameter("command");
+		System.out.println("commandName ==> " + commandName);
+
+		Command command = CommandContainer.getCommand(commandName);
+		System.out.println("command ==> " + command);
+
 		try {
 			address = command.execute(req, resp);
 		} catch (IOException ex) {
-			req.getSession().setAttribute("error", ex);
+			//req.getSession().setAttribute("error", ex);
+			req.setAttribute("error", ex);
+
 		}
-		
+		System.out.println("address == > " + address);
 		resp.sendRedirect(address);
+		//req.getRequestDispatcher(address).forward(req, resp);
+
 	}
 
 //	@Override

@@ -15,8 +15,9 @@ public class ParticipantManager {
 	private static final Logger log = LogManager.getLogger(ParticipantManager.class);
 
 	private static final String FIND_PARTICIPANT_BY_LOGIN = "SELECT * FROM participant WHERE login=?";
-	private static final String CREATE_PARTICIPANT = "INSERT INTO participant (first_name, last_name, login, password, locale_name, role_id) "
-			+ "VALUES (?, ?, ?, ?, ?, ?)";
+	private static final String CREATE_PARTICIPANT = "INSERT INTO participant "
+			+ "(first_name, last_name, login, password, locale_name, role_id) VALUES (?, ?, ?, ?, ?, ?)";
+	private static final String UPDATE_PARTICIPANT = "";
 
 	public Participant getParticipantByLogin(String login) {
 		Participant participant = null;
@@ -86,12 +87,12 @@ public class ParticipantManager {
 			try {
 				Participant participant = new Participant();
 				participant.setId(rs.getInt(Fields.ENTITY__ID));
-				participant.setFirstName(rs.getString(Fields.FIRST_NAME));
-				participant.setLastName(rs.getString(Fields.LAST_NAME));
-				participant.setLogin(rs.getString(Fields.LOGIN));
-				participant.setPassword(rs.getString(Fields.PASSWORD));
-				participant.setLocaleName(rs.getString(Fields.LOCALE_NAME));
-				participant.setRoleId(rs.getInt(Fields.ROLE_ID));
+				participant.setFirstName(rs.getString(Fields.PARTICIPANT_FIRST_NAME));
+				participant.setLastName(rs.getString(Fields.PARTICIPANT_LAST_NAME));
+				participant.setLogin(rs.getString(Fields.PARTICIPANT_LOGIN));
+				participant.setPassword(rs.getString(Fields.PARTICIPANT_PASSWORD));
+				participant.setLocaleName(rs.getString(Fields.PARTICIPANT_LOCALE_NAME));
+				participant.setRoleId(rs.getInt(Fields.PARTICIPANT_ROLE_ID));
 				return participant;
 			} catch (SQLException e) {
 				throw new IllegalStateException(e);

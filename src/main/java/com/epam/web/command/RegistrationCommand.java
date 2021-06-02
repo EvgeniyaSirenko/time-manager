@@ -25,7 +25,7 @@ public class RegistrationCommand extends Command {
 	public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		log.debug("Command starts");
 
-//		HttpSession session = req.getSession();
+		HttpSession session = req.getSession();
 
 		// obtain login from the request
 		String login = req.getParameter("login");
@@ -55,10 +55,9 @@ public class RegistrationCommand extends Command {
 			newParticipant.setRoleId(1);
 
 			new ParticipantManager().createParticipant(newParticipant);
-			System.out.println("new user created " + newParticipant.toString());
+			System.out.println("Created new " + new ParticipantManager().getParticipantByLogin(newParticipant.getLogin()).toString());
 			
 			forward = Path.PAGE__LOGIN;
-			System.out.println("forward --> " + forward);
 		}
 		
 

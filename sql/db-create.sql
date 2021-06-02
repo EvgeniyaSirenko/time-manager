@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS participant_activity;
 DROP TABLE IF EXISTS participant;
 DROP TABLE IF EXISTS activity;
 DROP TABLE IF EXISTS role;
+DROP TABLE IF EXISTS status;
 DROP TABLE IF EXISTS category;
 
 -- -----------------------------------------------------
@@ -18,7 +19,15 @@ CREATE TABLE role (
   id INT NOT NULL,
   name VARCHAR(10) NULL UNIQUE,
   PRIMARY KEY (id));
+  
+-- -----------------------------------------------------
+-- Table status
+-- -----------------------------------------------------
 
+CREATE TABLE status (
+  id INT NOT NULL,
+  name VARCHAR(10) NULL UNIQUE,
+  PRIMARY KEY (id));
 -- -----------------------------------------------------
 -- Table participant
 -- -----------------------------------------------------
@@ -55,15 +64,22 @@ CREATE TABLE IF NOT EXISTS category (
 CREATE TABLE IF NOT EXISTS activity (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(20) NOT NULL,
+  duration INT UNSIGNED NULL,
   category_id INT NOT NULL,
+  status_id INT NOT NULL,
   PRIMARY KEY (id),
   INDEX fk_activity_category1_idx (category_id ASC) VISIBLE,
+  INDEX fk_activity_status1_idx (status_id ASC) VISIBLE,
   CONSTRAINT fk_activity_category1
     FOREIGN KEY (category_id)
     REFERENCES category (id)
 	ON DELETE CASCADE
+    ON UPDATE RESTRICT,
+  CONSTRAINT fk_activity_status1
+    FOREIGN KEY (status_id)
+    REFERENCES status (id)
+	ON DELETE CASCADE
     ON UPDATE RESTRICT);
-
 
 -- -----------------------------------------------------
 -- Table participant_activity
@@ -72,16 +88,16 @@ CREATE TABLE IF NOT EXISTS activity (
 CREATE TABLE IF NOT EXISTS participant_activity (
   participant_id INT NOT NULL,
   activity_id INT NOT NULL,
-  duration INT UNSIGNED NULL,
+
   PRIMARY KEY (participant_id, activity_id),
-  INDEX fk_participant_has_activity_activity1_idx (activity_id ASC) VISIBLE,
-  INDEX fk_participant_has_activity_participant_idx (participant_id ASC) VISIBLE,
-  CONSTRAINT fk_participant_has_activity_participant
+  INDEX fk_participant_activity_activity1_idx (activity_id ASC) VISIBLE,
+  INDEX fk_participant_activity_participant_idx (participant_id ASC) VISIBLE,
+  CONSTRAINT fk_participant_activity_participant
     FOREIGN KEY (participant_id)
     REFERENCES participant (id)
     ON DELETE CASCADE
     ON UPDATE RESTRICT,
-  CONSTRAINT fk_participant_has_activity_activity1
+  CONSTRAINT fk_participant_activity_activity1
     FOREIGN KEY (activity_id)
     REFERENCES activity (id)
     ON DELETE CASCADE
@@ -96,6 +112,11 @@ CREATE TABLE IF NOT EXISTS participant_activity (
 INSERT INTO role (id, name) VALUES(0, "admin");
 INSERT INTO role (id, name) VALUES(1, "user");
 
+-- status
+-- Status entity is ENUM, so the numeration must start from 0 
+INSERT INTO status (id, name) VALUES(0, "requested");
+INSERT INTO status (id, name) VALUES(1, "approved");
+
 -- participant
 SET @text = "admin";
 INSERT INTO participant VALUES(DEFAULT, @text, @text, @text, @text, NULL, (SELECT id FROM role WHERE name = @text));
@@ -108,16 +129,16 @@ INSERT INTO category (id, name) VALUES(DEFAULT, "mental");
 
 -- activity
 SET @text = "physical";
-INSERT INTO activity (id, name, category_id) VALUES(DEFAULT, "running", (SELECT id FROM category WHERE name = @text));
-INSERT INTO activity (id, name, category_id) VALUES(DEFAULT, "walking", (SELECT id FROM category WHERE name = @text));
-INSERT INTO activity (id, name, category_id) VALUES(DEFAULT, "swimming", (SELECT id FROM category WHERE name = @text));
+INSERT INTO activity (id, name, duration, category_id, status_id) VALUES(DEFAULT, "running", 20, (SELECT id FROM category WHERE name = @text), (SELECT id FROM status WHERE name = "requested"));
+INSERT INTO activity (id, name, duration, category_id, status_id) VALUES(DEFAULT, "walking", 30, (SELECT id FROM category WHERE name = @text), (SELECT id FROM status WHERE name = "approved"));
+INSERT INTO activity (id, name, duration, category_id, status_id) VALUES(DEFAULT, "swimming", 10, (SELECT id FROM category WHERE name = @text), (SELECT id FROM status WHERE name = "requested"));
 SET @text = "mental";
-INSERT INTO activity (id, name, category_id) VALUES(DEFAULT, "reading", (SELECT id FROM category WHERE name = @text));
-INSERT INTO activity (id, name, category_id) VALUES(DEFAULT, "writing", (SELECT id FROM category WHERE name = @text));
-INSERT INTO activity (id, name, category_id) VALUES(DEFAULT, "watching", (SELECT id FROM category WHERE name = @text));
+INSERT INTO activity (id, name, duration, category_id, status_id) VALUES(DEFAULT, "reading", 60, (SELECT id FROM category WHERE name = @text), (SELECT id FROM status WHERE name = "approved"));
+INSERT INTO activity (id, name, duration, category_id, status_id) VALUES(DEFAULT, "writing", 30, (SELECT id FROM category WHERE name = @text), (SELECT id FROM status WHERE name = "requested"));
+INSERT INTO activity (id, name, duration, category_id, status_id) VALUES(DEFAULT, "watching", 90, (SELECT id FROM category WHERE name = @text), (SELECT id FROM status WHERE name = "approved"));
 
 -- participant_activity
-INSERT INTO participant_activity (participant_id, activity_id, duration) VALUES((SELECT id FROM participant WHERE login = "user"), (SELECT id FROM activity WHERE name = "swimming"), 30);
-INSERT INTO participant_activity (participant_id, activity_id, duration) VALUES((SELECT id FROM participant WHERE login = "user"), (SELECT id FROM activity WHERE name = "writing"), 120);
-INSERT INTO participant_activity (participant_id, activity_id, duration) VALUES((SELECT id FROM participant WHERE login = "user"), (SELECT id FROM activity WHERE name = "running"), 150);
-INSERT INTO participant_activity (participant_id, activity_id, duration) VALUES((SELECT id FROM participant WHERE login = "user"), (SELECT id FROM activity WHERE name = "watching"), 180);
+INSERT INTO participant_activity (participant_id, activity_id) VALUES((SELECT id FROM participant WHERE login = "user"), (SELECT id FROM activity WHERE name = "swimming"));
+INSERT INTO participant_activity (participant_id, activity_id) VALUES((SELECT id FROM participant WHERE login = "user"), (SELECT id FROM activity WHERE name = "writing"));
+INSERT INTO participant_activity (participant_id, activity_id) VALUES((SELECT id FROM participant WHERE login = "user"), (SELECT id FROM activity WHERE name = "running"));
+INSERT INTO participant_activity (participant_id, activity_id) VALUES((SELECT id FROM participant WHERE login = "user"), (SELECT id FROM activity WHERE name = "watching"));

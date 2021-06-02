@@ -11,7 +11,10 @@ public final class Path {
 	public static final String PAGE__LOGIN = "/login.jsp";
 	public static final String PAGE__REGISTRATION = "/registration.jsp";
 	public static final String PAGE__ERROR_PAGE = "/WEB-INF/jsp/error.jsp";
-	public static final String PAGE__PARTICIPANT_PAGE = "/WEB-INF/jsp/client/participantInfo.jsp";
+	public static final String PAGE__PARTICIPANT_MAIN_PAGE = "/WEB-INF/jsp/client/participantMainPage.jsp";
+	public static final String PAGE__PARTICIPANT_ACTIVITIES = "/WEB-INF/jsp/client/participantActivities.jsp";
+	public static final String PAGE__PARTICIPANT_ACCOUNT = "/WEB-INF/jsp/client/participantAccount.jsp";
+	public static final String PAGE__PARTICIPANT_UPDATE = "/WEB-INF/jsp/client/participantAccount.jsp";
 	public static final String PAGE__ADMIN_PAGE = "/WEB-INF/jsp/admin/adminInfo.jsp";
 	
 	
