@@ -53,7 +53,13 @@ Menu for all participants.
 </div>
 </c:if>
 
-
+<c:if test="${empty participant and title ne 'Login'}">
+	<div id="rightHeader">
+		<a href="login.jsp">
+			<fmt:message key="header_jspf.anchor.login"/>
+		</a>
+	</div>
+</c:if>
 
 	</td>
 </tr>

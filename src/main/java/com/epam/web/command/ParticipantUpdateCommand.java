@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.epam.Path;
 import com.epam.db.ParticipantManager;
+import com.epam.db.entity.Participant;
 
 public class ParticipantUpdateCommand extends Command {
 	
@@ -23,21 +24,40 @@ public class ParticipantUpdateCommand extends Command {
 	public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		log.debug("Command starts");
 		
-		User user = (User)request.getSession().getAttribute("user");
-		boolean updateUser = false;
+		Participant participant = (Participant)req.getSession().getAttribute("participant");
+		boolean updateParticipant = false;
 		
 		// update first name
-		String firstName = request.getParameter("firstName");
+		String firstName = req.getParameter("firstName");
 		if (firstName != null && !firstName.isEmpty()) {
-			user.setFirstName(firstName);
-			updateUser = true;
+			participant.setFirstName(firstName);
+			updateParticipant = true;
+			System.out.println("updatedParticipant ->" + updateParticipant);
+
 		}
 
 		// update last name
-		String lastName = request.getParameter("lastName");
+		String lastName = req.getParameter("lastName");
 		if (lastName != null && !lastName.isEmpty()) {
-			user.setLastName(lastName);
-			updateUser = true;
+			participant.setLastName(lastName);
+			updateParticipant = true;
+			System.out.println("updatedParticipant ->" + updateParticipant);
+		}
+		
+		// update login name
+		String login = req.getParameter("login");
+		if (login != null && !login.isEmpty()) {
+			participant.setLogin(login);
+			updateParticipant = true;
+			System.out.println("updatedParticipant ->" + updateParticipant);
+		}
+		
+		// update password name
+		String password = req.getParameter("password");
+		if (password != null && !password.isEmpty()) {
+			participant.setPassword(password);
+			updateParticipant = true;
+			System.out.println("updatedParticipant ->" + updateParticipant);
 		}
 
 //		String localeToSet = request.getParameter("localeToSet");
@@ -45,12 +65,13 @@ public class ParticipantUpdateCommand extends Command {
 //			HttpSession session = request.getSession();
 //			Config.set(session, "javax.servlet.jsp.jstl.fmt.locale", localeToSet);			
 //			session.setAttribute("defaultLocale", localeToSet);
-//			user.setLocaleName(localeToSet);
-//			updateUser = true;
+//			participant.setLocaleName(localeToSet);
+//			updateParticipant = true;
 //		}
 		
-		if (updateUser == true)
-			new ParticipantManager().;
+		if (updateParticipant == true)
+			new ParticipantManager().updateParticipant(participant);
+		System.out.println("updated participant ->" + new ParticipantManager().getParticipantByLogin(participant.getLogin()));
 
 
 		log.debug("Command finished");

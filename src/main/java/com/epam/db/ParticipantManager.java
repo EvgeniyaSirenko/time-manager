@@ -17,7 +17,7 @@ public class ParticipantManager {
 	private static final String FIND_PARTICIPANT_BY_LOGIN = "SELECT * FROM participant WHERE login=?";
 	private static final String CREATE_PARTICIPANT = "INSERT INTO participant "
 			+ "(first_name, last_name, login, password, locale_name, role_id) VALUES (?, ?, ?, ?, ?, ?)";
-	private static final String UPDATE_PARTICIPANT = "";
+	private static final String UPDATE_PARTICIPANT = "UPDATE participant SET first_name=?, last_name=?, login=?, password=? WHERE id =?";
 
 	public Participant getParticipantByLogin(String login) {
 		Participant participant = null;
@@ -75,6 +75,32 @@ public class ParticipantManager {
 		savedParticipant.setRoleId(participant.getRoleId());
 		pstmt.close();
 		return savedParticipant;
+	}
+
+	public void updateParticipant(Participant participant) {
+		Connection con = null;
+		try {
+			con = DBManager.getInstance().getConnection();
+			updateParticipant(con, participant);
+		} catch (SQLException ex) {
+			DBManager.getInstance().rollbackAndClose(con);
+			ex.printStackTrace();
+		} finally {
+			DBManager.getInstance().commitAndClose(con);
+		}
+	}
+
+	public void updateParticipant(Connection con, Participant participant) throws SQLException {
+		PreparedStatement pstmt = con.prepareStatement(UPDATE_PARTICIPANT);
+		int k = 1;
+		pstmt.setString(k++, participant.getFirstName());
+		pstmt.setString(k++, participant.getLastName());
+		pstmt.setString(k++, participant.getLogin());
+		pstmt.setString(k++, participant.getPassword());
+		pstmt.setInt(k, participant.getId());
+		pstmt.executeUpdate();
+		pstmt.close();
+		System.out.println("updatedParticipant_Manager ->" + new ParticipantManager().getParticipantByLogin(participant.getLogin()));
 	}
 
 	/**

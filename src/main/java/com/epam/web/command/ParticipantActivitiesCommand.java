@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import com.epam.Path;
 import com.epam.db.ActivityManager;
 import com.epam.db.entity.Activity;
+import com.epam.db.entity.Participant;
 
 public class ParticipantActivitiesCommand extends Command {
 
@@ -21,17 +22,19 @@ public class ParticipantActivitiesCommand extends Command {
 	private static final Logger log = LogManager.getLogger(ParticipantActivitiesCommand.class);
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response)
+	public String execute(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 
 		log.debug("Command starts");
 
+		Participant participant = (Participant)req.getSession().getAttribute("participant");
+		
 		// get activities list
-		List<Activity> activitiesList = new ActivityManager().getActivities();
+		List<Activity> activitiesList = new ActivityManager().getApprovedActivities(participant);
 		log.trace("Found in DB: activitiesList --> " + activitiesList);
 
-		// put menu items list to the request
-		request.setAttribute("activitiesList", activitiesList);
+		// put activities list to the request
+		req.setAttribute("activitiesList", activitiesList);
 		log.trace("Set the request attribute: activities --> " + activitiesList);
 
 		log.debug("Command finished");

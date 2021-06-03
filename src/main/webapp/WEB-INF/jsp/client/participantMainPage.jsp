@@ -9,6 +9,7 @@
 <title>Main page</title>
 <%@ include file="/WEB-INF/jspf/head.jspf" %>
 </head>
+<c:if test="${not empty participant}">
 <body>
 <div id="main-container">
 
@@ -18,6 +19,17 @@
 			
 				
 			</td>
+			
+</c:if>
+				
+<c:if test="${empty participant and title ne 'Login'}">
+	<div id="rightHeader">
+		<a href="login.jsp">
+			<fmt:message key="header_jspf.anchor.login"/>
+		</a>
+	</div>
+</c:if>				
+			
 	<%@ include file="/WEB-INF/jspf/footer.jspf"%>
 </div>
 </body>

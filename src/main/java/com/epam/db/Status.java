@@ -3,7 +3,7 @@ package com.epam.db;
 import com.epam.db.entity.Activity;
 
 public enum Status {
-	REQUESTED, APPROVED;
+	NEW, REQUESTED, APPROVED;
 	
 	public static Status getStatus(Activity activity) {
 		int statusId = activity.getStatusId();

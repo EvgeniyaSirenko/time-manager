@@ -9,6 +9,7 @@
 <title>Account</title>
 <%@ include file="/WEB-INF/jspf/head.jspf" %>
 </head>
+<c:if test="${not empty participant}">
 <div id="fixedHeader" >
 	<a href="controller?command=participantMainPage">
 		<fmt:message key="header_jspf.anchor.participantMainPage"/>
@@ -21,7 +22,7 @@
 			
 				<%-- CONTENT --%>
 
-				<form id="settings_form" action="controller" method="post">
+				<form id="settings_form" action="controller" method="get">
 					<input type="hidden" name="command" value="participantUpdate" />
 <%-- 
 					<div>
@@ -67,7 +68,7 @@
 	
 	<div>
 		<p>
-			<fmt:message key="settings_jsp.label.login"/>
+			<fmt:message key="settings_jsp.label.password"/>
 		</p>
 			<input name="password"  type="password" value="${participant.password}">
 	</div>
@@ -77,6 +78,17 @@
 				
 				<%-- CONTENT --%>	
 			</td>
+			
+</c:if>
+				
+<c:if test="${empty participant and title ne 'Login'}">
+	<div id="rightHeader">
+		<a href="login.jsp">
+			<fmt:message key="header_jspf.anchor.login"/>
+		</a>
+	</div>
+</c:if>					
+			
 	<%@ include file="/WEB-INF/jspf/footer.jspf"%>
 </div>
 </body>
