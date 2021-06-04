@@ -29,6 +29,7 @@ public class CommandContainer {
 		commands.put("participantAccount", new ParticipantAccountCommand());
 		commands.put("participantActivities", new ParticipantActivitiesCommand());
 		commands.put("participantUpdate", new ParticipantUpdateCommand());
+		commands.put("participantAddActivity", new ParticipantAddActivityCommand());
 
 		// admin commands
 		commands.put("adminMainPage", new AdminMainPageCommand());

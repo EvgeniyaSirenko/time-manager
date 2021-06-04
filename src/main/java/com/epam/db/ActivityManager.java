@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import com.epam.db.entity.Activity;
 import com.epam.db.entity.Participant;
 
+
 public class ActivityManager {
 
 	private static final Logger log = LogManager.getLogger(ActivityManager.class);
@@ -81,6 +82,39 @@ public class ActivityManager {
 		System.out.println("activitiesList -> " + activitiesList.toString());
 		return activitiesList;
 	}
+	
+	/**
+     * Returns orders of the given user and status
+     *
+     * @param user
+     *            User entity.
+     * @param statusId
+     *            Status identifier.
+     * @return List of order entities.
+     */
+    public List<Activity> addActivity(Participant participant, int statusId) {
+        List<Activity> activityList = new ArrayList<Activity>();
+//        PreparedStatement pstmt = null;
+//        ResultSet rs = null;
+//        Connection con = null;
+//        try {
+//            con = DBManager.getInstance().getConnection();
+//            OrderMapper mapper = new OrderMapper();
+//            pstmt = con.prepareStatement(SQL__FIND_ORDERS_BY_STATUS_AND_USER);
+//            pstmt.setInt(1, statusId);
+//            pstmt.setLong(2, user.getId());
+//            rs = pstmt.executeQuery();
+//            while (rs.next())
+//                ordersList.add(mapper.mapRow(rs));
+//        } catch (SQLException ex) {
+//            DBManager.getInstance().rollbackAndClose(con);
+//            ex.printStackTrace();
+//        } finally {
+//            DBManager.getInstance().commitAndClose(con);
+//        }
+        return activityList;
+    }
+
 
 	/**
 	 * Extracts activity from the result set row.

@@ -1,13 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ include file="/WEB-INF/jspf/directive/taglib.jspf"%>
+<%@ include file="/jspf/directive/taglib.jspf"%>
 
 
 <!DOCTYPE html>
 <html>
 <head>
-<title>My activities</title>
-<%@ include file="/WEB-INF/jspf/head.jspf"%>
+<title>Activities to approve</title>
+<%@ include file="/jspf/head.jspf"%>
 </head>
 <c:if test="${not empty participant}">
 
@@ -28,9 +28,8 @@
 						<tr>
 							<td>№</td>
 							<td>Activity</td>
-							<td>Duration (min)</td>
-							<td>Add duration</td>
-							<td>Request to</td>
+							<td>Reaction</td>
+							<td>Reaction</td>
 						</tr>
 					</thead>
 					<c:set var="k" value="0" />
@@ -39,9 +38,8 @@
 						<tr>
 							<td><c:out value="${k}" /></td>
 							<td>${bean.name}</td>
-							<td>${bean.duration}</td>
-							<td>Minutes to add</td>
-							<td>Delete activity</td>
+							<td>Approve</td>
+							<td>Delete</td>
 						</tr>
 					</c:forEach>
 				</table>
@@ -55,7 +53,7 @@
 	</div>
 </c:if>
 
-<%@ include file="/WEB-INF/jspf/footer.jspf"%>
+<%@ include file="/jspf/footer.jspf"%>
 </div>
 </body>
 </html>

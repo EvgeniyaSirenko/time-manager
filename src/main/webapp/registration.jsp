@@ -1,17 +1,17 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
+<%@ include file="/jspf/directive/taglib.jspf" %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Registration page</title>
-<%@ include file="/WEB-INF/jspf/head.jspf" %>
+<%@ include file="/jspf/head.jspf" %>
 </head>
 <body>
 <div id="fixedHeader">
-	<form action="controller" method="get">
+	<form action="controller" method="post">
 
 		<input type="hidden" name="command" value="registration" />
 		<input type="hidden" name="roleId" value="1" />
@@ -29,7 +29,7 @@
 	<br>
 	<a href="login.jsp"><fmt:message key="login_jsp.button.login"/></a>
 
-<%@ include file="/WEB-INF/jspf/footer.jspf"%>
+<%@ include file="/jspf/footer.jspf"%>
 </div>
 </body>
 </html>

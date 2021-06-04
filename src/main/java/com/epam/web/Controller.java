@@ -2,7 +2,6 @@ package com.epam.web;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,14 +14,13 @@ import org.apache.logging.log4j.Logger;
 import com.epam.web.command.Command;
 import com.epam.web.command.CommandContainer;
 
-
 @WebServlet("/controller")
 public class Controller extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private static final Logger log = LogManager.getLogger(Controller.class);
-	
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("Controller#doGet");
@@ -31,26 +29,26 @@ public class Controller extends HttpServlet {
 
 		String commandName = req.getParameter("command");
 		System.out.println("commandName ==> " + commandName);
-		
+
 		Command command = CommandContainer.getCommand(commandName);
 		System.out.println("command ==> " + command);
-		
+
 		try {
 			address = command.execute(req, resp);
 		} catch (IOException ex) {
 			req.setAttribute("error", ex);
 		}
-		
+
 		System.out.println("address == > " + address);
 		req.getRequestDispatcher(address).forward(req, resp);
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("Controller#doPost");
 
 		String address = "error.jsp";
-		
+
 		String commandName = req.getParameter("command");
 		System.out.println("commandName ==> " + commandName);
 
@@ -60,13 +58,11 @@ public class Controller extends HttpServlet {
 		try {
 			address = command.execute(req, resp);
 		} catch (IOException ex) {
-			//req.getSession().setAttribute("error", ex);
-			req.setAttribute("error", ex);
+			req.getSession().setAttribute("error", ex);
 
 		}
 		System.out.println("address == > " + address);
 		resp.sendRedirect(address);
-		//req.getRequestDispatcher(address).forward(req, resp);
 
 	}
 
