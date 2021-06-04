@@ -59,7 +59,7 @@ public class LoginCommand extends Command {
 			log.trace("participantRole --> " + participantRole);
 
 			if (participantRole == Role.ADMIN)
-				forward = Path.PAGE__ADMIN_PAGE;
+				forward = Path.PAGE__ADMIN_MAIN_PAGE;
 
 			if (participantRole == Role.CLIENT)
 				forward = Path.PAGE__PARTICIPANT_MAIN_PAGE;

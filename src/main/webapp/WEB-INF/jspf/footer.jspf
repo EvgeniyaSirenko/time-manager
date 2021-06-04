@@ -1,7 +1,5 @@
-<tr>
-	<div id="footer">
-		<br /> <br />
-		<td>&copy;Time manager, 2021</td> 
-		<br /> <br />
-	</div>
-</tr>
+<div id="footer">
+	<br> <br>
+		&copy;Time manager, 2021
+	<br> <br>
+</div>

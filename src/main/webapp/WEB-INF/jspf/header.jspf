@@ -1,66 +1,69 @@
 <%@ page import="com.epam.db.Role" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<tr>
-<td id="header">
+    
+<div id="fixedHeader">
 
 <c:if test="${not empty participant}">
 
-<div id="leftHeader">
-
-	<c:choose>
-
-<%--=========================================================================== 
-This way we define the ADMIN MENU. 
-===========================================================================--%> 
-		<c:when test="${participantRole.name == 'admin' }">
-			<a href="controller?command=adminInfo">
-				<fmt:message key="participants"/>
-			</a> &nbsp;
-		</c:when>
-
-		
-<%--=========================================================================== 
-This way we define the USER MENU.
-===========================================================================--%> 
-		<c:when test="${participantRole.name == 'client'}">
-			<a href="controller?command=participantActivities">
-				<fmt:message key="My activities"/>
-			</a> &nbsp;
-			
-			<a href="controller?command=participantAddActivity">
-				<fmt:message key="Add activity TODO"/>
-			</a> &nbsp;
-			
-			<a href="controller?command=participantAccount">
-				<fmt:message key="My account"/>
-			</a> &nbsp;
-		</c:when>
-	</c:choose>
-	
 <%--=========================================================================== 
 Menu for all participants.
 ===========================================================================--%> 
 
-<div id="rightHeader" >
-		 Hello, ${participant.firstName}!
+Hello, ${participant.firstName}!
 		
 	<a href="controller?command=logout">
 		<fmt:message key="header_jspf.anchor.logout"/>
 	</a> 	
 
+</br>
+</br>
+
+<%--=========================================================================== 
+ADMIN MENU. 
+===========================================================================--%> 
+<c:choose>
+
+	<c:when test="${participantRole.name == 'admin' }">
+		<a href="controller?command=activitiesToApprove">
+			<fmt:message key="header_jspf.anchor.activities_to_approve"/>
+		</a> 
+	</c:when>
+
+		
+<%--=========================================================================== 
+CLIENT MENU.
+===========================================================================--%> 
+	<c:when test="${participantRole.name == 'client'}">
+		<p>
+		<a href="controller?command=participantAccount">
+			<fmt:message key="header_jspf.anchor.my_account"/>
+		</a>
+		</p>
+		<p>
+		<a href="controller?command=participantActivities">
+			<fmt:message key="header_jspf.anchor.my_activities"/>
+		</a>
+		</p>
+		<p>	
+		<a href="controller?command=participantAddActivity">
+			<fmt:message key="header_jspf.anchor.add_activity"/>
+		</a>
+		</p>
+	</c:when>
+</c:choose>
+	
 </div>
+
 </c:if>
 
 <c:if test="${empty participant and title ne 'Login'}">
-	<div id="rightHeader">
+	<div id="fixedHeader">
 		<a href="login.jsp">
 			<fmt:message key="header_jspf.anchor.login"/>
 		</a>
 	</div>
 </c:if>
 
-	</td>
-</tr>
+
 

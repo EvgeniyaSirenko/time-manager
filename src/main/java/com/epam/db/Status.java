@@ -1,12 +1,12 @@
 package com.epam.db;
 
-import com.epam.db.entity.Activity;
+import com.epam.db.entity.ParticipantActivity;
 
 public enum Status {
-	NEW, REQUESTED, APPROVED;
+	REQUESTED, APPROVED;
 	
-	public static Status getStatus(Activity activity) {
-		int statusId = activity.getStatusId();
+	public static Status getStatus(ParticipantActivity participantActivity) {
+		int statusId = participantActivity.getStatusId();
 		return Status.values()[statusId];
 	}
 

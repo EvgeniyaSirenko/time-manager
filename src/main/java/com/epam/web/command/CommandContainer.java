@@ -31,7 +31,8 @@ public class CommandContainer {
 		commands.put("participantUpdate", new ParticipantUpdateCommand());
 
 		// admin commands
-		commands.put("adminInfo", new AdminInfoCommand());
+		commands.put("adminMainPage", new AdminMainPageCommand());
+		commands.put("activitiesToApprove", new ActivitiesToApprove());
 
 		log.debug("Command container was successfully initialized");
 		log.trace("Number of commands --> " + commands.size());

@@ -15,15 +15,11 @@ public final class Path {
 	public static final String PAGE__PARTICIPANT_ACTIVITIES = "/WEB-INF/jsp/client/participantActivities.jsp";
 	public static final String PAGE__PARTICIPANT_ACCOUNT = "/WEB-INF/jsp/client/participantAccount.jsp";
 	public static final String PAGE__PARTICIPANT_UPDATE = "/WEB-INF/jsp/client/participantAccount.jsp";
-	public static final String PAGE__ADMIN_PAGE = "/WEB-INF/jsp/admin/adminInfo.jsp";
-	
-	
-	
-	public static final String PAGE__LIST_ORDERS = "/WEB-INF/jsp/admin/list_orders.jsp";
-	public static final String PAGE__SETTINGS = "/WEB-INF/jsp/settings.jsp";
+	public static final String PAGE__ADMIN_MAIN_PAGE = "/WEB-INF/jsp/admin/adminMainPage.jsp";
+	public static final String PAGE__ACTIVITIES_TO_APPROVE = "/WEB-INF/jsp/admin/activitiesToApprove.jsp";
 
 	// commands
-	public static final String COMMAND__LIST_ORDERS = "/controller?command=listOrders";
-	public static final String COMMAND__LIST_MENU = "/controller?command=listMenu";
+//	public static final String COMMAND__LIST_ORDERS = "/controller?command=listOrders";
+//	public static final String COMMAND__LIST_MENU = "/controller?command=listMenu";
 
 }

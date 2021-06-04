@@ -1,34 +1,35 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Login</title>
+<%@ include file="/WEB-INF/jspf/head.jspf" %>
 </head>
 <body>
-
-	<h1>Authorization</h1>
-	<p>Fill in this form to sign in</p>
-	<hr/>
-		
-	<form action="controller" method="get">
+<div id="fixedHeader">		
+	<form id="login_form" action="controller" method="get">
 	
 	
 		<input type="hidden" name="command" value="login" />
-		<label for="login">Login</label>
+		<label for="login"><fmt:message key="login_jsp.label.login"/></label>
 		<input name="login" /><br/>
-		<label for="password">Password</label>
+		<label for="password"><fmt:message key="login_jsp.label.password"/></label>
 		<input type="password" name="password"/><br/>
-		<input type="submit" value="Sign in"/>
+		<input type="submit" value="<fmt:message key="login_jsp.button.login"/>">
 	</form>
-	<hr/>
 	
 	
-	<br/>
-	Not registered yet? <a href="registration.jsp"> Register</a>
+	<br>
+	<a href="registration.jsp"><fmt:message key="login_jsp.label.register" /></a>
 	
+
 	<%@ include file="/WEB-INF/jspf/footer.jspf"%>
+	
+</div>	
 	
 </body>
 </html>

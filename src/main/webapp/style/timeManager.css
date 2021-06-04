@@ -20,6 +20,8 @@ td {
 	border: 0px solid;	
 	width: 100vw;
   	height: 100vh;
+  	text-align: center;
+  	
 }
 
 /***************************************************************
@@ -40,34 +42,13 @@ Header style (TD tag in the first top row)
 }
 
 /***************************************************************
-Style for the left located head menu (DIV tag at left)
+Style for the header
 ***************************************************************/
-#leftHeader {
-	background: #b4e2f4;
-	float: left;
-	text-align: left;
-	margin-left: 50px;
-	padding: 10px;
-}
-
-/***************************************************************
-Style for the right located head menu (DIV tag at right)
-***************************************************************/
-#rightHeader {
-	background: #b4e2f4;
-	float: right;
-	text-align: right;
-	margin-right: 50px;
-	padding: 10px;
-}
-
-
 #fixedHeader {
 	background: #b4e2f4;
 	width: 100%;
-	padding: 10px;
-	text-align: center;
-	
+	text-align: center;	
+	padding-top: 20px;
 }
 
 /***************************************************************
@@ -84,61 +65,20 @@ Content styles (TD tag in the main middle row)
 }
 
 /***************************************************************
-Footer style (TD tag in the last bottom row)
-***************************************************************/
-#footer {
-	text-align: center;
-	background: #b4e2f4;
-	bottom: 0;
-
-}
-
-/***************************************************************
-Style for the ERROR message
-***************************************************************/
-.error {
-	font-size: large;
-	color: rgb(204, 0, 0);
-}
-
-/***************************************************************
-Miscellaneous
-***************************************************************/
-.center {
-	text-align: center;
-	vertical-align: middle;
-}
-
-.noborder {
-	border: 2px solid red;	
-}
-
-/***************************************************************
-Login form (login.jsp)
-***************************************************************/
-#login_form > fieldset {
-	display: inline;
-}
-
-#login_form > input[type=submit] {
-	margin-top: 5px;
-}
-
-/***************************************************************
 Settings form (settings.jsp)
 ***************************************************************/
-#settings_form > div > p {
+#form > div > p {
 	font-size: 17px;
 	margin-top: 5px;
 	margin-bottom: 2px;
 }
 
-#settings_form > input[type=submit] {
+#form > input[type=submit] {
 	margin-top: 10px;
 }
 
 /***************************************************************
-List menu table (list_menu.jsp)
+List activities table (participantActivities.jsp)
 ***************************************************************/
 #activities_table {
 	margin-top: 0px;
@@ -153,26 +93,4 @@ List menu table (list_menu.jsp)
 
 #list_menu_table td:last-child {
 	text-align: center;
-}
-
-/***************************************************************
-List order table (list_order.jsp)
-***************************************************************/
-#list_order_table > thead > tr {
-	text-align: center;
-}
-
-#list_order_table td + td + td {
-	text-align: center;
-}
-
-#list_order_table > tbody td + td + td + td {
-	text-align: left;
-}
-
-/***************************************************************
-Make order form (list_menu.jsp)
-***************************************************************/
-#make_order {
-	margin-top: 5px;
 }
