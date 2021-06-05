@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="/jspf/directive/taglib.jspf"%>
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,10 +10,10 @@
 </head>
 <c:if test="${not empty participant}">
 
-	<body>
+<body>
 		<div id="main-container">
 
-			<%@ include file="/jspf/header.jspf"%>
+			<%@ include file="/jspf/header.jspf"%>		
 </c:if>
 
 <c:if test="${empty participant and title ne 'Login'}">

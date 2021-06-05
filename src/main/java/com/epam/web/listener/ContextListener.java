@@ -2,10 +2,8 @@ package com.epam.web.listener;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Properties;
-import java.util.StringTokenizer;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -31,32 +29,28 @@ public class ContextListener implements ServletContextListener {
 
 		ServletContext servletContext = event.getServletContext();
 		String localesFileName = servletContext.getInitParameter("locales");
-    	
-    	// obtain reale path on server
-    	String localesFileRealPath = servletContext.getRealPath(localesFileName);
-    	
-    	// locad descriptions
-    	Properties locales = new Properties();
-    	try {
+
+		// obtain reale path on server
+		String localesFileRealPath = servletContext.getRealPath(localesFileName);
+
+		// locad descriptions
+		Properties locales = new Properties();
+		try {
 			locales.load(new FileInputStream(localesFileRealPath));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    	
-    	// save descriptions to servlet context
-    	servletContext.setAttribute("locales", locales);
-    	locales.list(System.out);
-    
-    	
-    	
+
+		// save descriptions to servlet context
+		servletContext.setAttribute("locales", locales);
+		locales.list(System.out);
+
 //		initLog4J(servletContext);
 		initCommandContainer();
 //		initI18N(servletContext);
 
 		log("Servlet context initialization finished");
 	}
-	
-	
 
 //	/**
 //	 * Initializes i18n subsystem.
@@ -81,7 +75,7 @@ public class ContextListener implements ServletContextListener {
 //
 //		log.debug("I18N subsystem initialization finished");
 //	}
-	
+
 //	private void initLog4J(ServletContext servletContext) {
 //		log("Log4J initialization started");
 //		try {

@@ -24,6 +24,8 @@
 				<input type="hidden" name="command" value="participantUpdate" />
 				<fmt:message key="participant_account_jsp.label.localization" />
 				<select name="localeToSet">
+				
+<!-- 				
 					<c:choose>
 						<c:when test="${not empty defaultLocale}">
 							<option value="">${defaultLocale}[Default]</option>
@@ -32,11 +34,13 @@
 							<option value="" />
 						</c:otherwise>
 					</c:choose>
-
+-->
 					<c:forEach var="localeName" items="${locales}">
 						<option value="${localeName}">${localeName}</option>
 					</c:forEach>
-				</select> <br> <br>
+				</select> 
+				
+				<br> <br>
 
 				<div>
 					<fmt:message key="participant_account_jsp.label.first_name" />

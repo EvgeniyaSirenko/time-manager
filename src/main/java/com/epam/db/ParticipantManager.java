@@ -43,6 +43,7 @@ public class ParticipantManager {
 		return participant;
 	}
 
+	
 	public void createParticipant(Participant participant) {
 		Connection con = null;
 		try {
@@ -125,24 +126,4 @@ public class ParticipantManager {
 			}
 		}
 	}
-
-	// private DBManager dbManager;
-
-	////////////////////////////////
-
-//	private static ParticipantManager instance;
-//
-//	public static synchronized ParticipantManager getInstance() {
-//		if (instance == null) {
-//			instance = new ParticipantManager();
-//		}
-//		return instance;
-//	}
-//
-//	private ParticipantManager() {
-//		DBManager dbManager = DBManager.getInstance();
-//	}
-
-	////////////////////////////////
-
 }

@@ -21,6 +21,9 @@
   	<param-name>locales</param-name>
   	<param-value>/WEB-INF/locales.properties</param-value>
   </context-param>
-
+  
+  <listener>
+    <listener-class>com.epam.web.listener.ContextListener</listener-class>
+  </listener>
   
 </web-app>

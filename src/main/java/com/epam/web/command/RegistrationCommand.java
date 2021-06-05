@@ -55,7 +55,7 @@ public class RegistrationCommand extends Command {
 			newParticipant.setRoleId(1);
 
 			new ParticipantManager().createParticipant(newParticipant);
-			System.out.println("Created new " + new ParticipantManager().getParticipantByLogin(newParticipant.getLogin()).toString());
+			System.out.println("Created new " + new ParticipantManager().getParticipantByLogin(newParticipant.getLogin()));
 			
 			forward = Path.PAGE__LOGIN;
 		}

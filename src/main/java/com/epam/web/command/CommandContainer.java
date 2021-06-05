@@ -21,8 +21,7 @@ public class CommandContainer {
 		commands.put("login", new LoginCommand());		
 		commands.put("logout", new LogoutCommand());
 		commands.put("registration", new RegistrationCommand());
-//		commands.put("viewSettings", new PartiCommand());
-//		commands.put("updateSettings", new UpdateSettingsCommand());
+
 
 		// client commands
 		commands.put("participantMainPage", new ParticipantMainPageCommand());
