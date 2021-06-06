@@ -115,6 +115,8 @@ INSERT INTO role (id, name) VALUES(1, "user");
 -- Status entity is ENUM, so the numeration must start from 0 
 INSERT INTO status (id, name) VALUES(0, "requested");
 INSERT INTO status (id, name) VALUES(1, "approved");
+INSERT INTO status (id, name) VALUES(2, "to_delete");
+
 
 -- participant
 SET @text = "admin";
@@ -139,3 +141,4 @@ INSERT INTO activity (id, name, duration, category_id) VALUES(DEFAULT, "watching
 -- participant_activity
 INSERT INTO participant_activity (participant_id, activity_id, status_id) VALUES((SELECT id FROM participant WHERE login = "user"), (SELECT id FROM activity WHERE name = "running"), 0);
 INSERT INTO participant_activity (participant_id, activity_id, status_id) VALUES((SELECT id FROM participant WHERE login = "user"), (SELECT id FROM activity WHERE name = "walking"), 1);
+INSERT INTO participant_activity (participant_id, activity_id, status_id) VALUES((SELECT id FROM participant WHERE login = "user"), (SELECT id FROM activity WHERE name = "writing"), 2);

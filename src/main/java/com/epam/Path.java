@@ -13,14 +13,15 @@ public final class Path {
 	public static final String PAGE__ERROR_PAGE = "error.jsp";
 	public static final String PAGE__PARTICIPANT_MAIN_PAGE = "participantMainPage.jsp";
 	public static final String PAGE__PARTICIPANT_ACTIVITIES = "participantActivities.jsp";
+	public static final String PAGE__PARTICIPANT_ADD_ACTIVITY = "participantAddActivity.jsp";
 	public static final String PAGE__PARTICIPANT_ACCOUNT = "participantAccount.jsp";
 	public static final String PAGE__PARTICIPANT_UPDATE = "participantAccount.jsp";
 	public static final String PAGE__ADMIN_MAIN_PAGE = "adminMainPage.jsp";
 	public static final String PAGE__ACTIVITIES_TO_APPROVE = "activitiesToApprove.jsp";
+	public static final String PAGE__ACTIVITIES_TO_DELELE = "activitiesToDelete.jsp";
 
 	// commands
-//	public static final String COMMAND__PARTICIPANT_ADD_ACTIVITIES = "/controller?command=participantAddActivity";
-	public static final String COMMAND__PARTICIPANT_ADD_ACTIVITIES = "participantAddActivity.jsp";
+	public static final String COMMAND__PARTICIPANT_ADD_ACTIVITY_PAGE = "/controller?command=participantAddActivity";
 
 
 }

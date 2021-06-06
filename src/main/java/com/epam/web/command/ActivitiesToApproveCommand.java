@@ -14,7 +14,7 @@ import com.epam.Path;
 import com.epam.db.ActivityManager;
 import com.epam.db.entity.Activity;
 
-public class ActivitiesToApprove extends Command {
+public class ActivitiesToApproveCommand extends Command {
 	
 	private static final long serialVersionUID = 1L;
 

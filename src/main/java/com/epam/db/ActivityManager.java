@@ -21,11 +21,16 @@ public class ActivityManager {
 	private final static String FIND_ALL_REQUESTED_ACTIVITIES = "SELECT * FROM activity "
 			+ "WHERE id IN (SELECT activity_id FROM participant_activity WHERE status_id=0)";
 
-	private final static String FIND_ALL_APPROVED_ACTIVITIES_BY_PARTICIPANT = "SELECT * FROM activity "
-			+ "WHERE id IN (SELECT activity_id FROM participant_activity WHERE participant_id=? AND status_id=1)";
-	
-	private final static String FIND_ALL_AVAILABLE_ACTIVITIES = "SELECT * FROM activity";
+	private final static String FIND_ALL_ACTIVITIES_TO_DELETE = "SELECT * FROM activity "
+			+ "WHERE id IN (SELECT activity_id FROM participant_activity WHERE status_id=2)";
 
+	private final static String FIND_ALL_ACTIVITIES_OF_PARTICIPANT = "SELECT * FROM activity "
+			+ "WHERE id IN (SELECT activity_id FROM participant_activity WHERE participant_id=? AND status_id!=0)";
+
+	private final static String FIND_ACTIVITY_OF_PARTICIPANT_BY_ACTIVITY_ID = "SELECT * FROM activity "
+			+ "WHERE id IN (SELECT activity_id FROM participant_activity WHERE activity_id=? AND participant_id=?)";
+
+	private final static String FIND_ALL_AVAILABLE_ACTIVITIES = "SELECT * FROM activity";
 
 	/**
 	 * 
@@ -52,7 +57,7 @@ public class ActivityManager {
 		}
 		return activitiesList;
 	}
-	
+
 	/**
 	 * 
 	 * Returns all activities with requested status only, for admin approvement
@@ -82,6 +87,33 @@ public class ActivityManager {
 
 	/**
 	 * 
+	 * Returns all activities with status to delete only, for admin approvement
+	 * 
+	 **/
+	public List<Activity> getActivitiesToDelete() {
+		List<Activity> activitiesList = new ArrayList<Activity>();
+		Statement stmt = null;
+		ResultSet rs = null;
+		Connection con = null;
+		try {
+			con = DBManager.getInstance().getConnection();
+			ActivityMapper mapper = new ActivityMapper();
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(FIND_ALL_ACTIVITIES_TO_DELETE);
+			while (rs.next())
+				activitiesList.add(mapper.mapRow(rs));
+		} catch (SQLException ex) {
+			DBManager.getInstance().rollbackAndClose(con);
+			ex.printStackTrace();
+		} finally {
+			DBManager.getInstance().commitAndClose(con);
+		}
+		System.out.println("activitiesList -> " + activitiesList.toString());
+		return activitiesList;
+	}
+
+	/**
+	 * 
 	 * Returns activities of the given participant with approved status only
 	 * 
 	 **/
@@ -93,7 +125,7 @@ public class ActivityManager {
 		try {
 			con = DBManager.getInstance().getConnection();
 			ActivityMapper mapper = new ActivityMapper();
-			pstmt = con.prepareStatement(FIND_ALL_APPROVED_ACTIVITIES_BY_PARTICIPANT);
+			pstmt = con.prepareStatement(FIND_ALL_ACTIVITIES_OF_PARTICIPANT);
 			pstmt.setInt(1, participant.getId());
 			rs = pstmt.executeQuery();
 			while (rs.next())
@@ -106,6 +138,35 @@ public class ActivityManager {
 		}
 		System.out.println("activitiesList -> " + activitiesList.toString());
 		return activitiesList;
+	}
+
+	/**
+	 * 
+	 * Returns activities of the given participant with approved status only
+	 * 
+	 **/
+	public Activity getParticipantActivityByActivityId(Participant participant, int activityId) {
+		Activity activity = new Activity();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Connection con = null;
+		try {
+			con = DBManager.getInstance().getConnection();
+			ActivityMapper mapper = new ActivityMapper();
+			pstmt = con.prepareStatement(FIND_ACTIVITY_OF_PARTICIPANT_BY_ACTIVITY_ID);
+			pstmt.setInt(1, activityId);
+			pstmt.setInt(2, participant.getId());
+			rs = pstmt.executeQuery();
+			if (rs.next())
+				activity = mapper.mapRow(rs);
+		} catch (SQLException ex) {
+			DBManager.getInstance().rollbackAndClose(con);
+			ex.printStackTrace();
+		} finally {
+			DBManager.getInstance().commitAndClose(con);
+		}
+		System.out.println("activityManager found activity --> " + activity);
+		return activity;
 	}
 
 	/**

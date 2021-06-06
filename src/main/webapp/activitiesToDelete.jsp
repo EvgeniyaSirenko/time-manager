@@ -2,11 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="/jspf/directive/taglib.jspf"%>
 
-
 <!DOCTYPE html>
 <html>
 <head>
-<title>Activities to approve</title>
+<meta charset="UTF-8">
+<title>Activities to delete</title>
 <%@ include file="/jspf/head.jspf"%>
 </head>
 <c:if test="${not empty participant}">
@@ -38,7 +38,7 @@
 						<tr>
 							<td><c:out value="${k}" /></td>
 							<td>${bean.name}</td>
-							<td>Approve</td>
+							<td>Delete</td>
 							<td>Reject</td>
 						</tr>
 					</c:forEach>

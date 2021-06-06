@@ -25,9 +25,16 @@ ADMIN MENU.
 <c:choose>
 
 	<c:when test="${participantRole.name == 'admin' }">
+	<p>
 		<a href="controller?command=activitiesToApprove">
 			<fmt:message key="header_jspf.anchor.activities_to_approve"/>
 		</a> 
+	</p>	
+	<p>
+		<a href="controller?command=activitiesToDelete">
+			<fmt:message key="header_jspf.anchor.activities_to_delete"/>
+		</a> 
+	</p>
 	</c:when>
 
 		
@@ -44,16 +51,12 @@ CLIENT MENU.
 		<a href="controller?command=participantActivities">
 			<fmt:message key="header_jspf.anchor.my_activities"/>
 		</a>
-		</p>
-		
-		
+		</p>		
 		<p>	
 		<a href="controller?command=participantAddActivity">
 			<fmt:message key="header_jspf.anchor.add_activity"/>
 		</a>
-		</p>
-		
-		
+		</p>		
 	</c:when>
 </c:choose>
 	
