@@ -18,6 +18,10 @@ import com.epam.db.entity.Participant;
 public class ActivityManager {
 
 	private static final Logger log = LogManager.getLogger(ActivityManager.class);
+	
+	private static final String CREATE_ACTIVITY = "INSERT INTO activity (name, category_id) VALUES (?, ?)";
+
+	private static final String FIND_ACTIVITY_BY_NAME = "SELECT * FROM activity WHERE name=?";
 
 	private final static String FIND_ALL_REQUESTED_ACTIVITIES = "SELECT pa.participant_id, p.login, pa.activity_id, a.name, a.category_id, pa.activity_duration, pa.status_id "
 			+ "FROM activity a, participant p, participant_activity pa "
@@ -36,7 +40,61 @@ public class ActivityManager {
 
 	private final static String FIND_ALL_AVAILABLE_ACTIVITIES = "SELECT * FROM activity";
 	
+	/**
+	 * Creates activity.
+	 */	
+	public void createActivity(Activity activity) {
+		Connection con = null;
+		try {
+			con = DBManager.getInstance().getConnection();
+			createActivity(con, activity);
+		} catch (SQLException ex) {
+			DBManager.getInstance().rollbackAndClose(con);
+			ex.printStackTrace();
+		} finally {
+			DBManager.getInstance().commitAndClose(con);
+		}
+	}
 
+	public Activity createActivity(Connection con, Activity activity) throws SQLException {
+		PreparedStatement pstmt = con.prepareStatement(CREATE_ACTIVITY);
+		pstmt.setString(1, activity.getName());
+		pstmt.setInt(2, activity.getCategoryId());
+		pstmt.executeUpdate();
+		Activity savedActivity = new Activity();
+		savedActivity.setName(activity.getName());
+		savedActivity.setCategoryId(activity.getCategoryId());
+		pstmt.close();
+		return savedActivity;
+	}
+	
+    /**
+     * Returns activity by given name.
+     */
+	public Activity getActivityByName(String name) {
+		Activity activity = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Connection con = null;
+		try {
+			con = DBManager.getInstance().getConnection();
+			ActivityMapper mapper = new ActivityMapper();
+			pstmt = con.prepareStatement(FIND_ACTIVITY_BY_NAME);
+			pstmt.setString(1, name);
+			rs = pstmt.executeQuery();
+			if (rs.next())
+				activity = mapper.mapRow(rs);
+			rs.close();
+			pstmt.close();
+		} catch (SQLException ex) {
+			DBManager.getInstance().rollbackAndClose(con);
+			ex.printStackTrace();
+		} finally {
+			DBManager.getInstance().commitAndClose(con);
+		}
+		return activity;
+	}
+	
 	/**
 	 * 
 	 * Returns all activities.

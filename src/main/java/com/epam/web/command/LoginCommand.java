@@ -41,7 +41,7 @@ public class LoginCommand extends Command {
 
 		if (login == null || password == null || login.isEmpty() || password.isEmpty()) {
 			errorMessage = "Login/password cannot be empty";
-			req.setAttribute("errorMessage", errorMessage);
+			req.getSession().setAttribute("errorMessage", errorMessage);
 			log.error("errorMessage --> " + errorMessage);
 			return forward;
 		}
@@ -51,7 +51,7 @@ public class LoginCommand extends Command {
 
 		if (participant == null || !password.equals(participant.getPassword())) {
 			errorMessage = "Cannot find participant with such login/password";
-			req.setAttribute("errorMessage", errorMessage);
+			req.getSession().setAttribute("errorMessage", errorMessage);
 			log.error("errorMessage --> " + errorMessage);
 			return forward;
 		} else {
@@ -91,28 +91,3 @@ public class LoginCommand extends Command {
 	}
 
 }
-
-
-//@Override
-//public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-//	System.out.println("LoginCommand#execute");
-//	String address = "login.jsp";
-//
-//	String login = req.getParameter("login");
-//	System.out.println("login ==> " + login);
-//
-//	String password = req.getParameter("password");
-//
-//	ParticipantManager participantManager = ParticipantManager.getInstance();
-//	System.out.println("participantManager ==> " + participantManager);
-//
-//	Participant participant = participantManager.getParticipantByLogin(login);
-//	System.out.println("participant ==> " + participant);
-//
-//	if (participant != null && participant.getPassword().equals(password)) {
-//		address = "participantInfo.jsp";
-//		req.getSession().setAttribute("loggedParticipant", participant);
-//	}
-//
-//	return address;
-//}

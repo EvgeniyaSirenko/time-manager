@@ -41,7 +41,7 @@ ADMIN MENU.
 		</a> 
 	</p>
 	<p>
-		<a href="controller?command=createActivity">
+		<a href="controller?command=adminCreateNewActivity">
 			<fmt:message key="header_jspf.anchor.create_activity"/>
 		</a> 
 	</p>

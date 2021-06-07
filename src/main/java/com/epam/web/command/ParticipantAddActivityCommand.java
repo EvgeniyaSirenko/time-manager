@@ -53,7 +53,7 @@ public class ParticipantAddActivityCommand extends Command {
 		if (activity.getId() != 0) {
 			
 			errorMessage = "You have such activity, choose another one";
-			req.setAttribute("errorMessage", errorMessage);
+			req.getSession().setAttribute("errorMessage", errorMessage);
 			log.error("errorMessage --> " + errorMessage);
 			return forward;
 			

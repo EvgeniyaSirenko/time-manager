@@ -38,7 +38,7 @@ public class CreateCategoryCommand extends Command {
 		
 		if (category != null) {
 			errorMessage = "Such category already exists";
-			req.setAttribute("errorMessage", errorMessage);
+			req.getSession().setAttribute("errorMessage", errorMessage);
 			log.error("errorMessage --> " + errorMessage);
 			return forward;
 		} else {

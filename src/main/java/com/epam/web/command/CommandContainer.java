@@ -30,7 +30,7 @@ public class CommandContainer {
 		commands.put("participantUpdateAccount", new ParticipantUpdateAccountCommand());
 		commands.put("participantChooseNewActivity", new ParticipantChooseNewActivityCommand());
 		commands.put("participantAddActivity", new ParticipantAddActivityCommand());
-		commands.put("addActivityDuration", new AddActivityDurationCommand());
+		commands.put("addActivityDuration", new ParticipantAddActivityDurationCommand());
 
 		// admin commands
 		commands.put("adminMainPage", new AdminMainPageCommand());
@@ -39,7 +39,8 @@ public class CommandContainer {
 		commands.put("approveActivity", new ApproveActivityCommand());
 //		commands.put("rejectApproveActivity", new RejectApproveActivityCommand());
 		commands.put("createCategory", new CreateCategoryCommand());
-		commands.put("createActivity", new CreateActivityCommand());
+		commands.put("adminCreateNewActivity", new AdminCreateNewActivityCommand());
+		commands.put("adminSaveCreatedActivity", new AdminSaveCreatedActivityCommand());
 
 		log.debug("Command container was successfully initialized");
 		log.trace("Number of commands --> " + commands.size());

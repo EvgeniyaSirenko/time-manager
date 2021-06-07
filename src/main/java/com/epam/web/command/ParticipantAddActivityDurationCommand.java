@@ -15,11 +15,11 @@ import com.epam.db.entity.Activity;
 import com.epam.db.entity.Participant;
 
 
-public class AddActivityDurationCommand extends Command {
+public class ParticipantAddActivityDurationCommand extends Command {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final Logger log = LogManager.getLogger(AddActivityDurationCommand.class);
+	private static final Logger log = LogManager.getLogger(ParticipantAddActivityDurationCommand.class);
 
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -28,11 +28,12 @@ public class AddActivityDurationCommand extends Command {
 		Participant participant = (Participant)req.getSession().getAttribute("participant");
 		System.out.println("participant -> " + participant);
 
-		Activity activity = (Activity) req.getSession().getAttribute("bean"); ///null
-		System.out.println("activity -> " + activity);
+				
+//		Activity activity = (Activity)req.getSession().getAttribute("activity"); ///null
+//		System.out.println("activity -> " + activity);
 
 		
-		String whatever = req.getParameter("participantActivityBeansList");  //null
+		String whatever = req.getParameter("activityId");  //null
 		System.out.println("whatever --> " + whatever); 
 		
 		String inDuration = req.getParameter("duration");
@@ -48,7 +49,7 @@ public class AddActivityDurationCommand extends Command {
 
 		
 		// update duration
-		new ParticipantActivityManager().updateActivityDuration(duration, activity, participant);
+	//	new ParticipantActivityManager().updateActivityDuration(duration, activity, participant);
 
 		log.debug("Command finished");
 		return Path.PAGE__PARTICIPANT_ACTIVITIES;

@@ -39,6 +39,7 @@
 						<tr>
 							<td><c:out value="${k}" /></td>
 							<td>
+							<input type="hidden" name="activityId" value="${bean.activityId}" />
 							${bean.activityName}
 							</td>
 							<td>${bean.activityDuration}</td>

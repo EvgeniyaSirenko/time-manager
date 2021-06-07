@@ -39,7 +39,7 @@ public class RegistrationCommand extends Command {
 
 		if (participant != null) {
 			errorMessage = "Such login already exists";
-			req.setAttribute("errorMessage", errorMessage);
+			req.getSession().setAttribute("errorMessage", errorMessage);
 			log.error("errorMessage --> " + errorMessage);
 			return forward;
 		} else {
