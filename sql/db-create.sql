@@ -64,7 +64,6 @@ CREATE TABLE IF NOT EXISTS category (
 CREATE TABLE IF NOT EXISTS activity (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(20) NOT NULL,
-  duration INT UNSIGNED NULL,
   category_id INT NOT NULL,
   PRIMARY KEY (id),
   INDEX fk_activity_category1_idx (category_id ASC) VISIBLE,
@@ -82,6 +81,7 @@ CREATE TABLE IF NOT EXISTS participant_activity (
   participant_id INT NOT NULL,
   activity_id INT NOT NULL,
   status_id INT NOT NULL,
+  activity_duration INT UNSIGNED NULL,
   PRIMARY KEY (participant_id, activity_id),
   INDEX fk_participant_activity_activity1_idx (activity_id ASC) VISIBLE,
   INDEX fk_participant_activity_participant_idx (participant_id ASC) VISIBLE,
@@ -123,6 +123,8 @@ SET @text = "admin";
 INSERT INTO participant VALUES(DEFAULT, @text, @text, @text, @text, NULL, (SELECT id FROM role WHERE name = @text));
 SET @text = "user";
 INSERT INTO participant VALUES(DEFAULT, @text, @text, @text, @text, NULL, (SELECT id FROM role WHERE name = @text));
+SET @text = "user1";
+INSERT INTO participant VALUES(DEFAULT, @text, @text, @text, @text, NULL, (SELECT id FROM role WHERE name = "user"));
 
 -- category
 INSERT INTO category (id, name) VALUES(DEFAULT, "physical");
@@ -130,15 +132,16 @@ INSERT INTO category (id, name) VALUES(DEFAULT, "mental");
 
 -- activity
 SET @text = "physical";
-INSERT INTO activity (id, name, duration, category_id) VALUES(DEFAULT, "running", null, (SELECT id FROM category WHERE name = @text));
-INSERT INTO activity (id, name, duration, category_id) VALUES(DEFAULT, "walking", null, (SELECT id FROM category WHERE name = @text));
-INSERT INTO activity (id, name, duration, category_id) VALUES(DEFAULT, "swimming", null, (SELECT id FROM category WHERE name = @text));
+INSERT INTO activity (id, name, category_id) VALUES(DEFAULT, "running",(SELECT id FROM category WHERE name = @text));
+INSERT INTO activity (id, name, category_id) VALUES(DEFAULT, "walking", (SELECT id FROM category WHERE name = @text));
+INSERT INTO activity (id, name, category_id) VALUES(DEFAULT, "swimming", (SELECT id FROM category WHERE name = @text));
 SET @text = "mental";
-INSERT INTO activity (id, name, duration, category_id) VALUES(DEFAULT, "reading", null, (SELECT id FROM category WHERE name = @text));
-INSERT INTO activity (id, name, duration, category_id) VALUES(DEFAULT, "writing", null, (SELECT id FROM category WHERE name = @text));
-INSERT INTO activity (id, name, duration, category_id) VALUES(DEFAULT, "watching", null, (SELECT id FROM category WHERE name = @text));
+INSERT INTO activity (id, name, category_id) VALUES(DEFAULT, "reading", (SELECT id FROM category WHERE name = @text));
+INSERT INTO activity (id, name, category_id) VALUES(DEFAULT, "writing", (SELECT id FROM category WHERE name = @text));
+INSERT INTO activity (id, name, category_id) VALUES(DEFAULT, "watching", (SELECT id FROM category WHERE name = @text));
 
 -- participant_activity
-INSERT INTO participant_activity (participant_id, activity_id, status_id) VALUES((SELECT id FROM participant WHERE login = "user"), (SELECT id FROM activity WHERE name = "running"), 0);
-INSERT INTO participant_activity (participant_id, activity_id, status_id) VALUES((SELECT id FROM participant WHERE login = "user"), (SELECT id FROM activity WHERE name = "walking"), 1);
-INSERT INTO participant_activity (participant_id, activity_id, status_id) VALUES((SELECT id FROM participant WHERE login = "user"), (SELECT id FROM activity WHERE name = "writing"), 2);
+INSERT INTO participant_activity (participant_id, activity_id, status_id, activity_duration) VALUES((SELECT id FROM participant WHERE login = "user"), (SELECT id FROM activity WHERE name = "running"), 0,  null);
+INSERT INTO participant_activity (participant_id, activity_id, status_id, activity_duration) VALUES((SELECT id FROM participant WHERE login = "user"), (SELECT id FROM activity WHERE name = "walking"), 1,  null);
+INSERT INTO participant_activity (participant_id, activity_id, status_id, activity_duration) VALUES((SELECT id FROM participant WHERE login = "user1"), (SELECT id FROM activity WHERE name = "writing"), 2,  null);
+INSERT INTO participant_activity (participant_id, activity_id, status_id, activity_duration) VALUES((SELECT id FROM participant WHERE login = "user1"), (SELECT id FROM activity WHERE name = "swimming"), 1,  null);

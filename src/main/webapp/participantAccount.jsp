@@ -21,7 +21,7 @@
 
 		<div id="fixedHeader">
 			<form id="form" action="controller" method="post">
-				<input type="hidden" name="command" value="participantUpdate" />
+				<input type="hidden" name="command" value="participantUpdateAccount" />
 				<fmt:message key="participant_account_jsp.label.localization" />
 				<select name="localeToSet">
 				

@@ -35,6 +35,16 @@ ADMIN MENU.
 			<fmt:message key="header_jspf.anchor.activities_to_delete"/>
 		</a> 
 	</p>
+	<p>
+		<a href="createCategory.jsp">
+			<fmt:message key="header_jspf.anchor.create_category"/>
+		</a> 
+	</p>
+	<p>
+		<a href="controller?command=createActivity">
+			<fmt:message key="header_jspf.anchor.create_activity"/>
+		</a> 
+	</p>
 	</c:when>
 
 		
@@ -53,7 +63,7 @@ CLIENT MENU.
 		</a>
 		</p>		
 		<p>	
-		<a href="controller?command=participantAddActivity">
+		<a href="controller?command=participantChooseNewActivity">
 			<fmt:message key="header_jspf.anchor.add_activity"/>
 		</a>
 		</p>		

@@ -43,8 +43,7 @@ public class RegistrationCommand extends Command {
 			log.error("errorMessage --> " + errorMessage);
 			return forward;
 		} else {
-
-			
+		
 			//send data to DB
 			Participant newParticipant = new Participant();
 			newParticipant.setFirstName(req.getParameter("firstName"));

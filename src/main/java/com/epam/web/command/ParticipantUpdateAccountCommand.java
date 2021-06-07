@@ -14,11 +14,11 @@ import com.epam.Path;
 import com.epam.db.ParticipantManager;
 import com.epam.db.entity.Participant;
 
-public class ParticipantUpdateCommand extends Command {
+public class ParticipantUpdateAccountCommand extends Command {
 	
 	private static final long serialVersionUID = 1L;
 
-	private static final Logger log = LogManager.getLogger(ParticipantUpdateCommand.class);
+	private static final Logger log = LogManager.getLogger(ParticipantUpdateAccountCommand.class);
 
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {

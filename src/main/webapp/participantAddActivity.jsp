@@ -22,7 +22,7 @@
 <div id="fixedHeader">
 		
 	<form action="controller" method="post">
-		<input type="hidden" name="command" value="participantUpdateActivity" />
+		<input type="hidden" name="command" value="participantAddActivity" />
 		<fmt:message key="participant_account_jsp.label.choose_activity"/>:&nbsp;
 		<select name="activity">
 			<c:forEach items="${activitiesList}" var="activity">

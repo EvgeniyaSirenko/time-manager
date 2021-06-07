@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.epam.Path;
+import com.epam.bean.ParticipantActivityBean;
 import com.epam.db.ActivityManager;
 import com.epam.db.entity.Activity;
 import com.epam.db.entity.Participant;
@@ -30,12 +31,12 @@ public class ParticipantActivitiesCommand extends Command {
 		Participant participant = (Participant)req.getSession().getAttribute("participant");
 		
 		// get activities list
-		List<Activity> activitiesList = new ActivityManager().getApprovedActivities(participant);
-		log.trace("Found in DB: activitiesList --> " + activitiesList);
+		List<ParticipantActivityBean> participantActivityBeansList = new ActivityManager().getApprovedActivities(participant);
+		log.trace("Found in DB: activitiesList --> " + participantActivityBeansList);
 
 		// put activities list to the request
-		req.setAttribute("activitiesList", activitiesList);
-		log.trace("Set the request attribute: activities --> " + activitiesList);
+		req.setAttribute("participantActivityBeansList", participantActivityBeansList);
+		log.trace("Set the request attribute: activities --> " + participantActivityBeansList);
 
 		log.debug("Command finished");
 		return Path.PAGE__PARTICIPANT_ACTIVITIES;

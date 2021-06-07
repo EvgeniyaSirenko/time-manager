@@ -9,12 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.taglibs.standard.lang.jstl.test.PageContextImpl;
 
 import com.epam.Path;
 import com.epam.db.ActivityManager;
 import com.epam.db.ParticipantActivityManager;
-import com.epam.db.ParticipantManager;
 import com.epam.db.entity.Activity;
 import com.epam.db.entity.Participant;
 import com.epam.db.entity.ParticipantActivity;
@@ -33,19 +31,49 @@ public class ParticipantAddActivityCommand extends Command {
 
 		Participant participant = (Participant)req.getSession().getAttribute("participant");
 		System.out.println("Found in session: participant --> " + participant.toString());
+		
+		String errorMessage = null;
+		String forward = Path.PAGE__ERROR_PAGE;
+		
+		String activityId = req.getParameter("activity");
+		System.out.println("Found parametr: activityId --> " + activityId);
+		
+		int selectedActivityId = 0;
+		try {
+			selectedActivityId = Integer.parseInt(activityId);
+		} catch (NumberFormatException e){
+			System.out.println("error" + e);
+			
+		}
+		
+		Activity activity = new ActivityManager().getParticipantActivityByActivityId(participant, selectedActivityId);
+		log.trace("Found in DB: participant --> " + activity);
+		System.out.println("Found in DB: activity --> " + activity);
+		
+		if (activity.getId() != 0) {
+			
+			errorMessage = "You have such activity, choose another one";
+			req.setAttribute("errorMessage", errorMessage);
+			log.error("errorMessage --> " + errorMessage);
+			return forward;
+			
+		} else {
+			
+			//send data to DB
+			ParticipantActivity newParticipantActivity = new ParticipantActivity();
+			newParticipantActivity.setParticipantId(participant.getId());
+			newParticipantActivity.setActivityId(selectedActivityId);
+			newParticipantActivity.setStatusId(0);
+			
+			new ParticipantActivityManager().addActivity(newParticipantActivity);
+			System.out.println("Created new " + newParticipantActivity.toString());
+			
+			forward = Path.PAGE__PARTICIPANT_MAIN_PAGE;
 
-				
-		// get activities list
-		List<Activity> activitiesList = new ActivityManager().getAvailableActivities();
-		log.trace("Found in DB: activitiesList --> " + activitiesList);
-		System.out.println("Found in DB: activitiesList --> " + activitiesList);
-
-		// put activities list to the request
-		req.setAttribute("activitiesList", activitiesList);
-		log.trace("Set the request attribute: activities --> " + activitiesList);
+	}
 
 		log.debug("Command finished");
-		return Path.PAGE__PARTICIPANT_ADD_ACTIVITY;
+		return forward;
 	}
 
 }

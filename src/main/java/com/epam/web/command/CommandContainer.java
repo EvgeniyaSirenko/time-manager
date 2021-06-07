@@ -27,14 +27,19 @@ public class CommandContainer {
 		commands.put("participantMainPage", new ParticipantMainPageCommand());
 		commands.put("participantAccount", new ParticipantAccountCommand());
 		commands.put("participantActivities", new ParticipantActivitiesCommand());
-		commands.put("participantUpdate", new ParticipantUpdateCommand());
+		commands.put("participantUpdateAccount", new ParticipantUpdateAccountCommand());
+		commands.put("participantChooseNewActivity", new ParticipantChooseNewActivityCommand());
 		commands.put("participantAddActivity", new ParticipantAddActivityCommand());
-		commands.put("participantUpdateActivity", new ParticipantUpdateActivityCommand());
+		commands.put("addActivityDuration", new AddActivityDurationCommand());
 
 		// admin commands
 		commands.put("adminMainPage", new AdminMainPageCommand());
 		commands.put("activitiesToApprove", new ActivitiesToApproveCommand());
 		commands.put("activitiesToDelete", new ActivitiesToDeleteCommand());
+		commands.put("approveActivity", new ApproveActivityCommand());
+//		commands.put("rejectApproveActivity", new RejectApproveActivityCommand());
+		commands.put("createCategory", new CreateCategoryCommand());
+		commands.put("createActivity", new CreateActivityCommand());
 
 		log.debug("Command container was successfully initialized");
 		log.trace("Number of commands --> " + commands.size());

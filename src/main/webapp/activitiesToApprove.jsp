@@ -33,13 +33,24 @@
 						</tr>
 					</thead>
 					<c:set var="k" value="0" />
-					<c:forEach var="bean" items="${activitiesList}">
+					<c:forEach var="bean" items="${participantActivityBeansList}">
 						<c:set var="k" value="${k+1}" />
 						<tr>
 							<td><c:out value="${k}" /></td>
-							<td>${bean.name}</td>
-							<td>Approve</td>
-							<td>Reject</td>
+							<td>
+							<c:out value="${bean.activityName}" />
+							</td>
+							<td>
+							<input type=hidden name="participantActivity" value="${participantActivityBeansList}"/>				
+							<a href="controller?command=approveActivity">
+								<fmt:message key="admin_jsp.button.approve_activity"/>
+							</a>
+							</td>
+							<td>
+							<a href="controller?command=rejectApproveActivity">
+								<fmt:message key="admin_jsp.button.reject_approve_activity"/>
+							</a>
+							</td>
 						</tr>
 					</c:forEach>
 				</table>

@@ -9,6 +9,7 @@ public class ParticipantActivity implements Serializable {
 	private int participantId;
 	private int activityId;
 	private int statusId;
+	private int duration;
 	
 	public int getParticipantId() {
 		return participantId;
@@ -28,10 +29,18 @@ public class ParticipantActivity implements Serializable {
 	public void setStatusId(int statusId) {
 		this.statusId = statusId;
 	}
+	public int getDuration() {
+		return duration;
+	}
+	public void setDuration(int duration) {
+		this.duration = duration;
+	}
+	
 	@Override
 	public String toString() {
 		return "ParticipantActivity [participantId=" + participantId + ", activityId=" + activityId + ", statusId="
-				+ statusId + "]";
+				+ statusId + ", duration=" + duration + "]";
 	}
+
 
 }

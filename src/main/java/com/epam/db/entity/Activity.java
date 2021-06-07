@@ -7,7 +7,6 @@ public class Activity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int id;
 	private String name;
-	private int duration;
 	private int categoryId;
 
 	public int getId() {
@@ -26,14 +25,6 @@ public class Activity implements Serializable {
 		this.name = name;
 	}
 
-	public int getDuration() {
-		return duration;
-	}
-
-	public void setDuration(int duration) {
-		this.duration = duration;
-	}
-
 	public int getCategoryId() {
 		return categoryId;
 	}
@@ -44,7 +35,7 @@ public class Activity implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Activity [id=" + id + ", name=" + name + ", duration=" + duration + ", categoryId=" + categoryId + "]";
+		return "Activity [id=" + id + ", name=" + name + ", categoryId=" + categoryId + "]";
 	}
 
 }

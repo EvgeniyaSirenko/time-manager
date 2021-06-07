@@ -34,13 +34,21 @@
 						</tr>
 					</thead>
 					<c:set var="k" value="0" />
-					<c:forEach var="bean" items="${activitiesList}">
+					<c:forEach var="bean" items="${participantActivityBeansList}">
 						<c:set var="k" value="${k+1}" />
 						<tr>
 							<td><c:out value="${k}" /></td>
-							<td>${bean.name}</td>
-							<td>${bean.duration}</td>
-							<td>Minutes to add</td>
+							<td>
+							${bean.activityName}
+							</td>
+							<td>${bean.activityDuration}</td>
+							<td>
+							<form action="controller" method="post">
+							<input type="hidden" name="command" value="addActivityDuration" />
+							<input type="number" min="1" step=1 name="duration" id="duration" required/>
+							<input type="submit" value="Add"/>
+							</form>
+							</td>
 							<td>Delete activity</td>
 						</tr>
 					</c:forEach>
