@@ -18,7 +18,11 @@ public class ParticipantActivityManager {
 
 	private final static String PARTICIPANT_ADD_ACTIVITY = "INSERT INTO participant_activity VALUES(?, ?, 0, NULL)";
 	
-	private final static String UPDATE_ACTIVITY_STATUS = "UPDATE participant_activity SET status_id=1 WHERE participant_id=? AND activity_id=?";
+	private final static String DELETE_PARTICIPANT_ACTIVITY = "DELETE FROM participant_activity WHERE participant_id=? AND activity_id=?";
+
+	private final static String UPDATE_ACTIVITY_STATUS_TO_APPROVE = "UPDATE participant_activity SET status_id=1 WHERE participant_id=? AND activity_id=?";
+
+	private final static String UPDATE_ACTIVITY_STATUS_TO_DELETE = "UPDATE participant_activity SET status_id=2 WHERE participant_id=? AND activity_id=?";
 
 	private final static String UPDATE_ACTIVITY_DURATION = "UPDATE participant_activity SET activity_duration = CASE WHEN activity_duration IS NOT NULL THEN activity_duration+? ELSE ? END WHERE activity_id=? AND participant_id=?";
 
@@ -59,11 +63,11 @@ public class ParticipantActivityManager {
 	 * Updates status_id of the given participant_activity to 1 (approved).
 	 * 
 	 **/
-	public void updateParticipantActivityStatusToApproved(Participant participant, Activity activity) {
+	public void deleteParticipantActivity(Participant participant, Activity activity) {
 		Connection con = null;
 		try {
 			con = DBManager.getInstance().getConnection();
-			updateParticipantActivity(con, participant, activity);
+			deleteParticipantActivity(con, participant, activity);
 		} catch (SQLException ex) {
 			DBManager.getInstance().rollbackAndClose(con);
 			ex.printStackTrace();
@@ -72,8 +76,60 @@ public class ParticipantActivityManager {
 		}
 	}
 
-	public void updateParticipantActivity(Connection con, Participant participant, Activity activity) throws SQLException {
-		PreparedStatement pstmt = con.prepareStatement(UPDATE_ACTIVITY_STATUS);
+	public void deleteParticipantActivity(Connection con, Participant participant, Activity activity) throws SQLException {
+		PreparedStatement pstmt = con.prepareStatement(DELETE_PARTICIPANT_ACTIVITY);
+		pstmt.setInt(1, participant.getId());
+		pstmt.setInt(2, activity.getId());
+		pstmt.executeUpdate();
+		pstmt.close();
+	}
+	
+	/**
+	 * 
+	 * Updates status_id of the given participant_activity to 1 (approved).
+	 * 
+	 **/
+	public void updateParticipantActivityStatusToApproved(Participant participant, Activity activity) {
+		Connection con = null;
+		try {
+			con = DBManager.getInstance().getConnection();
+			updateParticipantActivityToApprove(con, participant, activity);
+		} catch (SQLException ex) {
+			DBManager.getInstance().rollbackAndClose(con);
+			ex.printStackTrace();
+		} finally {
+			DBManager.getInstance().commitAndClose(con);
+		}
+	}
+
+	public void updateParticipantActivityToApprove(Connection con, Participant participant, Activity activity) throws SQLException {
+		PreparedStatement pstmt = con.prepareStatement(UPDATE_ACTIVITY_STATUS_TO_APPROVE);
+		pstmt.setInt(1, participant.getId());
+		pstmt.setInt(2, activity.getId());
+		pstmt.executeUpdate();
+		pstmt.close();
+	}
+	
+	/**
+	 * 
+	 * Updates status_id of the given participant_activity to 2 (delete).
+	 * 
+	 **/
+	public void updateParticipantActivityStatusToDelete(Participant participant, Activity activity) {
+		Connection con = null;
+		try {
+			con = DBManager.getInstance().getConnection();
+			updateParticipantActivityToDelete(con, participant, activity);
+		} catch (SQLException ex) {
+			DBManager.getInstance().rollbackAndClose(con);
+			ex.printStackTrace();
+		} finally {
+			DBManager.getInstance().commitAndClose(con);
+		}
+	}
+
+	public void updateParticipantActivityToDelete(Connection con, Participant participant, Activity activity) throws SQLException {
+		PreparedStatement pstmt = con.prepareStatement(UPDATE_ACTIVITY_STATUS_TO_DELETE);
 		pstmt.setInt(1, participant.getId());
 		pstmt.setInt(2, activity.getId());
 		pstmt.executeUpdate();

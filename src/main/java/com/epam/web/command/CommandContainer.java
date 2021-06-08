@@ -22,7 +22,6 @@ public class CommandContainer {
 		commands.put("logout", new LogoutCommand());
 		commands.put("registration", new RegistrationCommand());
 
-
 		// client commands
 		commands.put("participantMainPage", new ParticipantMainPageCommand());
 		commands.put("participantAccount", new ParticipantAccountCommand());
@@ -31,16 +30,23 @@ public class CommandContainer {
 		commands.put("participantChooseNewActivity", new ParticipantChooseNewActivityCommand());
 		commands.put("participantAddActivity", new ParticipantAddActivityCommand());
 		commands.put("addActivityDuration", new ParticipantAddActivityDurationCommand());
+		commands.put("participantDeleteActivity", new ParticipantDeleteActivityCommand());
 
 		// admin commands
 		commands.put("adminMainPage", new AdminMainPageCommand());
 		commands.put("activitiesToApprove", new ActivitiesToApproveCommand());
 		commands.put("activitiesToDelete", new ActivitiesToDeleteCommand());
 		commands.put("approveActivity", new ApproveActivityCommand());
-//		commands.put("rejectApproveActivity", new RejectApproveActivityCommand());
+		commands.put("rejectApproveActivity", new RejectApproveActivityCommand());
+		commands.put("deleteParticipantsActivity", new AdminDeleteParticipantsActivityCommand());
+		commands.put("rejectDeleteParticipantsActivity", new AdminRejectDeleteParticipantsActivityCommand());
 		commands.put("createCategory", new CreateCategoryCommand());
 		commands.put("adminCreateNewActivity", new AdminCreateNewActivityCommand());
 		commands.put("adminSaveCreatedActivity", new AdminSaveCreatedActivityCommand());
+		commands.put("categories", new CategoriesCommand());
+		commands.put("deleteCategory", new DeleteCategoryCommand());
+		commands.put("updateCategory", new UpdateCategoryCommand());
+		commands.put("saveUpdatedCategory", new SaveUpdatedCategoryCommand());
 
 		log.debug("Command container was successfully initialized");
 		log.trace("Number of commands --> " + commands.size());

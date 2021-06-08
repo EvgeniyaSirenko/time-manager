@@ -27,9 +27,10 @@
 					<thead>
 						<tr>
 							<td>№</td>
-							<td>Activity</td>
-							<td>Reaction</td>
-							<td>Reaction</td>
+							<td><fmt:message key="activities_to_approve_jsp.label.participant_login"/></td>
+							<td><fmt:message key="activities_to_approve_jsp.label.activity"/></td>
+							<td><fmt:message key="activities_to_approve_jsp.label.reaction"/></td>
+							<td><fmt:message key="activities_to_approve_jsp.label.reaction"/></td>
 						</tr>
 					</thead>
 					<c:set var="k" value="0" />
@@ -37,9 +38,8 @@
 						<c:set var="k" value="${k+1}" />
 						<tr>
 							<td><c:out value="${k}" /></td>
-							<td>
-							<c:out value="${bean.activityName}" />
-							</td>
+							<td><c:out value="${bean.participantLogin}" /></td>
+							<td><c:out value="${bean.activityName}" /></td>
 							<td>
 							<form action="controller?command=approveActivity" method="post">
 							<input type="hidden" name="command" value="approveActivity" />
@@ -50,9 +50,12 @@
 							</td>
 							
 							<td>
-							<a href="controller?command=rejectApproveActivity">
-								<fmt:message key="admin_jsp.button.reject_approve_activity"/>
-							</a>
+							<form action="controller?command=rejectApproveActivity" method="post">
+							<input type="hidden" name="command" value="rejectApproveActivity" />
+							<input type=hidden name="activityName" value="${bean.activityName}"/>				
+							<input type=hidden name="participantLogin" value="${bean.participantLogin}"/>				
+							<input type="submit" value="<fmt:message key="admin_jsp.button.reject"/>"/>
+							</form>
 							</td>
 						</tr>
 					</c:forEach>

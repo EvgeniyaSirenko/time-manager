@@ -27,10 +27,10 @@
 					<thead>
 						<tr>
 							<td>№</td>
-							<td>Activity</td>
-							<td>Duration (min)</td>
-							<td>Add duration</td>
-							<td>Request to</td>
+							<td><fmt:message key="participant_activities_jsp.label.activity" /></td>
+							<td><fmt:message key="participant_activities_jsp.label.duration" /></td>
+							<td><fmt:message key="participant_activities_jsp.label.add_duration" /></td>
+							<td><fmt:message key="participant_activities_jsp.label.request_to" /></td>
 						</tr>
 					</thead>
 					<c:set var="k" value="0" />
@@ -47,10 +47,17 @@
 							<input type="hidden" name="command" value="addActivityDuration" />
 							<input type="hidden" name="activityId" value="${bean.activityId}" />
 							<input type="number" min="1" step=1 name="duration" id="duration" required/>
-							<input type="submit" value="Add"/>
+							<input type="submit" value="<fmt:message key="participant_activities_jsp.button.add" />"/>
 							</form>
 							</td>
-							<td>Delete activity</td>
+							<td>						
+							<form action="controller?command=participantDeleteActivity" method="post">
+							<input type="hidden" name="command" value="participantDeleteActivity" />
+							<input type=hidden name="activityName" value="${bean.activityName}"/>				
+							<input type=hidden name="participantLogin" value="${bean.participantLogin}"/>				
+							<input type="submit" value="<fmt:message key="participant_activities_jsp.button.delete"/>"/>
+							</form>							
+							</td>
 						</tr>
 					</c:forEach>
 				</table>

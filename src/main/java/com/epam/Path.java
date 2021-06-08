@@ -21,6 +21,8 @@ public final class Path {
 	public static final String PAGE__ACTIVITIES_TO_DELELE = "activitiesToDelete.jsp";
 	public static final String PAGE__CREATE_CATEGORY = "createCategory.jsp";
 	public static final String PAGE__CREATE_ACTIVITY = "createActivity.jsp";
+	public static final String PAGE__CATEGORIES = "categories.jsp";
+	public static final String PAGE__UPDATE_CATEGORY = "updateCategory.jsp";
 
 	// commands
 	public static final String COMMAND__PARTICIPANT_ADD_ACTIVITY_PAGE = "/controller?command=participantAddActivity";

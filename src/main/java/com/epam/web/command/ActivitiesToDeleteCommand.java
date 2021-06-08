@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.epam.Path;
+import com.epam.bean.ParticipantActivityBean;
 import com.epam.db.ActivityManager;
 import com.epam.db.entity.Activity;
 
@@ -27,12 +28,12 @@ public class ActivitiesToDeleteCommand extends Command {
 		log.debug("Command starts");
 		
 		// get activities list
-		List<Activity> activitiesList = new ActivityManager().getActivitiesToDelete();
-		log.trace("Found in DB: activitiesList --> " + activitiesList);
+		List<ParticipantActivityBean> participantActivityBeansList = new ActivityManager().getActivitiesToDelete();
+		log.trace("Found in DB: participantActivityBeansList --> " + participantActivityBeansList);
 
 		// put activities list to the request
-		req.setAttribute("activitiesList", activitiesList);
-		log.trace("Set the request attribute: activities --> " + activitiesList);
+		req.setAttribute("participantActivityBeansList", participantActivityBeansList);
+		log.trace("Set attribute: participantActivityBeansList --> " + participantActivityBeansList);
 
 		log.debug("Command finished");
 		return Path.PAGE__ACTIVITIES_TO_DELELE;

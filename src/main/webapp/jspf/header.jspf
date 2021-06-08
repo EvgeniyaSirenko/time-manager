@@ -36,8 +36,8 @@ ADMIN MENU.
 		</a> 
 	</p>
 	<p>
-		<a href="createCategory.jsp">
-			<fmt:message key="header_jspf.anchor.create_category"/>
+		<a href="controller?command=categories">
+			<fmt:message key="header_jspf.anchor.categories"/>
 		</a> 
 	</p>
 	<p>
@@ -45,6 +45,7 @@ ADMIN MENU.
 			<fmt:message key="header_jspf.anchor.create_activity"/>
 		</a> 
 	</p>
+	
 	</c:when>
 
 		

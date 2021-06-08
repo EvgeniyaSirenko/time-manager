@@ -44,20 +44,19 @@
 
 				<div>
 					<fmt:message key="participant_account_jsp.label.first_name" />
-					<br> <input name="firstName" value="${participant.firstName}">
+					<br> <input name="firstName" value="${participant.firstName}" />
 				</div>
 				<div>
 					<fmt:message key="participant_account_jsp.label.last_name" />
-					<br> <input name="lastName" value="${participant.lastName}">
+					<br> <input name="lastName" value="${participant.lastName}" />
 				</div>
 				<div>
 					<fmt:message key="login_jsp.label.login" />
-					<br> <input name="login" value="${participant.login}">
+					<br> <input name="login" value="${participant.login}"/>
 				</div>
 				<div>
 					<fmt:message key="login_jsp.label.password" />
-					<br> <input name="password" type="password"
-						value="${participant.password}">
+					<br> <input name="password" type="password" value="${participant.password}" />
 				</div>
 				<p>
 					<input type="submit"

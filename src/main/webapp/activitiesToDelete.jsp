@@ -11,35 +11,47 @@
 </head>
 <c:if test="${not empty participant}">
 
-
 	<div id="fixedHeader">
-		<a href="controller?command=participantMainPage"> <fmt:message
-				key="header_jspf.anchor.main_page" />
+		<a href="controller?command=participantMainPage"> 
+		<fmt:message key="header_jspf.anchor.main_page" />
 		</a>
 	</div>
 	<body>
-
 		<div id="fixedHeader">
-
 			<td class="content">
-
 				<table id="activities_table">
 					<thead>
 						<tr>
 							<td>№</td>
-							<td>Activity</td>
-							<td>Reaction</td>
-							<td>Reaction</td>
+							<td><fmt:message key="activities_to_delete_jsp.label.participant_login"/></td>
+							<td><fmt:message key="activities_to_delete_jsp.label.activity"/></td>
+							<td><fmt:message key="activities_to_delete_jsp.label.reaction"/></td>
+							<td><fmt:message key="activities_to_delete_jsp.label.reaction"/></td>
 						</tr>
 					</thead>
 					<c:set var="k" value="0" />
-					<c:forEach var="bean" items="${activitiesList}">
+					<c:forEach var="bean" items="${participantActivityBeansList}">
 						<c:set var="k" value="${k+1}" />
 						<tr>
 							<td><c:out value="${k}" /></td>
-							<td>${bean.name}</td>
-							<td>Delete</td>
-							<td>Reject</td>
+							<td><c:out value="${bean.participantLogin}" /></td>
+							<td><c:out value="${bean.activityName}" /></td>
+							<td>
+							<form action="controller?command=deleteParticipantsActivity" method="post">
+							<input type="hidden" name="command" value="approveActivity" />
+							<input type=hidden name="activityName" value="${bean.activityName}"/>				
+							<input type=hidden name="participantLogin" value="${bean.participantLogin}"/>				
+							<input type="submit" value="<fmt:message key="admin_jsp.button.delete"/>"/>
+							</form>
+							</td>						
+							<td>
+							<form action="controller?command=rejectDeleteParticipantsActivity" method="post">
+							<input type="hidden" name="command" value="rejectDeleteParticipantsActivity" />
+							<input type=hidden name="activityName" value="${bean.activityName}"/>				
+							<input type=hidden name="participantLogin" value="${bean.participantLogin}"/>				
+							<input type="submit" value="<fmt:message key="admin_jsp.button.reject"/>"/>
+							</form>
+							</td>
 						</tr>
 					</c:forEach>
 				</table>

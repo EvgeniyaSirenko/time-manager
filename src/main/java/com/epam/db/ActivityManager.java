@@ -27,8 +27,9 @@ public class ActivityManager {
 			+ "FROM activity a, participant p, participant_activity pa "
 			+ "WHERE p.id=pa.participant_id AND a.id=pa.activity_id AND pa.status_id=0";
 
-	private final static String FIND_ALL_ACTIVITIES_TO_DELETE = "SELECT * FROM activity "
-			+ "WHERE id IN (SELECT activity_id FROM participant_activity WHERE status_id=2)";
+	private final static String FIND_ALL_ACTIVITIES_TO_DELETE = "SELECT pa.participant_id, p.login, pa.activity_id, a.name, a.category_id, pa.activity_duration, pa.status_id "
+			+ "FROM activity a, participant p, participant_activity pa "
+			+ "WHERE p.id=pa.participant_id AND a.id=pa.activity_id AND pa.status_id=2";
 
 	private final static String FIND_ALL_ACTIVITIES_OF_PARTICIPANT = 
 			"SELECT pa.participant_id, p.login, pa.activity_id, a.name, a.category_id, pa.activity_duration, pa.status_id "
@@ -153,26 +154,26 @@ public class ActivityManager {
 	 * Returns all activities with status to delete only, for admin approvement
 	 * 
 	 **/
-	public List<Activity> getActivitiesToDelete() {
-		List<Activity> activitiesList = new ArrayList<Activity>();
+	public List<ParticipantActivityBean> getActivitiesToDelete() {
+		List<ParticipantActivityBean> participantActivityBeansList = new ArrayList<ParticipantActivityBean>();
 		Statement stmt = null;
 		ResultSet rs = null;
 		Connection con = null;
 		try {
 			con = DBManager.getInstance().getConnection();
-			ActivityMapper mapper = new ActivityMapper();
+			ParticipantActivityBeanMapper mapper = new ParticipantActivityBeanMapper();
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(FIND_ALL_ACTIVITIES_TO_DELETE);
 			while (rs.next())
-				activitiesList.add(mapper.mapRow(rs));
+				participantActivityBeansList.add(mapper.mapRow(rs));
 		} catch (SQLException ex) {
 			DBManager.getInstance().rollbackAndClose(con);
 			ex.printStackTrace();
 		} finally {
 			DBManager.getInstance().commitAndClose(con);
 		}
-		System.out.println("activitiesList -> " + activitiesList.toString());
-		return activitiesList;
+		System.out.println("activitiesList -> " + participantActivityBeansList.toString());
+		return participantActivityBeansList;
 	}
 
 	/**

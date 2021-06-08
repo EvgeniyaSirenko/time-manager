@@ -12,6 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.epam.db.entity.Category;
+import com.epam.db.entity.Participant;
 
 public class CategoryManager {
 	
@@ -20,6 +21,8 @@ public class CategoryManager {
 	private static final String FIND_CATEGORY_BY_NAME = "SELECT * FROM category WHERE name=?";
 	private static final String FIND_ALL_CATEGORIES = "SELECT * FROM category";
 	private static final String CREATE_CATEGORY = "INSERT INTO category (name) VALUES (?)";
+	private static final String DELETE_CATEGORY = "DELETE FROM category WHERE name=?";
+	private static final String UPDATE_CATEGORY = "UPDATE category SET name=? WHERE id =?";
 
     /**
      * Returns category by given name.
@@ -71,6 +74,26 @@ public class CategoryManager {
         }
         return categoryList;
     }
+    
+    /**
+     * Deletes category by name.
+     */
+	public void deleteCategory(String categoryName) {
+		PreparedStatement pstmt = null;
+		Connection con = null;
+		try {
+			con = DBManager.getInstance().getConnection();
+			pstmt = con.prepareStatement(DELETE_CATEGORY);
+			pstmt.setString(1, categoryName);
+			pstmt.executeUpdate();
+			pstmt.close();
+		} catch (SQLException ex) {
+			DBManager.getInstance().rollbackAndClose(con);
+			ex.printStackTrace();
+		} finally {
+			DBManager.getInstance().commitAndClose(con);
+		}
+	}
 
 	/**
 	 * Creates category.
@@ -98,6 +121,28 @@ public class CategoryManager {
 		return savedCategory;
 	}
 	
+	public void updateCategory(Category category) {
+		Connection con = null;
+		try {
+			con = DBManager.getInstance().getConnection();
+			updateCategory(con, category);
+		} catch (SQLException ex) {
+			DBManager.getInstance().rollbackAndClose(con);
+			ex.printStackTrace();
+		} finally {
+			DBManager.getInstance().commitAndClose(con);
+		}
+	}
+
+	public void updateCategory(Connection con, Category category) throws SQLException {
+		PreparedStatement pstmt = con.prepareStatement(UPDATE_CATEGORY);
+		pstmt.setString(1, category.getName());
+		pstmt.setInt(2, category.getId());
+		pstmt.executeUpdate();
+		pstmt.close();
+		System.out.println("updatedCategory_Manager ->" + new CategoryManager().getCategoryByName(category.getName()));
+	}
+	
 	/**
 	 * Extracts category from the result set row.
 	 */
@@ -115,5 +160,4 @@ public class CategoryManager {
 			}
 		}
 	}
-
 }

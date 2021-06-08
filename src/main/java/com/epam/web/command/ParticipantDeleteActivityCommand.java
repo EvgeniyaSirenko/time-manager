@@ -16,11 +16,12 @@ import com.epam.db.ParticipantManager;
 import com.epam.db.entity.Activity;
 import com.epam.db.entity.Participant;
 
-public class RejectApproveActivityCommand extends Command {
+public class ParticipantDeleteActivityCommand extends Command {
 
+	
 	private static final long serialVersionUID = 1L;
 
-	private static final Logger log = LogManager.getLogger(RejectApproveActivityCommand.class);
+	private static final Logger log = LogManager.getLogger(ApproveActivityCommand.class);
 
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -35,10 +36,10 @@ public class RejectApproveActivityCommand extends Command {
 		Activity activity = new ActivityManager().getActivityByName(activityName);
 		Participant participant = new ParticipantManager().getParticipantByLogin(participantLogin);
 		
-		// reject participant's activity (delet it from DB)
-		new ParticipantActivityManager().deleteParticipantActivity(participant, activity);
+		// update status to delete (id = 2)
+		new ParticipantActivityManager().updateParticipantActivityStatusToDelete(participant, activity);
 
 		log.debug("Command finished");
-		return Path.PAGE__ADMIN_MAIN_PAGE;
+		return Path.PAGE__PARTICIPANT_MAIN_PAGE;
 	}
 }

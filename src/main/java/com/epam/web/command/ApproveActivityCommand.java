@@ -36,9 +36,8 @@ public class ApproveActivityCommand extends Command {
 		Activity activity = new ActivityManager().getActivityByName(activityName);
 		Participant participant = new ParticipantManager().getParticipantByLogin(participantLogin);
 		
-//		// update status to approved (id = 1)
+		// update status to approved (id = 1)
 		new ParticipantActivityManager().updateParticipantActivityStatusToApproved(participant, activity);
-//		System.out.println("statusId after update ->" + new ParticipantActivityManager().getStatusByActivityAndParticipant(activity, participant);
 
 		log.debug("Command finished");
 		return Path.PAGE__ADMIN_MAIN_PAGE;
