@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.epam.Path;
+import com.epam.db.ActivityManager;
 import com.epam.db.ParticipantActivityManager;
 import com.epam.db.entity.Activity;
 import com.epam.db.entity.Participant;
@@ -27,17 +28,23 @@ public class ParticipantAddActivityDurationCommand extends Command {
 
 		Participant participant = (Participant)req.getSession().getAttribute("participant");
 		System.out.println("participant -> " + participant);
-
-				
-//		Activity activity = (Activity)req.getSession().getAttribute("activity"); ///null
-//		System.out.println("activity -> " + activity);
-
 		
-		String whatever = req.getParameter("activityId");  //null
-		System.out.println("whatever --> " + whatever); 
+		String activityId = req.getParameter("activityId"); 
+		System.out.println("activityId --> " + activityId); 
+		int selectedActivityId = 0;
+		try {
+			selectedActivityId = Integer.parseInt(activityId);
+		} catch (NumberFormatException e){
+			System.out.println("error" + e);
+			
+		}
+		
+		Activity activity = new ActivityManager().getParticipantActivityByActivityId(participant, selectedActivityId);
+		log.trace("Found in DB: participant --> " + activity);
+		System.out.println("Found in DB: activity --> " + activity);
 		
 		String inDuration = req.getParameter("duration");
-		System.out.println("Found parametr: inDuration --> " + inDuration); //ok
+		System.out.println("Found parametr: inDuration --> " + inDuration);
 		
 		int duration = 0;
 		try {
@@ -49,10 +56,10 @@ public class ParticipantAddActivityDurationCommand extends Command {
 
 		
 		// update duration
-	//	new ParticipantActivityManager().updateActivityDuration(duration, activity, participant);
+		new ParticipantActivityManager().updateActivityDuration(duration, activity, participant);
 
 		log.debug("Command finished");
-		return Path.PAGE__PARTICIPANT_ACTIVITIES;
+		return Path.PAGE__PARTICIPANT_MAIN_PAGE;
 	}
 
 }

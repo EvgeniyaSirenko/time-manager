@@ -24,6 +24,7 @@ public final class Path {
 
 	// commands
 	public static final String COMMAND__PARTICIPANT_ADD_ACTIVITY_PAGE = "/controller?command=participantAddActivity";
+	public static final String COMMAND__PARTICIPANT_ACTIVITY_PAGE = "/controller?command=participantActivityPage";
 
 
 }

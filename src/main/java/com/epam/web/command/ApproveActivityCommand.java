@@ -11,7 +11,11 @@ import org.apache.logging.log4j.Logger;
 
 import com.epam.Path;
 import com.epam.bean.ParticipantActivityBean;
+import com.epam.db.ActivityManager;
 import com.epam.db.ParticipantActivityManager;
+import com.epam.db.ParticipantManager;
+import com.epam.db.entity.Activity;
+import com.epam.db.entity.Participant;
 
 public class ApproveActivityCommand extends Command {
 	
@@ -22,27 +26,21 @@ public class ApproveActivityCommand extends Command {
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		log.debug("Command starts");
-		
-		ParticipantActivityBean participantActivityBean = (ParticipantActivityBean)req.getSession().getAttribute("participantActivityBeansList");
-//		int participantActivityAId = participantActivityBean.getActivityId();
-//		int participantActivityPId = participantActivityBean.getParticipantId();
-		System.out.println("list of beans -> " + participantActivityBean);
 
+		String activityName = req.getParameter("activityName");
+		System.out.println("activityName -> " + activityName);
 		
-		String bean = req.getParameter("participantActivity");
-		System.out.println("what is it? -> " + bean);
-		String bean1 = req.getParameter("bean");
-		System.out.println("what is it? -> " + bean1);
+		String participantLogin = req.getParameter("participantLogin");
+		System.out.println("participantLogin -> " + participantLogin);		
 		
-
-//		System.out.println("participantActivityBean ->" + participantActivityBean); //
-//		System.out.println("what is it? ->" + participantActivityAId + " " + participantActivityPId); //
-//		
+		Activity activity = new ActivityManager().getActivityByName(activityName);
+		Participant participant = new ParticipantManager().getParticipantByLogin(participantLogin);
+		
 //		// update status to approved (id = 1)
-//		new ParticipantActivityManager().updateParticipantActivityStatusToApproved(participantActivityBean);
-//		System.out.println("statusId after update ->" + participantActivityBean.getStatusId());
+		new ParticipantActivityManager().updateParticipantActivityStatusToApproved(participant, activity);
+//		System.out.println("statusId after update ->" + new ParticipantActivityManager().getStatusByActivityAndParticipant(activity, participant);
 
 		log.debug("Command finished");
-		return Path.PAGE__ACTIVITIES_TO_APPROVE;
+		return Path.PAGE__ADMIN_MAIN_PAGE;
 	}
 }

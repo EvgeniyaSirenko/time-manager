@@ -39,13 +39,13 @@
 						<tr>
 							<td><c:out value="${k}" /></td>
 							<td>
-							<input type="hidden" name="activityId" value="${bean.activityId}" />
 							${bean.activityName}
 							</td>
 							<td>${bean.activityDuration}</td>
 							<td>
 							<form action="controller" method="post">
 							<input type="hidden" name="command" value="addActivityDuration" />
+							<input type="hidden" name="activityId" value="${bean.activityId}" />
 							<input type="number" min="1" step=1 name="duration" id="duration" required/>
 							<input type="submit" value="Add"/>
 							</form>

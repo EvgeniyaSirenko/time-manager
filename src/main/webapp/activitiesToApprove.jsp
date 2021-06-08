@@ -41,11 +41,14 @@
 							<c:out value="${bean.activityName}" />
 							</td>
 							<td>
-							<input type=hidden name="participantActivity" value="${participantActivityBeansList}"/>				
-							<a href="controller?command=approveActivity">
-								<fmt:message key="admin_jsp.button.approve_activity"/>
-							</a>
+							<form action="controller?command=approveActivity" method="post">
+							<input type="hidden" name="command" value="approveActivity" />
+							<input type=hidden name="activityName" value="${bean.activityName}"/>				
+							<input type=hidden name="participantLogin" value="${bean.participantLogin}"/>				
+							<input type="submit" value="<fmt:message key="admin_jsp.button.approve_activity"/>"/>
+							</form>
 							</td>
+							
 							<td>
 							<a href="controller?command=rejectApproveActivity">
 								<fmt:message key="admin_jsp.button.reject_approve_activity"/>

@@ -20,7 +20,7 @@ public class ParticipantActivityManager {
 	
 	private final static String UPDATE_ACTIVITY_STATUS = "UPDATE participant_activity SET status_id=1 WHERE participant_id=? AND activity_id=?";
 
-	private final static String UPDATE_ACTIVITY_DURATION = "UPDATE participant_activity SET activity_duration = IFNULL(?, activity_duration+?) WHERE activity_id=? AND participant_id=?";
+	private final static String UPDATE_ACTIVITY_DURATION = "UPDATE participant_activity SET activity_duration = CASE WHEN activity_duration IS NOT NULL THEN activity_duration+? ELSE ? END WHERE activity_id=? AND participant_id=?";
 
 	/**
 	 * 
@@ -59,11 +59,11 @@ public class ParticipantActivityManager {
 	 * Updates status_id of the given participant_activity to 1 (approved).
 	 * 
 	 **/
-	public void updateParticipantActivityStatusToApproved(ParticipantActivityBean participantActivityBean) {
+	public void updateParticipantActivityStatusToApproved(Participant participant, Activity activity) {
 		Connection con = null;
 		try {
 			con = DBManager.getInstance().getConnection();
-			updateParticipantActivityBean(con, participantActivityBean);
+			updateParticipantActivity(con, participant, activity);
 		} catch (SQLException ex) {
 			DBManager.getInstance().rollbackAndClose(con);
 			ex.printStackTrace();
@@ -72,10 +72,10 @@ public class ParticipantActivityManager {
 		}
 	}
 
-	public void updateParticipantActivityBean(Connection con, ParticipantActivityBean participantActivityBean) throws SQLException {
+	public void updateParticipantActivity(Connection con, Participant participant, Activity activity) throws SQLException {
 		PreparedStatement pstmt = con.prepareStatement(UPDATE_ACTIVITY_STATUS);
-		pstmt.setInt(1, participantActivityBean.getParticipantId());
-		pstmt.setInt(2, participantActivityBean.getActivityId());
+		pstmt.setInt(1, participant.getId());
+		pstmt.setInt(2, activity.getId());
 		pstmt.executeUpdate();
 		pstmt.close();
 	}
@@ -106,7 +106,7 @@ public class ParticipantActivityManager {
 		pstmt.setInt(4, participant.getId());
 		pstmt.executeUpdate();
 		pstmt.close();
-		System.out.println("updatedActivity_Manager ->" + new ActivityManager().getParticipantActivityByActivityId(participant, activity.getId()));
+		System.out.println("updatedActivity_Manager ->" + new ActivityManager().getActivityByName(activity.getName()));
 	}
 
 }
