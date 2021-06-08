@@ -10,7 +10,7 @@
 Menu for all participants.
 ===========================================================================--%> 
 
-Hello, ${participant.firstName}!
+${participant.firstName}:&nbsp;
 		
 	<a href="controller?command=logout">
 		<fmt:message key="header_jspf.anchor.logout"/>
@@ -41,8 +41,8 @@ ADMIN MENU.
 		</a> 
 	</p>
 	<p>
-		<a href="controller?command=adminCreateNewActivity">
-			<fmt:message key="header_jspf.anchor.create_activity"/>
+		<a href="controller?command=activities">
+			<fmt:message key="header_jspf.anchor.activities"/>
 		</a> 
 	</p>
 	

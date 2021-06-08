@@ -140,7 +140,6 @@ public class CategoryManager {
 		pstmt.setInt(2, category.getId());
 		pstmt.executeUpdate();
 		pstmt.close();
-		System.out.println("updatedCategory_Manager ->" + new CategoryManager().getCategoryByName(category.getName()));
 	}
 	
 	/**

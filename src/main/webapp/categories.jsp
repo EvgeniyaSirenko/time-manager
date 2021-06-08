@@ -42,9 +42,7 @@
 							<td>	
 							<form action="controller?command=updateCategory" method="post">
 							<input type="hidden" name="command" value="updateCategory" />
-							<input type=hidden name="categoryName" value="${bean.name}"/>				
-							<input type=hidden name="categoryId" value="${bean.id}"/>				
-							<input type=hidden name="category" value="${bean}"/>				
+							<input type=hidden name="categoryName" value="${bean.name}"/>								
 							<input type="submit" value="<fmt:message key="categories.button.update"/>"/>
 							</form>
 							</td>						

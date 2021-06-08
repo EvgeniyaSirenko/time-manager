@@ -11,12 +11,12 @@ import org.apache.logging.log4j.Logger;
 
 import com.epam.Path;
 import com.epam.db.CategoryManager;
+import com.epam.db.ParticipantManager;
 import com.epam.db.entity.Category;
 import com.epam.db.entity.Participant;
 
 public class SaveUpdatedCategoryCommand extends Command {
 
-	
 	private static final long serialVersionUID = 1L;
 
 	private static final Logger log = LogManager.getLogger(SaveUpdatedCategoryCommand.class);
@@ -24,28 +24,26 @@ public class SaveUpdatedCategoryCommand extends Command {
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		log.debug("Command starts");
-				
+
+		Category categoryFromSession = (Category) req.getSession().getAttribute("category");
+		System.out.println("categoryFromSession -> " + categoryFromSession);
 
 		boolean update = false;
-		
+
 		// update category name
 		String categoryName = req.getParameter("name");
-		System.out.println("categeryName -> " + categoryName);    //input category name
-		
-		String categoryId = req.getParameter("category");
-		System.out.println("categoryId ??? -> " + categoryId); 
-		
-				
-//		if (categoryName != null && !categoryName.isEmpty()) {
-//			categoryFromSession.setName(categoryName);
-//			update = true;
-//			System.out.println("update ->" + update);
-//		}
-//		
-//		if (update == true)
-//			new CategoryManager().updateCategory(categoryFromSession);
-//		System.out.println("updated category ->" + new CategoryManager().getCategoryByName(categoryFromSession.getName()));
+		System.out.println("categeryName -> " + categoryName);
 
+		if (categoryName != null && !categoryName.isEmpty()) {
+			categoryFromSession.setName(categoryName);
+			update = true;
+			System.out.println("update ->" + update);
+		}
+
+		if (update == true)
+			new CategoryManager().updateCategory(categoryFromSession);
+		System.out.println(
+				"updated category ->" + new CategoryManager().getCategoryByName(categoryFromSession.getName()));
 
 		log.debug("Command finished");
 		return Path.PAGE__ADMIN_MAIN_PAGE;

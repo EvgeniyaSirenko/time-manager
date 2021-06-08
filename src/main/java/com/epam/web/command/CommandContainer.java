@@ -47,6 +47,10 @@ public class CommandContainer {
 		commands.put("deleteCategory", new DeleteCategoryCommand());
 		commands.put("updateCategory", new UpdateCategoryCommand());
 		commands.put("saveUpdatedCategory", new SaveUpdatedCategoryCommand());
+		commands.put("activities", new ActivitiesCommand());
+		commands.put("deleteActivity", new DeleteActivityCommand());
+		commands.put("updateActivity", new UpdateActivityCommand());
+		commands.put("saveUpdatedActivity", new SaveUpdatedActivityCommand());
 
 		log.debug("Command container was successfully initialized");
 		log.trace("Number of commands --> " + commands.size());

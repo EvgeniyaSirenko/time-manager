@@ -50,6 +50,9 @@ public class ParticipantActivityBean implements Serializable {
 	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
 	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	public int getActivityDuration() {
 		return activityDuration;
 	}
@@ -62,13 +65,14 @@ public class ParticipantActivityBean implements Serializable {
 	public void setStatusId(int statusId) {
 		this.statusId = statusId;
 	}
-	
 	@Override
 	public String toString() {
 		return "ParticipantActivityBean [participantId=" + participantId + ", participantLogin=" + participantLogin
-				+ ", activityId=" + activityId + ", activityName=" + activityName + ", categoryId=" + categoryId
-				+ ", activityDuration=" + activityDuration + ", statusId=" + statusId + "]";
+				+ ", activityId=" + activityId + ", activityName=" + activityName + ", categoryId=" + categoryId + ", activityDuration=" + activityDuration + ", statusId=" + statusId
+				+ "]";
 	}
+	
+
 	
 	
 }

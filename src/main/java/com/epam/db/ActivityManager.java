@@ -13,15 +13,22 @@ import org.apache.logging.log4j.Logger;
 
 import com.epam.bean.ParticipantActivityBean;
 import com.epam.db.entity.Activity;
+import com.epam.db.entity.Category;
 import com.epam.db.entity.Participant;
 
 public class ActivityManager {
 
 	private static final Logger log = LogManager.getLogger(ActivityManager.class);
 	
+	private static final String DELETE_ACTIVITY = "DELETE FROM activity WHERE name=?";
+	
+	private static final String UPDATE_ACTIVITY = "UPDATE activity SET name=?, category_id=? WHERE id =?";
+
 	private static final String CREATE_ACTIVITY = "INSERT INTO activity (name, category_id) VALUES (?, ?)";
 
 	private static final String FIND_ACTIVITY_BY_NAME = "SELECT * FROM activity WHERE name=?";
+	
+	private final static String FIND_ALL_PARTICIPANT_ACTIVITY_BEANS = "";
 
 	private final static String FIND_ALL_REQUESTED_ACTIVITIES = "SELECT pa.participant_id, p.login, pa.activity_id, a.name, a.category_id, pa.activity_duration, pa.status_id "
 			+ "FROM activity a, participant p, participant_activity pa "
@@ -40,6 +47,49 @@ public class ActivityManager {
 			+ "WHERE id IN (SELECT activity_id FROM participant_activity WHERE activity_id=? AND participant_id=?)";
 
 	private final static String FIND_ALL_AVAILABLE_ACTIVITIES = "SELECT * FROM activity";
+	
+	
+    /**
+     * Deletes activity by name.
+     */
+	public void deleteActivity(String activityName) {
+		PreparedStatement pstmt = null;
+		Connection con = null;
+		try {
+			con = DBManager.getInstance().getConnection();
+			pstmt = con.prepareStatement(DELETE_ACTIVITY);
+			pstmt.setString(1, activityName);
+			pstmt.executeUpdate();
+			pstmt.close();
+		} catch (SQLException ex) {
+			DBManager.getInstance().rollbackAndClose(con);
+			ex.printStackTrace();
+		} finally {
+			DBManager.getInstance().commitAndClose(con);
+		}
+	}
+	
+	public void updateActivity(Activity activity) {
+		Connection con = null;
+		try {
+			con = DBManager.getInstance().getConnection();
+			updateActivity(con, activity);
+		} catch (SQLException ex) {
+			DBManager.getInstance().rollbackAndClose(con);
+			ex.printStackTrace();
+		} finally {
+			DBManager.getInstance().commitAndClose(con);
+		}
+	}
+
+	public void updateActivity(Connection con, Activity activity) throws SQLException {
+		PreparedStatement pstmt = con.prepareStatement(UPDATE_ACTIVITY);
+		pstmt.setString(1, activity.getName());
+		pstmt.setInt(2, activity.getCategoryId());
+		pstmt.setInt(3, activity.getId());
+		pstmt.executeUpdate();
+		pstmt.close();
+	}
 	
 	/**
 	 * Creates activity.
@@ -202,6 +252,33 @@ public class ActivityManager {
 		}
 		System.out.println("activitiesList -> " + activitiesList.toString());
 		return activitiesList;
+	}
+	
+	/**
+	 * 
+	 * Returns all participantActivityBeans 
+	 * 
+	 **/
+	public List<ParticipantActivityBean> getAllParticipantActivityBeans() {
+		List<ParticipantActivityBean> participantActivityBeansList = new ArrayList<ParticipantActivityBean>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Connection con = null;
+		try {
+			con = DBManager.getInstance().getConnection();
+			ParticipantActivityBeanMapper mapper = new ParticipantActivityBeanMapper();
+			pstmt = con.prepareStatement(FIND_ALL_PARTICIPANT_ACTIVITY_BEANS);
+			rs = pstmt.executeQuery();
+			while (rs.next())
+				participantActivityBeansList.add(mapper.mapRow(rs));
+		} catch (SQLException ex) {
+			DBManager.getInstance().rollbackAndClose(con);
+			ex.printStackTrace();
+		} finally {
+			DBManager.getInstance().commitAndClose(con);
+		}
+		System.out.println("participantActivityBeansList -> " + participantActivityBeansList.toString());
+		return participantActivityBeansList;
 	}
 
 	/**

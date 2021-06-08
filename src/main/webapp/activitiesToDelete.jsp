@@ -12,7 +12,7 @@
 <c:if test="${not empty participant}">
 
 	<div id="fixedHeader">
-		<a href="controller?command=participantMainPage"> 
+		<a href="controller?command=adminMainPage"> 
 		<fmt:message key="header_jspf.anchor.main_page" />
 		</a>
 	</div>

@@ -13,7 +13,7 @@
 
 
 	<div id="fixedHeader">
-		<a href="controller?command=participantMainPage"> <fmt:message
+		<a href="controller?command=adminMainPage"> <fmt:message
 				key="header_jspf.anchor.main_page" />
 		</a>
 	</div>
