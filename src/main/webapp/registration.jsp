@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/jspf/directive/taglib.jspf" %>
 
@@ -27,8 +27,11 @@
 	</form>
 	
 	<br>
-	<a href="login.jsp"><fmt:message key="login_jsp.button.login"/></a>
-
+	<form action="login.jsp" method="post">
+		<p>
+			<input type="submit" value="<fmt:message key="login_jsp.button.login"/>"/>
+		</p>
+	</form>	
 <%@ include file="/jspf/footer.jspf"%>
 </div>
 </body>

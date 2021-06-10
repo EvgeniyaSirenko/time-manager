@@ -33,10 +33,13 @@ public class ParticipantActivitiesCommand extends Command {
 		// get activities list
 		List<ParticipantActivityBean> participantActivityBeansList = new ActivityManager().getApprovedActivities(participant);
 		log.trace("Found in DB: activitiesList --> " + participantActivityBeansList);
+		System.out.println("participantActivityBeansList -> " + participantActivityBeansList);
+
 
 		// put activities list to the request
 		req.setAttribute("participantActivityBeansList", participantActivityBeansList);
-		log.trace("Set the request attribute: activities --> " + participantActivityBeansList);
+		log.trace("Set the request attribute: participantActivityBeansList --> " + participantActivityBeansList);
+		System.out.println("Set the request attribute: participantActivityBeansList --> " + participantActivityBeansList);
 
 		log.debug("Command finished");
 		return Path.PAGE__PARTICIPANT_ACTIVITIES;

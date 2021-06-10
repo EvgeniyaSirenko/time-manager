@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,11 +17,59 @@ public class ParticipantManager {
 
 	private static final Logger log = LogManager.getLogger(ParticipantManager.class);
 
+	private static final String DELETE_PARTICIPANT = "DELETE FROM participant WHERE login=?";
 	private static final String FIND_PARTICIPANT_BY_LOGIN = "SELECT * FROM participant WHERE login=?";
+	private static final String FIND_ALL_PARTICIPANTS = "SELECT * FROM participant";
 	private static final String CREATE_PARTICIPANT = "INSERT INTO participant "
 			+ "(first_name, last_name, login, password, locale_name, role_id) VALUES (?, ?, ?, ?, ?, ?)";
 	private static final String UPDATE_PARTICIPANT = "UPDATE participant SET first_name=?, last_name=?, login=?, password=? WHERE id =?";
 
+	
+	/**
+     * Deletes participant by name.
+     */
+	public void deleteParticipant(String participantLogin) {
+		PreparedStatement pstmt = null;
+		Connection con = null;
+		try {
+			con = DBManager.getInstance().getConnection();
+			pstmt = con.prepareStatement(DELETE_PARTICIPANT);
+			pstmt.setString(1, participantLogin);
+			pstmt.executeUpdate();
+			pstmt.close();
+		} catch (SQLException ex) {
+			DBManager.getInstance().rollbackAndClose(con);
+			ex.printStackTrace();
+		} finally {
+			DBManager.getInstance().commitAndClose(con);
+		}
+	}
+	
+	
+    /**
+     * Returns all participants.
+     */
+    public List<Participant> getAllParticipants() {
+        List<Participant> participantList = new ArrayList<Participant>();
+        Statement stmt = null;
+        ResultSet rs = null;
+        Connection con = null;
+        try {
+            con = DBManager.getInstance().getConnection();
+            ParticipantMapper mapper = new ParticipantMapper();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(FIND_ALL_PARTICIPANTS);
+            while (rs.next())
+            	participantList.add(mapper.mapRow(rs));
+        } catch (SQLException ex) {
+            DBManager.getInstance().rollbackAndClose(con);
+            ex.printStackTrace();
+        } finally {
+            DBManager.getInstance().commitAndClose(con);
+        }
+        return participantList;
+    }
+	
 	public Participant getParticipantByLogin(String login) {
 		Participant participant = null;
 		PreparedStatement pstmt = null;

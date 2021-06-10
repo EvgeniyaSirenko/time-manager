@@ -11,14 +11,13 @@
 </head>
 
 <c:if test="${not empty participant}">
-	<div id="fixedHeader">
-		<a href="controller?command=participantMainPage"> <fmt:message
-				key="header_jspf.anchor.main_page" />
-		</a>
-	</div>
+<div id="fixedHeader">
+	<form action="controller?command=participantMainPage" method="post">
+			<input type="submit" value="<fmt:message key="header_jspf.anchor.main_page"/>"/>
+	</form>	
+</div>
 
-	<body>
-
+<body>
 		<div id="fixedHeader">
 			<form id="form" action="controller" method="post">
 				<input type="hidden" name="command" value="participantUpdateAccount" />
@@ -58,20 +57,22 @@
 					<fmt:message key="login_jsp.label.password" />
 					<br> <input name="password" type="password" value="${participant.password}" required/>
 				</div>
-				<p>
 					<input type="submit"
 						value='<fmt:message key="participant_account_jsp.button.update"/>'>
-				</p>
 			</form>
+		</div>
 </c:if>
 
 <c:if test="${empty participant and title ne 'Login'}">
 	<div id="fixedHeader">
-		<a href="login.jsp"> <fmt:message key="header_jspf.anchor.login" />
-		</a>
+		<form action="login.jsp" method="post">
+			<p>
+				<input type="submit" value="<fmt:message key="header_jspf.anchor.login"/>"/>
+			</p>
+		</form>	
 	</div>
 </c:if>
-
+<div id="fixedHeader">
 <%@ include file="/jspf/footer.jspf"%>
 
 </div>

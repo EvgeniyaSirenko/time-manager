@@ -12,9 +12,9 @@
 <c:if test="${not empty participant}">
 
 <div id="fixedHeader">
-	<a href="controller?command=participantMainPage"> <fmt:message
-			key="header_jspf.anchor.main_page" />
-	</a>
+	<form action="controller?command=participantMainPage" method="post">
+			<input type="submit" value="<fmt:message key="header_jspf.anchor.main_page"/>"/>
+	</form>	
 </div>
 <body>
 
@@ -33,16 +33,19 @@
 		<input type="submit" value="<fmt:message key='participant_account_jsp.button.send_request'/>">
 		
 	</form>
-
+</div>
 </c:if>
 
 <c:if test="${empty participant and title ne 'Login'}">
 	<div id="fixedHeader">
-		<a href="login.jsp"> <fmt:message key="header_jspf.anchor.login" />
-		</a>
+		<form action="login.jsp" method="post">
+			<p>
+				<input type="submit" value="<fmt:message key="header_jspf.anchor.login"/>"/>
+			</p>
+		</form>	
 	</div>
 </c:if>
-
+<div id="fixedHeader">
 <%@ include file="/jspf/footer.jspf"%>
 </div>
 </body>

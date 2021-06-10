@@ -6,10 +6,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Update category</title>
+<title>Participants</title>
 <%@ include file="/jspf/head.jspf"%>
 </head>
-
 <c:if test="${not empty participant}">
 	<div id="fixedHeader">
 		<form action="controller?command=adminMainPage" method="post">
@@ -17,21 +16,36 @@
 			<input type="submit" value="<fmt:message key="header_jspf.anchor.main_page"/>"/>
 		</form>	
 	</div>
-	<body>
+		<body>
 		<div id="fixedHeader">
-			<form id="form" action="controller" method="post">
-				<input type="hidden" name="command" value="saveUpdatedCategory" />
-				
-				<div>
-					<fmt:message key="categories.label.category_name" />
-					<br>
-					<input name="name" value="${category.name}" required/>
-				</div>
-				
-				<p>
-					<input type="submit" value='<fmt:message key="categories.button.update"/>'>
-				</p>
-			</form>
+			<td class="content">
+				<table id="activities_table">
+					<thead>
+						<tr>
+							<td>№</td>
+							<td><fmt:message key="participants.label.participant_name" /></td>
+							<td><fmt:message
+									key="activities_to_delete_jsp.label.reaction" /></td>
+						</tr>
+					</thead>
+					<c:set var="k" value="0" />
+					<c:forEach var="bean" items="${participantsList}">
+						<c:set var="k" value="${k+1}" />
+						<tr>
+							<td><c:out value="${k}" /></td>
+							<td><c:out value="${bean.login}" /></td>
+							<td>
+								<form action="controller?command=deleteParticipant" method="post">
+									<input type="hidden" name="command" value="deleteParticipant" />
+									<input type=hidden name="participantLogin" value="${bean.login}" />
+									<input type="submit"
+										value="<fmt:message key="categories.button.delete"/>" />
+								</form>
+							</td>
+						</tr>
+					</c:forEach>
+				</table>
+			</td>
 		</div>
 </c:if>
 

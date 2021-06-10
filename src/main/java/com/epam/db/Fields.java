@@ -34,11 +34,11 @@ public final class Fields {
 	public static final String PARTICIPANT_ACTIVITY_BEAN__PARTICIPANT_LOGIN = "login";	
 	public static final String PARTICIPANT_ACTIVITY_BEAN__ACTIVIVTY_ID = "activity_id";	
 	public static final String PARTICIPANT_ACTIVITY_BEAN__DURATION = "activity_duration";	
-	public static final String PARTICIPANT_ACTIVITY_BEAN__ACTIVIVTY_NAME = "name";	
 	public static final String PARTICIPANT_ACTIVITY_BEAN__STATUS_ID = "status_id";	
 	public static final String PARTICIPANT_ACTIVITY_BEAN__CATEGORYY_ID = "category_id";	
 	
-	public static final String PARTICIPANT_ACTIVITY_BEAN__CATEGORYY_NAME = "category_name";	
+	public static final String PARTICIPANT_ACTIVITY_BEAN__ACTIVIVTY_NAME = "name";	
+	public static final String PARTICIPANT_ACTIVITY_BEAN__CATEGORYY_NAME = "name";	
 
 
 

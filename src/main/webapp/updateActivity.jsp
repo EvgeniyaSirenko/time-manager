@@ -12,9 +12,10 @@
 
 <c:if test="${not empty participant}">
 	<div id="fixedHeader">
-		<a href="controller?command=adminMainPage"> <fmt:message
-				key="header_jspf.anchor.main_page" />
-		</a>
+		<form action="controller?command=adminMainPage" method="post">
+			<input type="hidden" name="command" value="controller?command=adminMainPage" />
+			<input type="submit" value="<fmt:message key="header_jspf.anchor.main_page"/>"/>
+		</form>	
 	</div>
 	<body>
 		<div id="fixedHeader">
@@ -24,20 +25,11 @@
 				<div>
 					<fmt:message key="activities.label.activity_name" />
 					<input name="name" value="${activity.name}" required />
-				</div>
-<!-- 
-				<fmt:message key="activities.label.choose_category" />:&nbsp; 
-				<select name="category">
-					<c:forEach items="${categoriesList}" var="category">
-						<option value="${category.id}">${category.name}</option>
-					</c:forEach>
-				</select>
- -->				
-				<p>
+				</div>				
 					<input type="submit"
 						value='<fmt:message key="activities.button.update"/>'>
-				</p>
 			</form>
+		</div>
 </c:if>
 <c:if test="${empty participant and title ne 'Login'}">
 	<div id="fixedHeader">
@@ -45,7 +37,7 @@
 		</a>
 	</div>
 </c:if>
-
+<div id="fixedHeader">
 <%@ include file="/jspf/footer.jspf"%>
 
 </div>

@@ -51,6 +51,8 @@ public class CommandContainer {
 		commands.put("deleteActivity", new DeleteActivityCommand());
 		commands.put("updateActivity", new UpdateActivityCommand());
 		commands.put("saveUpdatedActivity", new SaveUpdatedActivityCommand());
+		commands.put("participants", new ParticipantsCommand());
+		commands.put("deleteParticipant", new DeleteParticipantCommand());
 
 		log.debug("Command container was successfully initialized");
 		log.trace("Number of commands --> " + commands.size());

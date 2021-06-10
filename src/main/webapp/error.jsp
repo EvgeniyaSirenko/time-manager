@@ -15,8 +15,11 @@
 	${errorMessage}
  	<br/>
 	<br/>
-	<a href="login.jsp">Back to sign in page</a>
-	
+		<form action="login.jsp" method="post">
+			<p>
+				<input type="submit" value="<fmt:message key="error_jsp.label.back_to_sign_in"/>"/>
+			</p>
+		</form>		
 	<%@ include file="/jspf/footer.jspf"%>
 </div>	
 </body>

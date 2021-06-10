@@ -18,8 +18,11 @@
 
 <c:if test="${empty participant and title ne 'Login'}">
 	<div id="fixedHeader">
-		<a href="login.jsp"> <fmt:message key="header_jspf.anchor.login" />
-		</a>
+		<form action="login.jsp" method="get">
+			<p>
+				<input type="submit" value="<fmt:message key="header_jspf.anchor.login"/>"/>
+			</p>
+		</form>	
 	</div>
 </c:if>
 <%@ include file="/jspf/footer.jspf"%>

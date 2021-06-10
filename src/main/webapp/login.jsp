@@ -24,12 +24,12 @@
 	
 	
 	<br>
-	<a href="registration.jsp"><fmt:message key="login_jsp.label.register" /></a>
-	
-
-	<%@ include file="/jspf/footer.jspf"%>
-	
+	<form action="registration.jsp" method="post">
+		<p>
+			<input type="submit" value="<fmt:message key="login_jsp.label.register"/>"/>
+		</p>
+	</form>	
+<%@ include file="/jspf/footer.jspf"%>	
 </div>	
-	
 </body>
 </html>

@@ -1,6 +1,6 @@
 <%@ page import="com.epam.db.Role" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ include file="/jspf/directive/taglib.jspf" %>
     
 <div id="fixedHeader">
 
@@ -10,9 +10,9 @@
 Menu for all participants.
 ===========================================================================--%> 
 
-${participant.firstName}:&nbsp;
+${participant.firstName}&nbsp;&nbsp;
 		
-	<a href="controller?command=logout">
+			<a href="controller?command=logout">
 		<fmt:message key="header_jspf.anchor.logout"/>
 	</a> 	
 
@@ -45,6 +45,11 @@ ADMIN MENU.
 			<fmt:message key="header_jspf.anchor.activities"/>
 		</a> 
 	</p>
+	<p>
+		<a href="controller?command=participants">
+			<fmt:message key="header_jspf.anchor.participants"/>
+		</a> 
+	</p>
 	
 	</c:when>
 
@@ -63,18 +68,13 @@ CLIENT MENU.
 			<fmt:message key="header_jspf.anchor.my_activities"/>
 		</a>
 		</p>		
-		<p>	
 		<a href="controller?command=participantChooseNewActivity">
 			<fmt:message key="header_jspf.anchor.add_activity"/>
 		</a>
-		</p>		
 	</c:when>
-</c:choose>
-	
+</c:choose>	
 </div>
-
 </c:if>
-
 <c:if test="${empty participant and title ne 'Login'}">
 	<div id="fixedHeader">
 		<a href="login.jsp">

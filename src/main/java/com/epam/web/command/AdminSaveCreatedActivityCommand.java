@@ -27,7 +27,7 @@ public class AdminSaveCreatedActivityCommand extends Command {
 		
 		log.debug("Command starts");
 
-		// obtain category name from the request
+		// obtain activity name from the request
 		String name = req.getParameter("name");
 		log.trace("Request parameter: name --> " + name);
 		System.out.println("Request parameter: name --> " + name);

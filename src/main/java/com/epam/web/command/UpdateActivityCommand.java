@@ -12,10 +12,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.epam.Path;
+import com.epam.bean.CategoryActivityBean;
 import com.epam.db.ActivityManager;
-import com.epam.db.CategoryManager;
 import com.epam.db.entity.Activity;
-import com.epam.db.entity.Category;
 
 public class UpdateActivityCommand extends Command {
 	
@@ -30,13 +29,6 @@ public class UpdateActivityCommand extends Command {
 		
 		HttpSession session = req.getSession();
 		
-		// get categories list TODO
-		List<Category> categoriesList = new CategoryManager().getAllCategories();
-		log.trace("Found in DB: categoriesList --> " + categoriesList);
-		System.out.println("Found in DB: categoriesList --> " + categoriesList);
-		req.setAttribute("categoriesList", categoriesList);
-		log.trace("Set the request attribute: categoriesList --> " + categoriesList);
-
 		// obtain not updated activity name from the request
 		String activityName = req.getParameter("activityName");
 		log.trace("Request parameter: activityName --> " + activityName);
@@ -45,6 +37,20 @@ public class UpdateActivityCommand extends Command {
 		
 		session.setAttribute("activity", activity);
 		log.trace("Set the session attribute: activity --> " + activity);
+		
+//		// get not updated category of activity
+//		String categoryName = req.getParameter("categoryName");
+//		session.setAttribute("defaultCategory", categoryName);
+//		log.trace("Request parameter: categoryName --> " + categoryName);
+//
+//		// getting not updated activity name from the request
+//		String activityName = req.getParameter("activityName");
+//		log.trace("Request parameter: activityName --> " + activityName);
+//		
+//		CategoryActivityBean categoryActivityBean = new ActivityManager().getCategoryActivityBeanByActivityName(activityName);
+//		
+//		session.setAttribute("categoryActivityBean", categoryActivityBean);
+//		log.trace("Set the session attribute: categoryActivityBean --> " + categoryActivityBean);
 		
 		log.debug("Command finished");
 		return Path.PAGE__UPDATE_ACTIVITY;

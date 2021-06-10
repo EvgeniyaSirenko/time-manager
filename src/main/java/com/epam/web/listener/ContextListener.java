@@ -94,7 +94,7 @@ public class ContextListener implements ServletContextListener {
 	 * @param servletContext
 	 */
 	private void initCommandContainer() {
-		log.debug("Command container initialization started");
+		System.out.println("Command container initialization started");
 
 		// initialize commands container
 		// just load class to JVM
@@ -104,7 +104,7 @@ public class ContextListener implements ServletContextListener {
 			throw new RuntimeException(ex);
 		}
 
-		log.debug("Command container initialization finished");
+		System.out.println("Command container initialization finished");
 	}
 
 	private void log(String msg) {
