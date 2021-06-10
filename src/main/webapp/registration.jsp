@@ -1,13 +1,16 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/jspf/directive/taglib.jspf" %>
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+
+<link rel="stylesheet" type="text/css" media="screen"
+	href="style/timeManager.css" />
+<meta charset=UTF-8>
 <title>Registration page</title>
-<%@ include file="/jspf/head.jspf" %>
 </head>
 <body>
 <div id="fixedHeader">
@@ -27,10 +30,10 @@
 	</form>
 	
 	<br>
-	<form action="login.jsp" method="post">
-		<p>
-			<input type="submit" value="<fmt:message key="login_jsp.button.login"/>"/>
-		</p>
+
+	<form action="controller" method="get">
+		<input type="hidden" name="command" value="login" />		
+		<input type="submit" value="<fmt:message key="header_jspf.anchor.login"/>"/>
 	</form>	
 <%@ include file="/jspf/footer.jspf"%>
 </div>

@@ -12,8 +12,8 @@
 
 <c:if test="${not empty participant}">
 	<div id="fixedHeader">
-		<form action="controller?command=adminMainPage" method="post">
-			<input type="hidden" name="command" value="controller?command=adminMainPage" />
+		<form action="controller" method="get">
+			<input type="hidden" name="command" value="adminMainPage" />
 			<input type="submit" value="<fmt:message key="header_jspf.anchor.main_page"/>"/>
 		</form>	
 	</div>
@@ -27,20 +27,16 @@
 					<br>
 					<input name="name" value="${category.name}" required/>
 				</div>
-				
-				<p>
 					<input type="submit" value='<fmt:message key="categories.button.update"/>'>
-				</p>
 			</form>
 		</div>
 </c:if>
 
 <c:if test="${empty participant and title ne 'Login'}">
 	<div id="fixedHeader">
-		<form action="login.jsp" method="post">
-			<p>
-				<input type="submit" value="<fmt:message key="header_jspf.anchor.login"/>"/>
-			</p>
+		<form action="controller" method="get">
+			<input type="hidden" name="command" value="login" />		
+			<input type="submit" value="<fmt:message key="header_jspf.anchor.login"/>"/>
 		</form>	
 	</div>
 </c:if>

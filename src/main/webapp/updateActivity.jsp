@@ -12,8 +12,8 @@
 
 <c:if test="${not empty participant}">
 	<div id="fixedHeader">
-		<form action="controller?command=adminMainPage" method="post">
-			<input type="hidden" name="command" value="controller?command=adminMainPage" />
+		<form action="controller" method="get">
+			<input type="hidden" name="command" value="adminMainPage" />
 			<input type="submit" value="<fmt:message key="header_jspf.anchor.main_page"/>"/>
 		</form>	
 	</div>
@@ -33,8 +33,10 @@
 </c:if>
 <c:if test="${empty participant and title ne 'Login'}">
 	<div id="fixedHeader">
-		<a href="login.jsp"> <fmt:message key="header_jspf.anchor.login" />
-		</a>
+		<form action="controller" method="get">
+			<input type="hidden" name="command" value="login" />		
+			<input type="submit" value="<fmt:message key="header_jspf.anchor.login"/>"/>
+		</form>	
 	</div>
 </c:if>
 <div id="fixedHeader">

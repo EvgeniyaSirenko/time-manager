@@ -50,6 +50,11 @@ ADMIN MENU.
 			<fmt:message key="header_jspf.anchor.participants"/>
 		</a> 
 	</p>
+	<p>
+		<a href="controller?command=reports">
+			<fmt:message key="header_jspf.anchor.reports"/>
+		</a> 
+	</p>
 	
 	</c:when>
 

@@ -11,8 +11,8 @@
 </head>
 <c:if test="${not empty participant}">
 	<div id="fixedHeader">
-		<form action="controller?command=adminMainPage" method="post">
-			<input type="hidden" name="command" value="controller?command=adminMainPage" />
+		<form action="controller" method="get">
+			<input type="hidden" name="command" value="adminMainPage" />
 			<input type="submit" value="<fmt:message key="header_jspf.anchor.main_page"/>"/>
 		</form>	
 	</div>
@@ -40,14 +40,14 @@
 							<td><c:out value="${k}" /></td>
 							<td><c:out value="${bean.name}" /></td>													
 							<td>	
-							<form action="controller?command=updateActivity" method="post">
+							<form action="controller" method="post">
 							<input type="hidden" name="command" value="updateActivity" />
 							<input type=hidden name="activityName" value="${bean.name}"/>								
 							<input type="submit" value="<fmt:message key="categories.button.update"/>"/>
 							</form>
 							</td>						
 							<td>
-							<form action="controller?command=deleteActivity" method="post">
+							<form action="controller" method="post">
 							<input type="hidden" name="command" value="deleteActivity" />
 							<input type=hidden name="activityName" value="${bean.name}"/>				
 							<input type="submit" value="<fmt:message key="categories.button.delete"/>"/>
@@ -62,8 +62,10 @@
 
 <c:if test="${empty participant and title ne 'Login'}">
 	<div id="fixedHeader">
-		<a href="login.jsp"> <fmt:message key="header_jspf.anchor.login" />
-		</a>
+		<form action="controller" method="get">
+			<input type="hidden" name="command" value="login" />		
+			<input type="submit" value="<fmt:message key="header_jspf.anchor.login"/>"/>
+		</form>	
 	</div>
 </c:if>
 <div id="fixedHeader">

@@ -26,6 +26,7 @@ public final class Path {
 	public static final String PAGE__ACTIVITIES = "activities.jsp";
 	public static final String PAGE__PARTICIPANTS = "participants.jsp";
 	public static final String PAGE__UPDATE_ACTIVITY = "updateActivity.jsp";
+	public static final String PAGE__REPORTS = "reports.jsp";
 
 	// commands
 	public static final String COMMAND__PARTICIPANT_ADD_ACTIVITY_PAGE = "/controller?command=participantAddActivity";

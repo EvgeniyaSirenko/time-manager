@@ -2,8 +2,10 @@ package com.epam.web.listener;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
+import java.util.StringTokenizer;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -18,63 +20,54 @@ public class ContextListener implements ServletContextListener {
 
 	@Override
 	public void contextDestroyed(ServletContextEvent event) {
-		log("Servlet context destruction starts");
+		log.debug("Servlet context destruction starts");
 		// do nothing
-		log("Servlet context destruction finished");
+		log.debug("Servlet context destruction finished");
 	}
 
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
-		log("Servlet context initialization starts");
+		log.debug("Servlet context initialization starts");
 
 		ServletContext servletContext = event.getServletContext();
+		// initLog4J(servletContext);
+		initCommandContainer();
+		initI18N(servletContext);
+
+		log.debug("Servlet context initialization finished");
+	}
+		
+	/**
+	 * Initializes i18n subsystem.
+	 */
+	private void initI18N(ServletContext servletContext) {
+		log.debug("I18N subsystem initialization started");
+
 		String localesFileName = servletContext.getInitParameter("locales");
-
-		// obtain reale path on server
+		
+		// obtain real path on server
 		String localesFileRealPath = servletContext.getRealPath(localesFileName);
-
-		// locad descriptions
+		
+		// locale descriptions
 		Properties locales = new Properties();
 		try {
 			locales.load(new FileInputStream(localesFileRealPath));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		
 		// save descriptions to servlet context
 		servletContext.setAttribute("locales", locales);
 		locales.list(System.out);
-
-//		initLog4J(servletContext);
+		
+		//initLog4J(servletContext);
 		initCommandContainer();
-//		initI18N(servletContext);
-
-		log("Servlet context initialization finished");
-	}
-
-//	/**
-//	 * Initializes i18n subsystem.
-//	 */
-//	private void initI18N(ServletContext servletContext) {
-//		log.debug("I18N subsystem initialization started");
-//
-//		String localesValue = servletContext.getInitParameter("locales");
-//		if (localesValue == null || localesValue.isEmpty()) {
-//			log.warn("'locales' init parameter is empty, the default encoding will be used");
-//		} else {
-//			List<String> locales = new ArrayList<String>();
-//			StringTokenizer st = new StringTokenizer(localesValue);
-//			while (st.hasMoreTokens()) {
-//				String localeName = st.nextToken();
-//				locales.add(localeName);
-//			}
-//
-//			log.debug("Application attribute set: locales --> " + locales);
-//			servletContext.setAttribute("locales", locales);
-//		}
-//
-//		log.debug("I18N subsystem initialization finished");
-//	}
+		//initI18N(servletContext);
+		
+		log.debug("Servlet context initialization finished");
+		}
+		
+			
 
 //	private void initLog4J(ServletContext servletContext) {
 //		log("Log4J initialization started");
@@ -94,7 +87,7 @@ public class ContextListener implements ServletContextListener {
 	 * @param servletContext
 	 */
 	private void initCommandContainer() {
-		System.out.println("Command container initialization started");
+		log.debug("Command container initialization started");
 
 		// initialize commands container
 		// just load class to JVM
@@ -104,10 +97,24 @@ public class ContextListener implements ServletContextListener {
 			throw new RuntimeException(ex);
 		}
 
-		System.out.println("Command container initialization finished");
-	}
-
-	private void log(String msg) {
-		System.out.println("[ContextListener] " + msg);
+		log.debug("Command container initialization finished");
 	}
 }
+
+//String localesValue = servletContext.getInitParameter("locales");
+//if (localesValue == null || localesValue.isEmpty()) {
+//log.warn("'locales' init parameter is empty, the default encoding will be used");
+//} else {
+//List<String> locales = new ArrayList<String>();
+//StringTokenizer st = new StringTokenizer(localesValue);
+//while (st.hasMoreTokens()) {
+//	String localeName = st.nextToken();
+//	locales.add(localeName);
+//}
+//
+//log.debug("Application attribute set: locales --> " + locales);
+//servletContext.setAttribute("locales", locales);
+//}
+//
+//log.debug("I18N subsystem initialization finished");
+//}

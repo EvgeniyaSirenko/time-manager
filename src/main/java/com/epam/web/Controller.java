@@ -37,7 +37,6 @@ public class Controller extends HttpServlet {
 			address = command.execute(req, resp);
 		} catch (IOException ex) {
 			req.setAttribute("error", ex);
-			log.trace("error", ex);
 		}
 
 		System.out.println("address == > " + address);

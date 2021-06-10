@@ -11,8 +11,8 @@
 </head>
 <c:if test="${not empty participant}">
 	<div id="fixedHeader">
-		<form action="controller?command=adminMainPage" method="post">
-			<input type="hidden" name="command" value="controller?command=adminMainPage" />
+		<form action="controller" method="get">
+			<input type="hidden" name="command" value="adminMainPage" />
 			<input type="submit" value="<fmt:message key="header_jspf.anchor.main_page"/>"/>
 		</form>	
 	</div>
@@ -37,7 +37,7 @@
 							<td><c:out value="${bean.participantLogin}" /></td>
 							<td><c:out value="${bean.activityName}" /></td>
 							<td>
-							<form action="controller?command=deleteParticipantsActivity" method="post">
+							<form action="controller" method="post">
 							<input type="hidden" name="command" value="approveActivity" />
 							<input type=hidden name="activityName" value="${bean.activityName}"/>				
 							<input type=hidden name="participantLogin" value="${bean.participantLogin}"/>				
@@ -45,7 +45,7 @@
 							</form>
 							</td>						
 							<td>
-							<form action="controller?command=rejectDeleteParticipantsActivity" method="post">
+							<form action="controller" method="post">
 							<input type="hidden" name="command" value="rejectDeleteParticipantsActivity" />
 							<input type=hidden name="activityName" value="${bean.activityName}"/>				
 							<input type=hidden name="participantLogin" value="${bean.participantLogin}"/>				
@@ -61,10 +61,9 @@
 
 <c:if test="${empty participant and title ne 'Login'}">
 	<div id="fixedHeader">
-		<form action="login.jsp" method="post">
-			<p>
-				<input type="submit" value="<fmt:message key="header_jspf.anchor.login"/>"/>
-			</p>
+		<form action="controller" method="get">
+			<input type="hidden" name="command" value="login" />		
+			<input type="submit" value="<fmt:message key="header_jspf.anchor.login"/>"/>
 		</form>	
 	</div>
 </c:if>
