@@ -1,18 +1,41 @@
 package com.epam.web.command;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.epam.Path;
+import com.epam.bean.ParticipantActivityDurationBean;
+import com.epam.db.ActivityManager;
+
 public class ReportsCommand extends Command {
+	
+	private static final long serialVersionUID = 1L;
+
+	private static final Logger log = LogManager.getLogger(ParticipantsCommand.class);
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response)
+	public String execute(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		
+		log.debug("Command starts");
+		
+		// get beans list
+		List<ParticipantActivityDurationBean> participantActivityBeansList = new ActivityManager().getParticipantsTotalActivitiesAndDuration();
+		log.trace("Found in DB: participantActivityBeansList --> " + participantActivityBeansList);
+		System.out.println("participantsList" + participantActivityBeansList);
 
+		// put beans list to the request
+		req.setAttribute("participantActivityBeansList", participantActivityBeansList);
+		log.trace("Set the request attribute: participantActivityBeansList --> " + participantActivityBeansList);
+
+		log.debug("Command finished");
+		return Path.PAGE__REPORTS;
+	}
 }

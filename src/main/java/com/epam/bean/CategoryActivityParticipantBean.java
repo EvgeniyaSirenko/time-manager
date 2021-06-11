@@ -14,7 +14,7 @@ public class CategoryActivityParticipantBean implements Serializable {
 	
 	private String categoryName;
 	private String activityName;
-	private String participantLogin;
+	private int participantId;
 	
 	public String getCategoryName() {
 		return categoryName;
@@ -28,15 +28,15 @@ public class CategoryActivityParticipantBean implements Serializable {
 	public void setActivityName(String activityName) {
 		this.activityName = activityName;
 	}
-	public String getParticipantLogin() {
-		return participantLogin;
+	public int getParticipantId() {
+		return participantId;
 	}
-	public void setParticipantLogin(String participantLogin) {
-		this.participantLogin = participantLogin;
+	public void setParticipantId(int participantId) {
+		this.participantId = participantId;
 	}
 	@Override
 	public String toString() {
 		return "CategoryActivityParticipantBean [categoryName=" + categoryName + ", activityName=" + activityName
-				+ ", participantLogin=" + participantLogin + "]";
-	}
+				+ ", participantId=" + participantId + "]";
+	}	
 }

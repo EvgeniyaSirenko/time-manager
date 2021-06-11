@@ -19,11 +19,11 @@
 	<body>
 		<div id="fixedHeader">
 			<td class="content">
-	<p>
-		<a href="controller?command=adminCreateNewActivity">
-			<fmt:message key="header_jspf.anchor.create_activity"/>
-		</a> 
-	</p>
+				<p>
+					<a href="controller?command=adminCreateNewActivity">
+						<fmt:message key="header_jspf.anchor.create_activity"/>
+					</a> 
+				</p>
 				<table id="activities_table">
 					<thead>
 						<tr>

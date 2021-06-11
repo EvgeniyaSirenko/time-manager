@@ -12,7 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.epam.Path;
-import com.epam.bean.CategoryActivityBean;
+import com.epam.bean.ParticipantActivityDurationBean;
 import com.epam.db.ActivityManager;
 import com.epam.db.entity.Activity;
 
