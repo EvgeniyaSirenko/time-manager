@@ -49,9 +49,21 @@ public class ActivityManager {
 	private final static String FIND_PARTICIPANTS_TOTAL_ACTIVITY_AND_DURATION = "SELECT p.login, COUNT(pa.activity_id) AS activities, SUM(pa.activity_duration) "
 			+ "AS duration FROM participant_activity pa JOIN participant p ON p.id=pa.participant_id GROUP BY p.login";
 	
-	private final static String FIND_CATEGORY_ACTIVITY_PARTICIPANT_QUANTITY = "SELECT p.login, COUNT(pa.activity_id) AS !!!PARTICIPANTS!!!!, SUM(pa.activity_duration) "
-			+ "AS duration FROM participant_activity pa JOIN participant p ON p.id=pa.participant_id GROUP BY p.login";
+	private final static String FIND_ACTIVITY_CATEGORY_PARTICIPANT_QUANTITY_WITH_ACTIVITY_ORDER = "SELECT a.name AS activity_name, c.name AS category_name, temp.participant AS participants "
+			+ "FROM activity a JOIN (SELECT activity_id, COUNT(participant_id) AS participant FROM participant_activity "
+			+ "GROUP BY activity_id) temp ON temp.activity_id=a.id JOIN category c ON c.id=a.category_id ORDER BY a.name";
 
+	private final static String FIND_ACTIVITY_CATEGORY_PARTICIPANT_QUANTITY_WITH_CATEGORY_ORDER = "SELECT a.name AS activity_name, c.name AS category_name, temp.participant AS participants "
+			+ "FROM activity a JOIN (SELECT activity_id, COUNT(participant_id) AS participant FROM participant_activity "
+			+ "GROUP BY activity_id) temp ON temp.activity_id=a.id JOIN category c ON c.id=a.category_id ORDER BY c.name";
+	
+	private final static String FIND_ACTIVITY_CATEGORY_PARTICIPANT_QUANTITY_WITH_PARTICIPANTS_QUANTITY_ORDER = "SELECT a.name AS activity_name, c.name AS category_name, temp.participant AS participants "
+			+ "FROM activity a JOIN (SELECT activity_id, COUNT(participant_id) AS participant FROM participant_activity "
+			+ "GROUP BY activity_id) temp ON temp.activity_id=a.id JOIN category c ON c.id=a.category_id ORDER BY participants";	
+	private final static String FIND_ACTIVITY_CATEGORY_PARTICIPANT_QUANTITY_WITH_CATEGORY_FILTER = "SELECT a.name AS activity_name, c.name AS category_name, temp.participant AS participants "
+			+ "FROM activity a JOIN (SELECT activity_id, COUNT(participant_id) AS participant FROM participant_activity "
+			+ "GROUP BY activity_id) temp ON temp.activity_id=a.id JOIN category c ON c.id=a.category_id WHERE c.name=? ORDER BY participants";	
+	
 	/**
 	 * Deletes activity by name.
 	 */
@@ -286,62 +298,114 @@ public class ActivityManager {
 		return participantActivityBeansList;
 	}
 
-//	/**
-//	 * 
-//	 * Returns all participantActivityBeans 
-//	 * 
-//	 **/
-//	public List<ParticipantActivityBean> getAllParticipantActivityBeans() {
-//		List<ParticipantActivityBean> participantActivityBeansList = new ArrayList<ParticipantActivityBean>();
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		Connection con = null;
-//		try {
-//			con = DBManager.getInstance().getConnection();
-//			ParticipantActivityBeanMapper mapper = new ParticipantActivityBeanMapper();
-//			pstmt = con.prepareStatement(FIND_ALL_PARTICIPANT_ACTIVITY_BEANS);
-//			rs = pstmt.executeQuery();
-//			while (rs.next())
-//				participantActivityBeansList.add(mapper.mapRow(rs));
-//		} catch (SQLException ex) {
-//			DBManager.getInstance().rollbackAndClose(con);
-//			ex.printStackTrace();
-//		} finally {
-//			DBManager.getInstance().commitAndClose(con);
-//		}
-//		System.out.println("participantActivityBeansList -> " + participantActivityBeansList.toString());
-//		return participantActivityBeansList;
-//	}
+	/**
+	 * 
+	 * Returns all CategoryActivityParticipantBeans ordered by activity name
+	 * 
+	 **/
+	public List<CategoryActivityParticipantBean> getAllCategoryActivityParticipantBeansActivityOrder() {
+		List<CategoryActivityParticipantBean> categoryActivityParticipantBeanList = new ArrayList<CategoryActivityParticipantBean>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Connection con = null;
+		try {
+			con = DBManager.getInstance().getConnection();
+			CategoryActivityParticipantBeanMapper mapper = new CategoryActivityParticipantBeanMapper();
+			pstmt = con.prepareStatement(FIND_ACTIVITY_CATEGORY_PARTICIPANT_QUANTITY_WITH_ACTIVITY_ORDER);
+			rs = pstmt.executeQuery();
+			while (rs.next())
+				categoryActivityParticipantBeanList.add(mapper.mapRow(rs));
+		} catch (SQLException ex) {
+			DBManager.getInstance().rollbackAndClose(con);
+			ex.printStackTrace();
+		} finally {
+			DBManager.getInstance().commitAndClose(con);
+		}
+		System.out.println("categoryActivityParticipantBeanList -> " + categoryActivityParticipantBeanList.toString());
+		return categoryActivityParticipantBeanList;
+	}
 
-//	/**
-//	 * 
-//	 * Returns all CategoryActivityParticipantBeans 
-//	 * 
-//	 **/
-//	public List<CategoryActivityParticipantBean> getAllCategoryActivityParticipantBeans() {
-//		List<CategoryActivityParticipantBean> categoryActivityParticipantBeanList = new ArrayList<CategoryActivityParticipantBean>();
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		Connection con = null;
-//		try {
-//			con = DBManager.getInstance().getConnection();
-//			CategoryActivityParticipantBeanMapper mapper = new CategoryActivityParticipantBeanMapper();
-//			pstmt = con.prepareStatement(FIND_ALL_CATEGORY_ACTIVITY_PARTICIPANT_BEANS);
-//			rs = pstmt.executeQuery();
-//			while (rs.next())
-//				categoryActivityParticipantBeanList.add(mapper.mapRow(rs));
-//		} catch (SQLException ex) {
-//			DBManager.getInstance().rollbackAndClose(con);
-//			ex.printStackTrace();
-//		} finally {
-//			DBManager.getInstance().commitAndClose(con);
-//		}
-//		System.out.println("participantActivityBeansList -> " + categoryActivityParticipantBeanList.toString());
-//		return categoryActivityParticipantBeanList;
-//	}
-//
-
-
+	/**
+	 * 
+	 * Returns all CategoryActivityParticipantBeans ordered by category name
+	 * 
+	 **/
+	public List<CategoryActivityParticipantBean> getAllCategoryActivityParticipantBeansCategoryOrder() {
+		List<CategoryActivityParticipantBean> categoryActivityParticipantBeanList = new ArrayList<CategoryActivityParticipantBean>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Connection con = null;
+		try {
+			con = DBManager.getInstance().getConnection();
+			CategoryActivityParticipantBeanMapper mapper = new CategoryActivityParticipantBeanMapper();
+			pstmt = con.prepareStatement(FIND_ACTIVITY_CATEGORY_PARTICIPANT_QUANTITY_WITH_CATEGORY_ORDER);
+			rs = pstmt.executeQuery();
+			while (rs.next())
+				categoryActivityParticipantBeanList.add(mapper.mapRow(rs));
+		} catch (SQLException ex) {
+			DBManager.getInstance().rollbackAndClose(con);
+			ex.printStackTrace();
+		} finally {
+			DBManager.getInstance().commitAndClose(con);
+		}
+		System.out.println("categoryActivityParticipantBeanList -> " + categoryActivityParticipantBeanList.toString());
+		return categoryActivityParticipantBeanList;
+	}
+	
+	/**
+	 * 
+	 * Returns all CategoryActivityParticipantBeans ordered by participants quantity
+	 * 
+	 **/
+	public List<CategoryActivityParticipantBean> getAllCategoryActivityParticipantBeansParticipantsQuantityOrder() {
+		List<CategoryActivityParticipantBean> categoryActivityParticipantBeanList = new ArrayList<CategoryActivityParticipantBean>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Connection con = null;
+		try {
+			con = DBManager.getInstance().getConnection();
+			CategoryActivityParticipantBeanMapper mapper = new CategoryActivityParticipantBeanMapper();
+			pstmt = con.prepareStatement(FIND_ACTIVITY_CATEGORY_PARTICIPANT_QUANTITY_WITH_PARTICIPANTS_QUANTITY_ORDER);
+			rs = pstmt.executeQuery();
+			while (rs.next())
+				categoryActivityParticipantBeanList.add(mapper.mapRow(rs));
+		} catch (SQLException ex) {
+			DBManager.getInstance().rollbackAndClose(con);
+			ex.printStackTrace();
+		} finally {
+			DBManager.getInstance().commitAndClose(con);
+		}
+		System.out.println("categoryActivityParticipantBeanList -> " + categoryActivityParticipantBeanList.toString());
+		return categoryActivityParticipantBeanList;
+	}
+	
+	/**
+	 * 
+	 * Returns all CategoryActivityParticipantBeans ordered by participants quantity
+	 * 
+	 **/
+	public List<CategoryActivityParticipantBean> getCategoryActivityParticipantBeansFilteredByCategoryName(String categoryName) {
+		List<CategoryActivityParticipantBean> categoryActivityParticipantBeanList = new ArrayList<CategoryActivityParticipantBean>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Connection con = null;
+		try {
+			con = DBManager.getInstance().getConnection();
+			CategoryActivityParticipantBeanMapper mapper = new CategoryActivityParticipantBeanMapper();
+			pstmt = con.prepareStatement(FIND_ACTIVITY_CATEGORY_PARTICIPANT_QUANTITY_WITH_CATEGORY_FILTER);
+			pstmt.setString(1, categoryName);
+			rs = pstmt.executeQuery();
+			while (rs.next())
+				categoryActivityParticipantBeanList.add(mapper.mapRow(rs));
+		} catch (SQLException ex) {
+			DBManager.getInstance().rollbackAndClose(con);
+			ex.printStackTrace();
+		} finally {
+			DBManager.getInstance().commitAndClose(con);
+		}
+		System.out.println("categoryActivityParticipantBeanList -> " + categoryActivityParticipantBeanList.toString());
+		return categoryActivityParticipantBeanList;
+	}
 
 	/**
 	 * 
@@ -456,5 +520,4 @@ public class ActivityManager {
 			}
 		}
 	}
-
 }

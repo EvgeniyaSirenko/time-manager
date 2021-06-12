@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Reports</title>
+<title>Activities to sort</title>
 <%@ include file="/jspf/head.jspf"%>
 </head>
 <c:if test="${not empty participant}">
@@ -20,34 +20,37 @@
 		<div id="fixedHeader">
 			<td class="content">
 				<table id="activities_table">
-				<p><fmt:message key="reports.label.table_head" /></p>
 					<thead>
 						<tr>
 							<td>№</td>
-							<td><fmt:message key="reports.label.participant_login" /></td>
-							<td><fmt:message key="reports.label.activities_quantity" /></td>
-							<td><fmt:message key="reports.label.total_duration" /></td>
+							<td>
+								<a href="controller?command=reportsSortActivities"> 
+									<fmt:message key="reports.label.activity" />
+								</a>
+							</td>
+							<td>
+								<a href="controller?command=reportsSortActivitiesByCategory"> 
+									<fmt:message key="reports.label.category" />
+								</a>
+							</td>
+							<td>
+								<a href="controller?command=reportsSortActivitiesByParticipantsQuantity"> 
+									<fmt:message key="reports.label.participants_quantity" />
+								</a>							
+							</td>
 						</tr>
 					</thead>
 					<c:set var="k" value="0" />
-					<c:forEach var="bean" items="${participantActivityBeansList}">
+					<c:forEach var="bean" items="${categoryActivityParticipantBeansList}">
 						<c:set var="k" value="${k+1}" />
 						<tr>
 							<td><c:out value="${k}" /></td>
-							<td><c:out value="${bean.participantLogin}" /></td>
-							<td><c:out value="${bean.activityId}" /></td>
-							<td><c:out value="${bean.activityDuration}" /></td>
+							<td><c:out value="${bean.activityName}" /></td>
+							<td><c:out value="${bean.categoryName}" /></td>
+							<td><c:out value="${bean.participantId}" /></td>
 						</tr>
 					</c:forEach>
-				</table> <br>
-				<p>
-					<a href="controller?command=reportsSortActivities"> 
-						<fmt:message key="reports.label.sort_activities" />
-					</a>
-				</p>
-					<a href="controller?command=reportsFilterActivities"> 
-						<fmt:message key="reports.label.filter_activities" />
-					</a>
+				</table>
 			</td>
 		</div>
 </c:if>
