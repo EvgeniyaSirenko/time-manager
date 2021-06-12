@@ -32,8 +32,7 @@
 			</c:forEach>
 		</select>
 		</div>
-		<input type="submit" value="Create"/>
-		
+		<input type="submit" value="Create"/>	
 	</form>
 	</div>
 	

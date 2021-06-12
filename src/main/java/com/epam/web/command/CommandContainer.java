@@ -58,6 +58,7 @@ public class CommandContainer {
 		commands.put("reportsSortActivitiesByCategory", new ReportsSortActivitiesByCategoryCommand());
 		commands.put("reportsSortActivitiesByParticipantsQuantity", new ReportsSortActivitiesByParticipansQuantityCommand());
 		commands.put("reportsFilterActivities", new ReportsFilterActivitiesCommand());
+		commands.put("reportsFilterActivitiesByCategory", new ReportsFilterActivitiesByCategoryCommand());
 
 		log.debug("Command container was successfully initialized");
 		log.trace("Number of commands --> " + commands.size());

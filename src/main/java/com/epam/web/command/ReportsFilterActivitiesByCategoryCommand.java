@@ -16,17 +16,20 @@ import com.epam.db.ActivityManager;
 import com.epam.db.CategoryManager;
 import com.epam.db.entity.Category;
 
-public class ReportsFilterActivitiesCommand extends Command {
-	
+public class ReportsFilterActivitiesByCategoryCommand extends Command {
+
 	private static final long serialVersionUID = 1L;
 
-	private static final Logger log = LogManager.getLogger(ReportsFilterActivitiesCommand.class);
+	private static final Logger log = LogManager.getLogger(ReportsFilterActivitiesByCategoryCommand.class);
 
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 		
 		log.debug("Command starts");
+		
+		String categoryName = req.getParameter("category");
+		System.out.println("categoryName " + categoryName);
 		
 		List<Category> categoriesList = new CategoryManager().getAllCategories();
 		log.trace("Found in DB: categoriesList --> " + categoriesList);
@@ -36,7 +39,7 @@ public class ReportsFilterActivitiesCommand extends Command {
 		log.trace("Set the request attribute: categoriesList --> " + categoriesList);
 		
 		// get beans list
-		List<CategoryActivityParticipantBean> categoryActivityParticipantBeansList = new ActivityManager().getAllCategoryActivityParticipantBeansCategoryOrder();
+		List<CategoryActivityParticipantBean> categoryActivityParticipantBeansList = new ActivityManager().getCategoryActivityParticipantBeansFilteredByCategoryName(categoryName);
 		log.trace("Found in DB: categoryActivityParticipantBeansList --> " + categoryActivityParticipantBeansList);
 		System.out.println("categoryActivityParticipantBeansList" + categoryActivityParticipantBeansList);
 

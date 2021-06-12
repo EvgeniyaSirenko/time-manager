@@ -19,6 +19,17 @@
 	<body>
 		<div id="fixedHeader">
 			<td class="content">
+			<form action="controller" method="get">
+				<input type="hidden" name="command" value="reportsFilterActivitiesByCategory" />	
+				<label for="name"><fmt:message key="reports.label.category_name" /></label>
+				<select name="category">
+					<c:forEach items="${categoriesList}" var="category">
+						<option value="${category.name}">${category.name}</option>
+					</c:forEach>
+				</select>
+				<input type="submit" value="<fmt:message key="reports.button.filter"/>" />				
+			</form>
+			<br>	
 				<table id="activities_table">
 					<thead>
 						<tr>
