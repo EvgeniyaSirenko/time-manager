@@ -23,9 +23,8 @@ public class DeleteActivityCommand extends Command {
 		log.debug("Command starts");
 
 		String activityName = req.getParameter("activityName");
-		System.out.println("activityName -> " + activityName);	
-		
-		// delete activity
+		log.trace("activityName -> " + activityName);
+
 		new ActivityManager().deleteActivity(activityName);
 
 		log.debug("Command finished");

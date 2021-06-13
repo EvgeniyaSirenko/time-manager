@@ -30,15 +30,11 @@ public final class Fields {
 	public static final String MENU_ITEM__CATEGORY_ID = "category_id";	
 
 	// beans
-	public static final String PARTICIPANT_ACTIVITY_BEAN__PARTICIPANT_ID = "participant_id";	
 	public static final String PARTICIPANT_ACTIVITY_BEAN__PARTICIPANT_LOGIN = "login";	
 	public static final String PARTICIPANT_ACTIVITY_BEAN__ACTIVIVTY_ID = "activity_id";	
 	public static final String PARTICIPANT_ACTIVITY_BEAN__DURATION = "activity_duration";	
-	public static final String PARTICIPANT_ACTIVITY_BEAN__STATUS_ID = "status_id";	
-	public static final String PARTICIPANT_ACTIVITY_BEAN__CATEGORYY_ID = "category_id";		
 	public static final String PARTICIPANT_ACTIVITY_BEAN__ACTIVIVTY_NAME = "name";	
-	public static final String PARTICIPANT_ACTIVITY_BEAN__CATEGORYY_NAME = "name";	
-	
+	public static final String PARTICIPANT_ACTIVITY_BEAN__CATEGORYY_NAME = "name";		
 	public static final String PARTICIPANT_ACTIVITY_DURATION_BEAN__PARTICIPANT_LOGIN = "login";	
 	public static final String PARTICIPANT_ACTIVITY_DURATION_BEAN__ACTIVITY_ID = "activities";	
 	public static final String PARTICIPANT_ACTIVITY_DURATION_BEAN__ACTIVITY_DURATION = "duration";

@@ -20,10 +20,11 @@
 		<input type="submit" value="<fmt:message key="login_jsp.button.login"/>">
 	</form>	
 	<br>
-	<form action="controller" method="get">
-		<input type="hidden" name="command" value="registration" />		
-		<input type="submit" value="<fmt:message key="login_jsp.label.register"/>"/>
-	</form>		
+		<form action="registration.jsp" method="post">
+			<p>
+				<input type="submit" value="<fmt:message key="login_jsp.label.register"/>"/>
+			</p>
+		</form>			
 <%@ include file="/jspf/footer.jspf"%>	
 </div>	
 </body>

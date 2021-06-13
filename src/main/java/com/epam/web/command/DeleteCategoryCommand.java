@@ -11,7 +11,6 @@ import org.apache.logging.log4j.Logger;
 
 import com.epam.Path;
 import com.epam.db.CategoryManager;
-import com.epam.db.entity.Category;
 
 public class DeleteCategoryCommand extends Command {
 
@@ -24,9 +23,8 @@ public class DeleteCategoryCommand extends Command {
 		log.debug("Command starts");
 
 		String categoryName = req.getParameter("categoryName");
-		System.out.println("categoryName -> " + categoryName);	
-		
-		// delete category
+		log.trace("categoryName -> " + categoryName);
+
 		new CategoryManager().deleteCategory(categoryName);
 
 		log.debug("Command finished");

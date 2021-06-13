@@ -15,7 +15,6 @@ import com.epam.db.ParticipantActivityManager;
 import com.epam.db.entity.Activity;
 import com.epam.db.entity.Participant;
 
-
 public class ParticipantAddActivityDurationCommand extends Command {
 
 	private static final long serialVersionUID = 1L;
@@ -26,36 +25,33 @@ public class ParticipantAddActivityDurationCommand extends Command {
 	public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		log.debug("Command starts");
 
-		Participant participant = (Participant)req.getSession().getAttribute("participant");
-		System.out.println("participant -> " + participant);
-		
-		String activityId = req.getParameter("activityId"); 
-		System.out.println("activityId --> " + activityId); 
+		Participant participant = (Participant) req.getSession().getAttribute("participant");
+		log.trace("participant -> " + participant);
+
+		String activityId = req.getParameter("activityId");
+		log.trace("activityId --> " + activityId);
 		int selectedActivityId = 0;
 		try {
 			selectedActivityId = Integer.parseInt(activityId);
-		} catch (NumberFormatException e){
-			System.out.println("error" + e);
-			
+		} catch (NumberFormatException e) {
+			log.error("error" + e);
+
 		}
-		
+
 		Activity activity = new ActivityManager().getParticipantActivityByActivityId(participant, selectedActivityId);
 		log.trace("Found in DB: participant --> " + activity);
-		System.out.println("Found in DB: activity --> " + activity);
-		
+
 		String inDuration = req.getParameter("duration");
-		System.out.println("Found parametr: inDuration --> " + inDuration);
-		
+		log.trace("Found parametr: inDuration --> " + inDuration);
+
 		int duration = 0;
 		try {
 			duration = Integer.parseInt(inDuration);
 		} catch (NumberFormatException e) {
 			log.debug(e);
 		}
-		System.out.println("inDuration parse --> " + duration); 
+		log.trace("inDuration parse --> " + duration);
 
-		
-		// update duration
 		new ParticipantActivityManager().updateActivityDuration(duration, activity, participant);
 
 		log.debug("Command finished");

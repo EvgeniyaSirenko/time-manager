@@ -23,9 +23,8 @@ public class DeleteParticipantCommand extends Command {
 		log.debug("Command starts");
 
 		String participantLogin = req.getParameter("participantLogin");
-		System.out.println("participantLogin -> " + participantLogin);	
-		
-		// delete category
+		log.trace("participantLogin -> " + participantLogin);
+
 		new ParticipantManager().deleteParticipant(participantLogin);
 
 		log.debug("Command finished");

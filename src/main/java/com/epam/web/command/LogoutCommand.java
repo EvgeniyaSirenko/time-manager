@@ -13,16 +13,15 @@ import org.apache.logging.log4j.Logger;
 import com.epam.Path;
 
 public class LogoutCommand extends Command {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private static final Logger log = LogManager.getLogger(LogoutCommand.class);
-	
+
 	@Override
-	public String execute(HttpServletRequest req,
-			HttpServletResponse resp) throws IOException, ServletException {
+	public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		log.debug("Command starts");
-		
+
 		HttpSession session = req.getSession(false);
 		if (session != null)
 			session.invalidate();

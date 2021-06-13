@@ -29,15 +29,15 @@ public class ActivityManager {
 	
 	private static final String FIND_ACTIVITY_BY_NAME = "SELECT * FROM activity WHERE name=?";
 
-	private final static String FIND_ALL_REQUESTED_ACTIVITIES = "SELECT pa.participant_id, p.login, pa.activity_id, a.name, a.category_id, pa.activity_duration, pa.status_id "
+	private final static String FIND_ALL_REQUESTED_ACTIVITIES = "SELECT p.login, pa.activity_id, a.name, pa.activity_duration "
 			+ "FROM activity a, participant p, participant_activity pa "
 			+ "WHERE p.id=pa.participant_id AND a.id=pa.activity_id AND pa.status_id=0";
 	
-	private final static String FIND_ALL_ACTIVITIES_TO_DELETE = "SELECT pa.participant_id, p.login, pa.activity_id, a.name, a.category_id, pa.activity_duration, pa.status_id "
+	private final static String FIND_ALL_ACTIVITIES_TO_DELETE = "SELECT p.login, pa.activity_id, a.name, pa.activity_duration "
 			+ "FROM activity a, participant p, participant_activity pa "
 			+ "WHERE p.id=pa.participant_id AND a.id=pa.activity_id AND pa.status_id=2";
 	
-	private final static String FIND_ALL_ACTIVITIES_OF_PARTICIPANT = "SELECT pa.participant_id, p.login, pa.activity_id, a.name, a.category_id, pa.activity_duration, pa.status_id "
+	private final static String FIND_ALL_ACTIVITIES_OF_PARTICIPANT = "SELECT p.login, pa.activity_id, a.name, pa.activity_duration "
 			+ "FROM activity a, participant p, participant_activity pa "
 			+ "WHERE p.id=pa.participant_id AND a.id=pa.activity_id AND p.id=? AND status_id!=0";
 	
@@ -445,13 +445,10 @@ public class ActivityManager {
 		public ParticipantActivityBean mapRow(ResultSet rs) {
 			try {
 				ParticipantActivityBean bean = new ParticipantActivityBean();
-				bean.setParticipantId(rs.getInt(Fields.PARTICIPANT_ACTIVITY_BEAN__PARTICIPANT_ID));
 				bean.setParticipantLogin(rs.getString(Fields.PARTICIPANT_ACTIVITY_BEAN__PARTICIPANT_LOGIN));
 				bean.setActivityId(rs.getInt(Fields.PARTICIPANT_ACTIVITY_BEAN__ACTIVIVTY_ID));
 				bean.setActivityName(rs.getString(Fields.PARTICIPANT_ACTIVITY_BEAN__ACTIVIVTY_NAME));
-				bean.setCategoryId(rs.getInt(Fields.PARTICIPANT_ACTIVITY_BEAN__CATEGORYY_ID));
 				bean.setActivityDuration(rs.getInt(Fields.PARTICIPANT_ACTIVITY_BEAN__DURATION));
-				bean.setStatusId(rs.getInt(Fields.PARTICIPANT_ACTIVITY_BEAN__STATUS_ID));
 				return bean;
 			} catch (SQLException e) {
 				throw new IllegalStateException(e);
@@ -468,14 +465,9 @@ public class ActivityManager {
 		public ParticipantActivityDurationBean mapRow(ResultSet rs) {
 			try {
 				ParticipantActivityDurationBean bean = new ParticipantActivityDurationBean();
-				System.out.println("bean created " + bean);
 				bean.setParticipantLogin(rs.getString(Fields.PARTICIPANT_ACTIVITY_DURATION_BEAN__PARTICIPANT_LOGIN));
-				System.out.println("bean login " + bean.getParticipantLogin().toString());
-
 				bean.setActivityDuration(rs.getInt(Fields.PARTICIPANT_ACTIVITY_DURATION_BEAN__ACTIVITY_DURATION));
-				System.out.println("bean duration " + bean.getActivityDuration());
 				bean.setActivityId(rs.getInt(Fields.PARTICIPANT_ACTIVITY_DURATION_BEAN__ACTIVITY_ID));
-				System.out.println("bean id " + bean.getActivityId());
 				return bean;
 			} catch (SQLException e) {
 				throw new IllegalStateException(e);

@@ -15,27 +15,25 @@ import com.epam.db.CategoryManager;
 import com.epam.db.entity.Category;
 
 public class UpdateCategoryCommand extends Command {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private static final Logger log = LogManager.getLogger(UpdateCategoryCommand.class);
-	
+
 	@Override
-	public String execute(HttpServletRequest req,
-			HttpServletResponse resp) throws IOException, ServletException {
+	public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		log.debug("Command starts");
-		
+
 		HttpSession session = req.getSession();
 
-		// obtain not updated category name from the request
 		String categoryName = req.getParameter("categoryName");
 		log.trace("Request parameter: categoryName --> " + categoryName);
-		
+
 		Category category = new CategoryManager().getCategoryByName(categoryName);
-		
+
 		session.setAttribute("category", category);
 		log.trace("Set the session attribute: category --> " + category);
-		
+
 		log.debug("Command finished");
 		return Path.PAGE__UPDATE_CATEGORY;
 	}

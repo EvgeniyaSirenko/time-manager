@@ -15,23 +15,20 @@ import com.epam.bean.ParticipantActivityDurationBean;
 import com.epam.db.ActivityManager;
 
 public class ReportsCommand extends Command {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private static final Logger log = LogManager.getLogger(ParticipantsCommand.class);
 
 	@Override
-	public String execute(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException, ServletException {
-		
-		log.debug("Command starts");
-		
-		// get beans list
-		List<ParticipantActivityDurationBean> participantActivityBeansList = new ActivityManager().getParticipantsTotalActivitiesAndDuration();
-		log.trace("Found in DB: participantActivityBeansList --> " + participantActivityBeansList);
-		System.out.println("participantsList" + participantActivityBeansList);
+	public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
-		// put beans list to the request
+		log.debug("Command starts");
+
+		List<ParticipantActivityDurationBean> participantActivityBeansList = new ActivityManager()
+				.getParticipantsTotalActivitiesAndDuration();
+		log.trace("Found in DB: participantActivityBeansList --> " + participantActivityBeansList);
+
 		req.setAttribute("participantActivityBeansList", participantActivityBeansList);
 		log.trace("Set the request attribute: participantActivityBeansList --> " + participantActivityBeansList);
 

@@ -11,42 +11,35 @@ import org.apache.logging.log4j.Logger;
 
 import com.epam.Path;
 import com.epam.db.ActivityManager;
-import com.epam.db.CategoryManager;
 import com.epam.db.entity.Activity;
-import com.epam.db.entity.Category;
 
 public class AdminSaveCreatedActivityCommand extends Command {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private static final Logger log = LogManager.getLogger(AdminSaveCreatedActivityCommand.class);
 
 	@Override
-	public String execute(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException, ServletException {
-		
+	public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+
 		log.debug("Command starts");
 
-		// obtain activity name from the request
 		String name = req.getParameter("name");
 		log.trace("Request parameter: name --> " + name);
-		System.out.println("Request parameter: name --> " + name);
 
 		String errorMessage = null;
 		String forward = Path.PAGE__ERROR_PAGE;
-		
+
 		Activity activity = new ActivityManager().getActivityByName(name);
 		log.trace("Found in DB: activity --> " + activity);
-		System.out.println("Found in DB: activity --> " + activity);
-		
+
 		String categoryId = req.getParameter("category");
-		System.out.println("Found parametr: categoryId --> " + categoryId);
-		
+
 		int selectedCategoryId = 0;
 		try {
 			selectedCategoryId = Integer.parseInt(categoryId);
-		} catch (NumberFormatException e){
-			System.out.println("error" + e);		
+		} catch (NumberFormatException e) {
+			log.error("error" + e);
 		}
 
 		if (activity != null) {
@@ -54,18 +47,17 @@ public class AdminSaveCreatedActivityCommand extends Command {
 			req.getSession().setAttribute("errorMessage", errorMessage);
 			log.error("errorMessage --> " + errorMessage);
 			return forward;
-		} else {		
+		} else {
 			Activity newActivity = new Activity();
 			newActivity.setName(req.getParameter("name"));
 			newActivity.setCategoryId(selectedCategoryId);
 
-			//send data to DB
 			new ActivityManager().createActivity(newActivity);
 			System.out.println("Created new " + new ActivityManager().getActivityByName(newActivity.getName()));
-			
+
 			forward = Path.PAGE__ADMIN_MAIN_PAGE;
 		}
-		
+
 		log.debug("Command finished");
 		return forward;
 	}

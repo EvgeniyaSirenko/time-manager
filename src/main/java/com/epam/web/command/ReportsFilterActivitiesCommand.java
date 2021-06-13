@@ -17,32 +17,29 @@ import com.epam.db.CategoryManager;
 import com.epam.db.entity.Category;
 
 public class ReportsFilterActivitiesCommand extends Command {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private static final Logger log = LogManager.getLogger(ReportsFilterActivitiesCommand.class);
 
 	@Override
-	public String execute(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException, ServletException {
-		
+	public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+
 		log.debug("Command starts");
-		
+
 		List<Category> categoriesList = new CategoryManager().getAllCategories();
 		log.trace("Found in DB: categoriesList --> " + categoriesList);
-		System.out.println("categoriesList" + categoriesList);
-		
+
 		req.setAttribute("categoriesList", categoriesList);
 		log.trace("Set the request attribute: categoriesList --> " + categoriesList);
-		
-		// get beans list
-		List<CategoryActivityParticipantBean> categoryActivityParticipantBeansList = new ActivityManager().getAllCategoryActivityParticipantBeansCategoryOrder();
-		log.trace("Found in DB: categoryActivityParticipantBeansList --> " + categoryActivityParticipantBeansList);
-		System.out.println("categoryActivityParticipantBeansList" + categoryActivityParticipantBeansList);
 
-		// put beans list to the request
+		List<CategoryActivityParticipantBean> categoryActivityParticipantBeansList = new ActivityManager()
+				.getAllCategoryActivityParticipantBeansCategoryOrder();
+		log.trace("Found in DB: categoryActivityParticipantBeansList --> " + categoryActivityParticipantBeansList);
+
 		req.setAttribute("categoryActivityParticipantBeansList", categoryActivityParticipantBeansList);
-		log.trace("Set the request attribute: categoryActivityParticipantBeansList --> " + categoryActivityParticipantBeansList);
+		log.trace("Set the request attribute: categoryActivityParticipantBeansList --> "
+				+ categoryActivityParticipantBeansList);
 
 		log.debug("Command finished");
 		return Path.PAGE__ACTIVITIES_TO_FILTER;

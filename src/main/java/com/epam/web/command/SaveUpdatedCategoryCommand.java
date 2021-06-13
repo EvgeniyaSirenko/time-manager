@@ -11,9 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.epam.Path;
 import com.epam.db.CategoryManager;
-import com.epam.db.ParticipantManager;
 import com.epam.db.entity.Category;
-import com.epam.db.entity.Participant;
 
 public class SaveUpdatedCategoryCommand extends Command {
 
@@ -26,13 +24,12 @@ public class SaveUpdatedCategoryCommand extends Command {
 		log.debug("Command starts");
 
 		Category categoryFromSession = (Category) req.getSession().getAttribute("category");
-		System.out.println("categoryFromSession -> " + categoryFromSession);
+		log.debug("categoryFromSession -> " + categoryFromSession);
 
 		boolean update = false;
 
-		// update category name
 		String categoryName = req.getParameter("name");
-		System.out.println("categeryName -> " + categoryName);
+		log.debug("categeryName -> " + categoryName);
 
 		if (categoryName != null && !categoryName.isEmpty()) {
 			categoryFromSession.setName(categoryName);
@@ -42,8 +39,7 @@ public class SaveUpdatedCategoryCommand extends Command {
 
 		if (update == true)
 			new CategoryManager().updateCategory(categoryFromSession);
-		System.out.println(
-				"updated category ->" + new CategoryManager().getCategoryByName(categoryFromSession.getName()));
+		log.debug("updated category ->" + new CategoryManager().getCategoryByName(categoryFromSession.getName()));
 
 		log.debug("Command finished");
 		return Path.PAGE__ADMIN_MAIN_PAGE;

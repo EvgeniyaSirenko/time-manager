@@ -21,16 +21,13 @@ public class CategoriesCommand extends Command {
 	private static final Logger log = LogManager.getLogger(CategoriesCommand.class);
 
 	@Override
-	public String execute(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException, ServletException {
+	public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
 		log.debug("Command starts");
-		
-		// get categories list
+
 		List<Category> categoriesList = new CategoryManager().getAllCategories();
 		log.trace("Found in DB: categoriesList --> " + categoriesList);
 
-		// put categories list to the request
 		req.setAttribute("categoriesList", categoriesList);
 		log.trace("Set the request attribute: categoriesList --> " + categoriesList);
 

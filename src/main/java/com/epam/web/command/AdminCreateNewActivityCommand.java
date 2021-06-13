@@ -15,23 +15,19 @@ import com.epam.db.CategoryManager;
 import com.epam.db.entity.Category;
 
 public class AdminCreateNewActivityCommand extends Command {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private static final Logger log = LogManager.getLogger(ParticipantChooseNewActivityCommand.class);
 
 	@Override
-	public String execute(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException, ServletException {
-		
+	public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+
 		log.debug("Command starts");
-				
-		// get category list
+
 		List<Category> categoriesList = new CategoryManager().getAllCategories();
 		log.trace("Found in DB: categoriesList --> " + categoriesList);
-		System.out.println("Found in DB: categoriesList --> " + categoriesList);
 
-		// put category list to the request
 		req.setAttribute("categoriesList", categoriesList);
 		log.trace("Set the request attribute: categoriesList --> " + categoriesList);
 

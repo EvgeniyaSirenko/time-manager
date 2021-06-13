@@ -21,17 +21,13 @@ public class ParticipantsCommand extends Command {
 	private static final Logger log = LogManager.getLogger(ParticipantsCommand.class);
 
 	@Override
-	public String execute(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException, ServletException {
+	public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
 		log.debug("Command starts");
-		
-		// get categories list
+
 		List<Participant> participantsList = new ParticipantManager().getAllParticipants();
 		log.trace("Found in DB: participantsList --> " + participantsList);
-		System.out.println("participantsList" + participantsList);
 
-		// put categories list to the request
 		req.setAttribute("participantsList", participantsList);
 		log.trace("Set the request attribute: participantsList --> " + participantsList);
 

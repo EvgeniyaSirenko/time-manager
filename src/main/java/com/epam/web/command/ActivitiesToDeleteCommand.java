@@ -13,25 +13,21 @@ import org.apache.logging.log4j.Logger;
 import com.epam.Path;
 import com.epam.bean.ParticipantActivityBean;
 import com.epam.db.ActivityManager;
-import com.epam.db.entity.Activity;
 
 public class ActivitiesToDeleteCommand extends Command {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private static final Logger log = LogManager.getLogger(ActivitiesToDeleteCommand.class);
 
 	@Override
-	public String execute(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException, ServletException {
+	public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
 		log.debug("Command starts");
-		
-		// get activities list
+
 		List<ParticipantActivityBean> participantActivityBeansList = new ActivityManager().getActivitiesToDelete();
 		log.trace("Found in DB: participantActivityBeansList --> " + participantActivityBeansList);
 
-		// put activities list to the request
 		req.setAttribute("participantActivityBeansList", participantActivityBeansList);
 		log.trace("Set attribute: participantActivityBeansList --> " + participantActivityBeansList);
 

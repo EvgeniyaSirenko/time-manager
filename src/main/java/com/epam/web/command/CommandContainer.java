@@ -18,7 +18,7 @@ public class CommandContainer {
 
 	static {
 		// common commands
-		commands.put("login", new LoginCommand());		
+		commands.put("login", new LoginCommand());
 		commands.put("logout", new LogoutCommand());
 		commands.put("registration", new RegistrationCommand());
 
@@ -56,7 +56,8 @@ public class CommandContainer {
 		commands.put("reports", new ReportsCommand());
 		commands.put("reportsSortActivities", new ReportsSortActivitiesCommand());
 		commands.put("reportsSortActivitiesByCategory", new ReportsSortActivitiesByCategoryCommand());
-		commands.put("reportsSortActivitiesByParticipantsQuantity", new ReportsSortActivitiesByParticipansQuantityCommand());
+		commands.put("reportsSortActivitiesByParticipantsQuantity",
+				new ReportsSortActivitiesByParticipansQuantityCommand());
 		commands.put("reportsFilterActivities", new ReportsFilterActivitiesCommand());
 		commands.put("reportsFilterActivitiesByCategory", new ReportsFilterActivitiesByCategoryCommand());
 
@@ -72,8 +73,7 @@ public class CommandContainer {
 
 		return commands.get(commandName);
 	}
-	
-	//temporary method
+
 	public static Command getCommand(String commandName) {
 		return commands.get(commandName);
 	}

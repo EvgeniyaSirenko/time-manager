@@ -23,19 +23,16 @@ public class LoginCommand extends Command {
 	private static final Logger log = LogManager.getLogger(LoginCommand.class);
 
 	@Override
-	public String execute(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException, ServletException {
+	public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		log.debug("Command starts");
 
 		HttpSession session = req.getSession();
 
-		// obtain login and password from the request
 		String login = req.getParameter("login");
 		log.trace("Request parameter: loging --> " + login);
 
 		String password = req.getParameter("password");
 
-		// error handler
 		String errorMessage = null;
 		String forward = Path.PAGE__ERROR_PAGE;
 
@@ -72,7 +69,6 @@ public class LoginCommand extends Command {
 
 			log.info("participant " + participant + " logged as " + participantRole.toString().toLowerCase());
 
-			// work with i18n
 			String participantLocaleName = participant.getLocaleName();
 			log.trace("participantLocalName --> " + participantLocaleName);
 

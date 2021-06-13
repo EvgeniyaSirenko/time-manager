@@ -14,12 +14,11 @@ import com.epam.Path;
 public class AdminMainPageCommand extends Command {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private static final Logger log = LogManager.getLogger(AdminMainPageCommand.class);
 
 	@Override
-	public String execute(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException, ServletException {
+	public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		log.debug("Command starts");
 
 		log.debug("Command finished");

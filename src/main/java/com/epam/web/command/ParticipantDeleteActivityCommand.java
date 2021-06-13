@@ -18,7 +18,6 @@ import com.epam.db.entity.Participant;
 
 public class ParticipantDeleteActivityCommand extends Command {
 
-	
 	private static final long serialVersionUID = 1L;
 
 	private static final Logger log = LogManager.getLogger(ApproveActivityCommand.class);
@@ -28,15 +27,14 @@ public class ParticipantDeleteActivityCommand extends Command {
 		log.debug("Command starts");
 
 		String activityName = req.getParameter("activityName");
-		System.out.println("activityName -> " + activityName);
-		
+		log.trace("activityName -> " + activityName);
+
 		String participantLogin = req.getParameter("participantLogin");
-		System.out.println("participantLogin -> " + participantLogin);		
-		
+		log.trace("participantLogin -> " + participantLogin);
+
 		Activity activity = new ActivityManager().getActivityByName(activityName);
 		Participant participant = new ParticipantManager().getParticipantByLogin(participantLogin);
-		
-		// update status to delete (id = 2)
+
 		new ParticipantActivityManager().updateParticipantActivityStatusToDelete(participant, activity);
 
 		log.debug("Command finished");
