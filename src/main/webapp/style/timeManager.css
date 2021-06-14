@@ -7,21 +7,19 @@ body {
 }
 
 table {
-	border-collapse:collapse;
+	border-collapse: collapse;
 }
 
 td {
-	border:1px solid black;
+	border: 1px solid black;
 	padding: 2px;
 }
 
-
 #header, #footer, .content {
-	border: 0px solid;	
+	border: 0px solid;
 	width: 100vw;
-  	height: 100vh;
-  	text-align: center;
-  	
+	height: 100vh;
+	text-align: center;
 }
 
 /***************************************************************
@@ -30,9 +28,8 @@ Style of the main table
 #main-container {
 	background: #b4e2f4;
 	width: 100vw;
-  	height: 100vh;
-  	text-align: center;
-  	
+	height: 100vh;
+	text-align: center;
 }
 
 /***************************************************************
@@ -49,7 +46,7 @@ Style for the header
 #fixedHeader {
 	background: #b4e2f4;
 	width: 100%;
-	text-align: center;	
+	text-align: center;
 	padding-top: 20px;
 }
 
@@ -69,13 +66,13 @@ Content styles (TD tag in the main middle row)
 /***************************************************************
 Settings form (settings.jsp)
 ***************************************************************/
-#form > div > p {
+#form>div>p {
 	font-size: 17px;
 	margin-top: 5px;
 	margin-bottom: 2px;
 }
 
-#form > input[type=submit] {
+#form>input[type=submit] {
 	margin-top: 10px;
 }
 

@@ -9,19 +9,19 @@
 <%@ include file="/jspf/head.jspf"%>
 </head>
 <body>
-<c:if test="${not empty participant}">
+	<c:if test="${not empty participant}">
 		<%@ include file="/jspf/header.jspf"%>
-</c:if>
-<c:if test="${empty participant and title ne 'Login'}">
+	</c:if>
+	<c:if test="${empty participant and title ne 'Login'}">
+		<div id="fixedHeader">
+		<form action="login.jsp" method="post">
+				<input type="submit"
+					value="<fmt:message key="header_jspf.anchor.login"/>" />
+		</form>
+		</div>
+	</c:if>
 	<div id="fixedHeader">
-		<form action="controller" method="get">
-			<input type="hidden" name="command" value="login" />		
-			<input type="submit" value="<fmt:message key="header_jspf.anchor.login"/>"/>
-		</form>	
+		<%@ include file="/jspf/footer.jspf"%>
 	</div>
-</c:if>
-<div id="fixedHeader">
-	<%@ include file="/jspf/footer.jspf"%>
-</div>
 </body>
 </html>

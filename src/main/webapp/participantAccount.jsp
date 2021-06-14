@@ -11,14 +11,15 @@
 </head>
 
 <c:if test="${not empty participant}">
-<div id="fixedHeader">
-	<form action="controller" method="get">
-		<input type="hidden" name="command" value="participantMainPage" />
-		<input type="submit" value="<fmt:message key="header_jspf.anchor.main_page"/>"/>
-	</form>	
-</div>
+	<div id="fixedHeader">
+		<form action="controller" method="get">
+			<input type="hidden" name="command" value="participantMainPage" /> <input
+				type="submit"
+				value="<fmt:message key="header_jspf.anchor.main_page"/>" />
+		</form>
+	</div>
 
-<body>
+	<body>
 		<div id="fixedHeader">
 			<form id="form" action="controller" method="post">
 				<input type="hidden" name="command" value="participantUpdateAccount" />
@@ -35,42 +36,43 @@
 					<c:forEach var="localeName" items="${locales}">
 						<option value="${localeName}">${localeName}</option>
 					</c:forEach>
-				</select> 
-				
-				<br> <br>
+				</select> <br> <br>
 
 				<div>
 					<fmt:message key="participant_account_jsp.label.first_name" />
-					<br> <input name="firstName" value="${participant.firstName}" required/>
+					<br> <input name="firstName" value="${participant.firstName}"
+						required />
 				</div>
 				<div>
 					<fmt:message key="participant_account_jsp.label.last_name" />
-					<br> <input name="lastName" value="${participant.lastName}" required/>
+					<br> <input name="lastName" value="${participant.lastName}"
+						required />
 				</div>
 				<div>
 					<fmt:message key="login_jsp.label.login" />
-					<br> <input name="login" value="${participant.login}"required/>
+					<br> <input name="login" value="${participant.login}" required />
 				</div>
 				<div>
 					<fmt:message key="login_jsp.label.password" />
-					<br> <input name="password" type="password" value="${participant.password}" required/>
+					<br> <input name="password" type="password"
+						value="${participant.password}" required />
 				</div>
-					<input type="submit"
-						value='<fmt:message key="participant_account_jsp.button.update"/>'>
+				<input type="submit"
+					value='<fmt:message key="participant_account_jsp.button.update"/>'>
 			</form>
 		</div>
 </c:if>
 
 <c:if test="${empty participant and title ne 'Login'}">
 	<div id="fixedHeader">
-		<form action="controller" method="get">
-				<input type="hidden" name="command" value="login" />		
-				<input type="submit" value="<fmt:message key="header_jspf.anchor.login"/>"/>
-		</form>	
+		<form action="login.jsp" method="post">
+				<input type="submit"
+					value="<fmt:message key="header_jspf.anchor.login"/>" />
+		</form>
 	</div>
 </c:if>
 <div id="fixedHeader">
-<%@ include file="/jspf/footer.jspf"%>
+	<%@ include file="/jspf/footer.jspf"%>
 
 </div>
 </body>

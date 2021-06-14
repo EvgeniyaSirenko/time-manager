@@ -41,20 +41,20 @@ public class CommandAccessFilter implements Filter {
 		log.debug("Filter destruction finished");
 	}
 
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
 		log.debug("Filter starts");
 		
-		if (accessAllowed(request)) {
+		if (accessAllowed(req)) {
 			log.debug("Filter finished");
-			chain.doFilter(request, response);
+			chain.doFilter(req, resp);
 		} else {
 			String errorMessasge = "You do not have permission to access the requested resource";
 			
-			request.setAttribute("errorMessage", errorMessasge);
+			req.setAttribute("errorMessage", errorMessasge);
 			log.trace("Set the request attribute: errorMessage --> " + errorMessasge);
 			
-			request.getRequestDispatcher(Path.PAGE__ERROR_PAGE)
-					.forward(request, response);
+			req.getRequestDispatcher(Path.PAGE__ERROR_PAGE)
+					.forward(req, resp);
 		}
 	}
 	

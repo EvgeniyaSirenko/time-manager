@@ -44,7 +44,7 @@ public class RegistrationCommand extends Command {
 			newParticipant.setLastName(req.getParameter("lastName"));
 			newParticipant.setLogin(req.getParameter("login"));
 			newParticipant.setPassword(req.getParameter("password"));
-			newParticipant.setLocaleName(null);
+			newParticipant.setLocaleName(req.getParameter("localeName"));
 			newParticipant.setRoleId(1);
 
 			new ParticipantManager().createParticipant(newParticipant);

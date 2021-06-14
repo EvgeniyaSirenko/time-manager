@@ -12,16 +12,20 @@
 <c:if test="${not empty participant}">
 	<div id="fixedHeader">
 		<form action="controller" method="get">
-			<input type="hidden" name="command" value="adminMainPage" /> 
-				<input type="submit" value="<fmt:message key="header_jspf.anchor.main_page"/>" />
+			<input type="hidden" name="command" value="adminMainPage" /> <input
+				type="submit"
+				value="<fmt:message key="header_jspf.anchor.main_page"/>" />
 		</form>
 	</div>
 	<body>
 		<div id="fixedHeader">
 			<td class="content">
 				<table id="activities_table">
-				<p><fmt:message key="reports.label.table_head" /></p>
-					<thead>
+					<p>
+						<fmt:message key="reports.label.table_head" />
+					</p>
+
+					
 						<tr>
 							<td>№</td>
 							<td><fmt:message key="reports.label.participant_login" /></td>
@@ -50,13 +54,14 @@
 					</a>
 			</td>
 		</div>
+
 </c:if>
 
 <c:if test="${empty participant and title ne 'Login'}">
 	<div id="fixedHeader">
-		<form action="controller" method="get">
-			<input type="hidden" name="command" value="login" /> 
-				<input type="submit" value="<fmt:message key="header_jspf.anchor.login"/>" />
+		<form action="login.jsp" method="post">
+				<input type="submit"
+					value="<fmt:message key="header_jspf.anchor.login"/>" />
 		</form>
 	</div>
 </c:if>

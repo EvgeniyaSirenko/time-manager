@@ -1,18 +1,11 @@
 <Context>
 
-	<Resource name="jdbc/TimeDB" 
-		auth="Container"
-		type="javax.sql.DataSource"
-
-		maxTotal="100" maxIdle="30"
-		maxWaitMillis="10000" 
-		
-		username="root" password="Pavlyk1984"
-		driverClassName="com.mysql.cj.jdbc.Driver"
-		
-		defaultAutoCommit="false" 
+	<Resource name="jdbc/TimeDB" auth="Container"
+		type="javax.sql.DataSource" maxTotal="100" maxIdle="30"
+		maxWaitMillis="10000" username="root" password="Pavlyk1984"
+		driverClassName="com.mysql.cj.jdbc.Driver" defaultAutoCommit="false"
 		defaultTransactionIsolation="READ_COMMITTED"
-		
+
 		url="jdbc:mysql://localhost:3306/timedb" />
 
 </Context>

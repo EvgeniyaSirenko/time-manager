@@ -12,8 +12,9 @@
 <c:if test="${not empty participant}">
 	<div id="fixedHeader">
 		<form action="controller" method="get">
-			<input type="hidden" name="command" value="adminMainPage" /> 
-				<input type="submit" value="<fmt:message key="header_jspf.anchor.main_page"/>" />
+			<input type="hidden" name="command" value="adminMainPage" /> <input
+				type="submit"
+				value="<fmt:message key="header_jspf.anchor.main_page"/>" />
 		</form>
 	</div>
 	<body>
@@ -23,25 +24,22 @@
 					<thead>
 						<tr>
 							<td>№</td>
-							<td>
-								<a href="controller?command=reportsSortActivities"> 
+							<td><a href="controller?command=reportsSortActivities">
 									<fmt:message key="reports.label.activity" />
-								</a>
-							</td>
-							<td>
-								<a href="controller?command=reportsSortActivitiesByCategory"> 
-									<fmt:message key="reports.label.category" />
-								</a>
-							</td>
-							<td>
-								<a href="controller?command=reportsSortActivitiesByParticipantsQuantity"> 
+							</a></td>
+							<td><a
+								href="controller?command=reportsSortActivitiesByCategory"> <fmt:message
+										key="reports.label.category" />
+							</a></td>
+							<td><a
+								href="controller?command=reportsSortActivitiesByParticipantsQuantity">
 									<fmt:message key="reports.label.participants_quantity" />
-								</a>							
-							</td>
+							</a></td>
 						</tr>
 					</thead>
 					<c:set var="k" value="0" />
-					<c:forEach var="bean" items="${categoryActivityParticipantBeansList}">
+					<c:forEach var="bean"
+						items="${categoryActivityParticipantBeansList}">
 						<c:set var="k" value="${k+1}" />
 						<tr>
 							<td><c:out value="${k}" /></td>
@@ -57,9 +55,9 @@
 
 <c:if test="${empty participant and title ne 'Login'}">
 	<div id="fixedHeader">
-		<form action="controller" method="get">
-			<input type="hidden" name="command" value="login" /> 
-				<input type="submit" value="<fmt:message key="header_jspf.anchor.login"/>" />
+		<form action="login.jsp" method="post">
+				<input type="submit"
+					value="<fmt:message key="header_jspf.anchor.login"/>" />
 		</form>
 	</div>
 </c:if>

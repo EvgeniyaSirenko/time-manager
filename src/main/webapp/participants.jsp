@@ -12,11 +12,12 @@
 <c:if test="${not empty participant}">
 	<div id="fixedHeader">
 		<form action="controller" method="get">
-			<input type="hidden" name="command" value="adminMainPage" />
-			<input type="submit" value="<fmt:message key="header_jspf.anchor.main_page"/>"/>
-		</form>	
+			<input type="hidden" name="command" value="adminMainPage" /> <input
+				type="submit"
+				value="<fmt:message key="header_jspf.anchor.main_page"/>" />
+		</form>
 	</div>
-		<body>
+	<body>
 		<div id="fixedHeader">
 			<td class="content">
 				<table id="activities_table">
@@ -35,10 +36,11 @@
 							<td><c:out value="${k}" /></td>
 							<td><c:out value="${bean.login}" /></td>
 							<td>
-								<form action="controller?command=deleteParticipant" method="post">
+								<form action="controller?command=deleteParticipant"
+									method="post">
 									<input type="hidden" name="command" value="deleteParticipant" />
-									<input type=hidden name="participantLogin" value="${bean.login}" />
-									<input type="submit"
+									<input type=hidden name="participantLogin"
+										value="${bean.login}" /> <input type="submit"
 										value="<fmt:message key="categories.button.delete"/>" />
 								</form>
 							</td>
@@ -51,14 +53,14 @@
 
 <c:if test="${empty participant and title ne 'Login'}">
 	<div id="fixedHeader">
-		<form action="controller" method="get">
-			<input type="hidden" name="command" value="login" />		
-			<input type="submit" value="<fmt:message key="header_jspf.anchor.login"/>"/>
-		</form>	
+		<form action="login.jsp" method="post">
+				<input type="submit"
+					value="<fmt:message key="header_jspf.anchor.login"/>" />
+		</form>
 	</div>
 </c:if>
 <div id="fixedHeader">
-<%@ include file="/jspf/footer.jspf"%>
+	<%@ include file="/jspf/footer.jspf"%>
 </div>
 </body>
 </html>

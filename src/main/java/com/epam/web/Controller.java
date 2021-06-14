@@ -23,15 +23,15 @@ public class Controller extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("Controller#doGet");
+		log.debug("Controller#doGet");
 
 		String address = "error.jsp";
 
 		String commandName = req.getParameter("command");
-		System.out.println("commandName ==> " + commandName);
+		log.trace("commandName ==> " + commandName);
 
 		Command command = CommandContainer.getCommand(commandName);
-		System.out.println("command ==> " + command);
+		log.trace("command ==> " + command);
 
 		try {
 			address = command.execute(req, resp);
@@ -39,21 +39,21 @@ public class Controller extends HttpServlet {
 			req.setAttribute("error", ex);
 		}
 
-		System.out.println("address == > " + address);
+		log.trace("address == > " + address);
 		req.getRequestDispatcher(address).forward(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("Controller#doPost");
+		log.debug("Controller#doPost");
 
 		String address = "error.jsp";
 
 		String commandName = req.getParameter("command");
-		System.out.println("commandName ==> " + commandName);
+		log.trace("commandName ==> " + commandName);
 
 		Command command = CommandContainer.getCommand(commandName);
-		System.out.println("command ==> " + command);
+		log.trace("command ==> " + command);
 
 		try {
 			address = command.execute(req, resp);
@@ -61,44 +61,8 @@ public class Controller extends HttpServlet {
 			req.getSession().setAttribute("error", ex);
 
 		}
-		System.out.println("address == > " + address);
+		log.trace("address == > " + address);
 		resp.sendRedirect(address);
 
 	}
-
-//	@Override
-//	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//		process(req, resp);
-//	}
-//
-//	@Override
-//	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//		process(req, resp);
-//	}
-//
-//	private void process(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-//		
-//		log.debug("Controller starts");
-//
-//		// extract command name from the request
-//		String commandName = req.getParameter("command");
-//		log.trace("Request parameter: command --> " + commandName);
-//
-//		// obtain command object by its name
-//		Command command = CommandContainer.get(commandName);
-//		log.trace("Obtained command --> " + command);
-//
-//		// execute command and get forward address
-//		String forward = command.execute(req, resp);
-//		log.trace("Forward address --> " + forward);
-//
-//		log.debug("Controller finished, now go to forward address --> " + forward);
-//
-//		// if the forward address is not null go to the address
-//		if (forward != null) {
-//			RequestDispatcher disp = req.getRequestDispatcher(forward);
-//			disp.forward(req, resp);
-//		}
-//	}
-
 }
