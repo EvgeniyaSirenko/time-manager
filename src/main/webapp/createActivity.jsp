@@ -23,7 +23,7 @@
 				<input type="hidden" name="command" value="adminSaveCreatedActivity" />
 				<div>
 					<fmt:message key="create_activity_jsp.label.activity_name" />
-					:&nbsp; <input type="text" name="name" required />
+					:&nbsp; <input type="text" pattern="[A-Za-z]{3}" oninvalid="setCustomValidity('Please use only Latin letters, not less than 3')" name="name" required />
 				</div>
 				<div>
 					<label for="name"><fmt:message
