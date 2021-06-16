@@ -23,9 +23,13 @@ public class LogoutCommand extends Command {
 		log.debug("Command starts");
 
 		HttpSession session = req.getSession(false);
+		session.setAttribute("defaultLocale", "en");
 		if (session != null)
 			session.invalidate();
-
+		
+		HttpSession session1 = req.getSession();
+		session1.setAttribute("defaultLocale", "en");
+		
 		log.debug("Command finished");
 		return Path.PAGE__LOGIN;
 	}

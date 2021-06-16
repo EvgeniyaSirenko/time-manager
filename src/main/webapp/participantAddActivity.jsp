@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="/jspf/directive/taglib.jspf"%>
 
+<fmt:setLocale value="${sessionScope.defaultLocale}"/>
+<fmt:setBundle basename="resources"/>
 
 <!DOCTYPE html>
 <html>

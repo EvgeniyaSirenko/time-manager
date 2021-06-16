@@ -6,7 +6,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.jstl.core.Config;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -59,7 +58,6 @@ public class ParticipantUpdateAccountCommand extends Command {
 		String localeToSet = req.getParameter("localeToSet");
 		if (localeToSet != null && !localeToSet.isEmpty()) {
 			HttpSession session = req.getSession();
-			Config.set(session, "javax.servlet.jsp.jstl.fmt.locale", localeToSet);
 			session.setAttribute("defaultLocale", localeToSet);
 			participant.setLocaleName(localeToSet);
 			updateParticipant = true;

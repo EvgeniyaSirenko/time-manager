@@ -23,7 +23,7 @@
 				<input type="hidden" name="command" value="createCategory" /> <label
 					for="name"><fmt:message
 						key="create_category_jsp.label.category_name" /></label> <input
-					type="text" pattern="[A-Za-z]{3}" oninvalid="setCustomValidity('Please use only Latin letters, not less than 3')" name="name" required /><br> <input type="submit"
+					type="text" pattern="[A-Za-z]{3,15}" oninvalid="setCustomValidity('Please use only Latin letters, 3-15 symbols')" name="name" required /><br> <input type="submit"
 					value="Create" />
 			</form>
 		</div>

@@ -1,7 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="/jspf/directive/taglib.jspf"%>
 
+<fmt:setLocale value="${sessionScope.defaultLocale}"/>
+<fmt:setBundle basename="resources"/>
+				
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,34 +30,37 @@
 				<select name="localeToSet">
 					<c:choose>
 						<c:when test="${not empty defaultLocale}">
-							<option value="">${defaultLocale}[Default]</option>
+							<option value="">${defaultLocale}</option>
 						</c:when>
 						<c:otherwise>
 							<option value="" />
 						</c:otherwise>
 					</c:choose>
-					<c:forEach var="localeName" items="${locales}">
-						<option value="${localeName}">${localeName}</option>
+					<c:forEach var="localeToSet" items="${locales}">
+							<c:set var="selected" value="${localeToSet.key == currentLocale ? 'selected' : '' }"/>
+								<option value="${localeToSet.key}" ${selected}>${localeToSet.key}</option>
 					</c:forEach>
-				</select> <br> <br>
+				</select> 			
+				
+				<br> <br>
 
 				<div>
 					<fmt:message key="participant_account_jsp.label.first_name" />
-					<br> <input name="firstName" value="${participant.firstName}"
+					<br> <input pattern="[A-Za-zа-яА-Я]{3,15}" oninvalid="setCustomValidity('Please use only Latin letters, 3-15 symbols')" name="firstName" value="${participant.firstName}"
 						required />
 				</div>
 				<div>
 					<fmt:message key="participant_account_jsp.label.last_name" />
-					<br> <input name="lastName" value="${participant.lastName}"
+					<br> <input pattern="[A-Za-zа-яА-Я]{3,15}" oninvalid="setCustomValidity('Please use only Latin letters, 3-15 symbols')" name="lastName" value="${participant.lastName}"
 						required />
 				</div>
 				<div>
-					<fmt:message key="login_jsp.label.login" />
-					<br> <input name="login" value="${participant.login}" required />
+					<fmt:message key="participant_account_jsp.label.login" />
+					<br> <input pattern="[A-Za-zа-яА-Я]{3,15}" oninvalid="setCustomValidity('Please use only Latin letters, 3-15 symbols')" name="login" value="${participant.login}" required />
 				</div>
 				<div>
-					<fmt:message key="login_jsp.label.password" />
-					<br> <input name="password" type="password"
+					<fmt:message key="participant_account_jsp.label.password" />
+					<br> <input pattern="[A-Za-z0-9]{3,15}" oninvalid="setCustomValidity('Please use numbers and Latin letters, 5-15 symbols')" name="password" type="password"
 						value="${participant.password}" required />
 				</div>
 				<input type="submit"

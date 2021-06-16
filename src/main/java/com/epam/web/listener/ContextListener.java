@@ -2,10 +2,7 @@ package com.epam.web.listener;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
-import java.util.StringTokenizer;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -59,10 +56,6 @@ public class ContextListener implements ServletContextListener {
 		// save descriptions to servlet context
 		servletContext.setAttribute("locales", locales);
 		locales.list(System.out);
-		
-		//initLog4J(servletContext);
-		initCommandContainer();
-		//initI18N(servletContext);
 		
 		log.debug("Servlet context initialization finished");
 		}

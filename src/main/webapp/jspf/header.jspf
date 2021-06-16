@@ -2,6 +2,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ include file="/jspf/directive/taglib.jspf"%>
 
+
 <div id="fixedHeader">
 
 	<c:if test="${not empty participant}">

@@ -22,7 +22,7 @@ public class ParticipantManager {
 	private static final String FIND_ALL_PARTICIPANTS = "SELECT * FROM participant";
 	private static final String CREATE_PARTICIPANT = "INSERT INTO participant "
 			+ "(first_name, last_name, login, password, locale_name, role_id) VALUES (?, ?, ?, ?, ?, ?)";
-	private static final String UPDATE_PARTICIPANT = "UPDATE participant SET first_name=?, last_name=?, login=?, password=? WHERE id =?";
+	private static final String UPDATE_PARTICIPANT = "UPDATE participant SET first_name=?, last_name=?, login=?, password=?, locale_name=? WHERE id =?";
 
 	
 	/**
@@ -149,10 +149,10 @@ public class ParticipantManager {
 		pstmt.setString(k++, participant.getLastName());
 		pstmt.setString(k++, participant.getLogin());
 		pstmt.setString(k++, participant.getPassword());
+		pstmt.setString(k++, participant.getLocaleName());
 		pstmt.setInt(k, participant.getId());
 		pstmt.executeUpdate();
 		pstmt.close();
-		System.out.println("updatedParticipant_Manager ->" + new ParticipantManager().getParticipantByLogin(participant.getLogin()));
 	}
 
 	/**
