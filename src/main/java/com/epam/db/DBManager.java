@@ -1,8 +1,6 @@
 package com.epam.db;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.naming.Context;
@@ -13,11 +11,7 @@ import javax.sql.DataSource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.epam.db.entity.Participant;
-
 public class DBManager {
-	
-
 	
 	private static final Logger log = LogManager.getLogger(DBManager.class);
 
@@ -50,7 +44,6 @@ public class DBManager {
 			ex.printStackTrace();
 		}
 	}
-
 
 	public void rollbackAndClose(Connection con) {
 		try {

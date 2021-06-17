@@ -11,11 +11,9 @@
 </head>
 <body>
 	<div id="fixedHeader">
-
 		${errorMessage} <br /> <br />
 		<form action="login.jsp" method="post">
-				<input type="submit"
-					value="<fmt:message key="error_jsp.label.back_to_sign_in"/>" />
+			<input type="submit" value="<fmt:message key="error_jsp.label.back_to_sign_in"/>" />
 		</form>
 		<%@ include file="/jspf/footer.jspf"%>
 	</div>

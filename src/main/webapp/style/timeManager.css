@@ -23,26 +23,13 @@ td {
 }
 
 /***************************************************************
-Style of the main table
-***************************************************************/
-#main-container {
-	background: #b4e2f4;
-	width: 100vw;
-	height: 100vh;
-	text-align: center;
-}
-
-/***************************************************************
-Header style (TD tag in the first top row)
+Header style 
 ***************************************************************/
 #header {
 	background: #b4e2f4;
 	padding: 0px;
 }
 
-/***************************************************************
-Style for the header
-***************************************************************/
 #fixedHeader {
 	background: #b4e2f4;
 	width: 100%;
@@ -51,45 +38,11 @@ Style for the header
 }
 
 /***************************************************************
-Content styles (TD tag in the main middle row)
-***************************************************************/
-.content {
-	height: 100%;
-	background: #BBBBFF;
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-top: 10px;
-	text-align: left;
-	vertical-align: top;
-}
-
-/***************************************************************
-Settings form (settings.jsp)
-***************************************************************/
-#form>div>p {
-	font-size: 17px;
-	margin-top: 5px;
-	margin-bottom: 2px;
-}
-
-#form>input[type=submit] {
-	margin-top: 10px;
-}
-
-/***************************************************************
-List activities table (participantActivities.jsp)
+List tables
 ***************************************************************/
 #activities_table {
 	margin-top: 0px;
 	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
-}
-
-#list_menu_table thead {
-	text-align: center;
-}
-
-#list_menu_table td:last-child {
-	text-align: center;
 }

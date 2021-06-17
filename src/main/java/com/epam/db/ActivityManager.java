@@ -237,7 +237,7 @@ public class ActivityManager {
 		} finally {
 			DBManager.getInstance().commitAndClose(con);
 		}
-		System.out.println("activitiesList -> " + participantActivityBeansList.toString());
+		log.trace("participantActivityBeansList -> " + participantActivityBeansList.toString());
 		return participantActivityBeansList;
 	}
 

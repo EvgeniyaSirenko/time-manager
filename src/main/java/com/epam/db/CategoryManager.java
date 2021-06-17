@@ -12,7 +12,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.epam.db.entity.Category;
-import com.epam.db.entity.Participant;
 
 public class CategoryManager {
 	
@@ -72,6 +71,7 @@ public class CategoryManager {
         } finally {
             DBManager.getInstance().commitAndClose(con);
         }
+        log.trace("categoryList -> ", categoryList);
         return categoryList;
     }
     

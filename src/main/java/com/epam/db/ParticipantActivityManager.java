@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.epam.bean.ParticipantActivityBean;
 import com.epam.db.entity.Activity;
 import com.epam.db.entity.Participant;
 import com.epam.db.entity.ParticipantActivity;
@@ -55,6 +54,7 @@ public class ParticipantActivityManager {
 		savedParticipantActivity.setActivityId(participantActivity.getActivityId());
 		savedParticipantActivity.setStatusId(participantActivity.getStatusId());
 		pstmt.close();
+		log.trace("savedParticipantActivity -> " + savedParticipantActivity);
 		return savedParticipantActivity;
 	}
 	
@@ -162,7 +162,6 @@ public class ParticipantActivityManager {
 		pstmt.setInt(4, participant.getId());
 		pstmt.executeUpdate();
 		pstmt.close();
-		System.out.println("updatedActivity_Manager ->" + new ActivityManager().getActivityByName(activity.getName()));
 	}
 
 }

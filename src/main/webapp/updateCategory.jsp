@@ -13,31 +13,27 @@
 <c:if test="${not empty participant}">
 	<div id="fixedHeader">
 		<form action="controller" method="get">
-			<input type="hidden" name="command" value="adminMainPage" /> <input
-				type="submit"
-				value="<fmt:message key="header_jspf.anchor.main_page"/>" />
+			<input type="hidden" name="command" value="adminMainPage" /> 
+			<input	type="submit" value="<fmt:message key="header_jspf.anchor.main_page"/>" />
 		</form>
 	</div>
-	<body>
-		<div id="fixedHeader">
-			<form id="form" action="controller" method="post">
-				<input type="hidden" name="command" value="saveUpdatedCategory" />
-
+<body>
+	<div id="fixedHeader">
+		<form id="form" action="controller" method="post">
+			<input type="hidden" name="command" value="saveUpdatedCategory" />
 				<div>
-					<fmt:message key="categories.label.category_name" />
-					<br> <input name="name" value="${category.name}" required />
+					<fmt:message key="categories.label.category_name" /><br> 
+					<input name="name" value="${category.name}" required />
 				</div>
-				<input type="submit"
-					value='<fmt:message key="categories.button.update"/>'>
-			</form>
-		</div>
+			<input type="submit" value='<fmt:message key="categories.button.update"/>'>
+		</form>
+	</div>
 </c:if>
 
 <c:if test="${empty participant and title ne 'Login'}">
 	<div id="fixedHeader">
 		<form action="login.jsp" method="post">
-				<input type="submit"
-					value="<fmt:message key="header_jspf.anchor.login"/>" />
+			<input type="submit" value="<fmt:message key="header_jspf.anchor.login"/>" />
 		</form>
 	</div>
 </c:if>

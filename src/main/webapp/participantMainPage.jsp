@@ -17,10 +17,9 @@
 	</c:if>
 	<c:if test="${empty participant and title ne 'Login'}">
 		<div id="fixedHeader">
-		<form action="login.jsp" method="post">
-				<input type="submit"
-					value="<fmt:message key="header_jspf.anchor.login"/>" />
-		</form>
+			<form action="login.jsp" method="post">
+				<input type="submit" value="<fmt:message key="header_jspf.anchor.login"/>" />
+			</form>
 		</div>
 	</c:if>
 	<div id="fixedHeader">

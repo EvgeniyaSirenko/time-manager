@@ -67,6 +67,7 @@ public class ParticipantManager {
         } finally {
             DBManager.getInstance().commitAndClose(con);
         }
+        log.trace("participantList -> " + participantList);
         return participantList;
     }
 	
