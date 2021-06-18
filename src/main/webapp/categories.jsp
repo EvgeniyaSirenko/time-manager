@@ -1,13 +1,15 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ include file="/jspf/directive/taglib.jspf"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="footer" uri="/WEB-INF/tld/footerTag.tld" %>
+<%@ taglib prefix="h" tagdir="/WEB-INF/tags/" %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Categories</title>
-<%@ include file="/jspf/head.jspf"%>
+<h:head></h:head>
 </head>
 <c:if test="${not empty participant}">
 	<div id="fixedHeader">
@@ -65,7 +67,7 @@
 	</div>
 </c:if>
 <div id="fixedHeader">
-	<%@ include file="/jspf/footer.jspf"%>
+<footer:footerTag></footer:footerTag>
 </div>
 </body>
 </html>

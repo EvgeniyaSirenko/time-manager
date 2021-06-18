@@ -1,12 +1,15 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/jspf/directive/taglib.jspf"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="footer" uri="/WEB-INF/tld/footerTag.tld" %>
+<%@ taglib prefix="h" tagdir="/WEB-INF/tags/" %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Registration page</title>
-<%@ include file="/jspf/head.jspf"%>
+<h:head></h:head>
 </head>
 <body>
 	<div id="fixedHeader">
@@ -39,7 +42,7 @@
 		<form action="login.jsp" method="post">
 			<input type="submit" value="<fmt:message key="header_jspf.anchor.login"/>" />
 		</form>
-		<%@ include file="/jspf/footer.jspf"%>
+		<footer:footerTag></footer:footerTag>
 	</div>
 </body>
 </html>

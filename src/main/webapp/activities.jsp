@@ -1,14 +1,15 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
-<%@ taglib prefix="footerTag" uri="/WEB-INF/tld/footerTag.tld"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="footer" uri="/WEB-INF/tld/footerTag.tld" %>
+<%@ taglib prefix="h" tagdir="/WEB-INF/tags/" %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Categories</title>
+<h:head></h:head>
 </head>
 <c:if test="${not empty participant}">
 	<div id="fixedHeader">
@@ -66,7 +67,7 @@
 	</div>
 </c:if>
 <div id="fixedHeader">
-<footerTag:footerTag friend=""></footerTag:footerTag>
+<footer:footerTag></footer:footerTag>
 </div>
 </body>
 </html>
