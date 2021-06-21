@@ -18,17 +18,25 @@ public class ParticipantManager {
 	private static final Logger log = LogManager.getLogger(ParticipantManager.class);
 
 	private static final String DELETE_PARTICIPANT = "DELETE FROM participant WHERE login=?";
+
 	private static final String FIND_PARTICIPANT_BY_LOGIN = "SELECT * FROM participant WHERE login=?";
+
 	private static final String FIND_ALL_PARTICIPANTS = "SELECT * FROM participant";
+
 	private static final String CREATE_PARTICIPANT = "INSERT INTO participant "
 			+ "(first_name, last_name, login, password, locale_name, role_id) VALUES (?, ?, ?, ?, ?, ?)";
-	private static final String UPDATE_PARTICIPANT = "UPDATE participant SET first_name=?, last_name=?, login=?, password=?, locale_name=? WHERE id =?";
 
-	
+	private static final String UPDATE_PARTICIPANT = "UPDATE participant SET first_name=?, last_name=?, "
+			+ "login=?, password=?, locale_name=? WHERE id =?";
+
 	/**
-     * Deletes participant by name.
-     */
-	public void deleteParticipant(String participantLogin) {
+	 * 
+	 * Deletes participant by name.
+	 * 
+	 * @throws DBException
+	 * 
+	 */
+	public void deleteParticipant(String participantLogin) throws DBException {
 		PreparedStatement pstmt = null;
 		Connection con = null;
 		try {
@@ -37,75 +45,103 @@ public class ParticipantManager {
 			pstmt.setString(1, participantLogin);
 			pstmt.executeUpdate();
 			pstmt.close();
+			con.commit();
 		} catch (SQLException ex) {
-			DBManager.getInstance().rollbackAndClose(con);
+			log.error("Cannot delete participant ", ex);
 			ex.printStackTrace();
+			DBManager.getInstance().rollback(con);
+			throw new DBException("Cannot delete participant", ex);
 		} finally {
-			DBManager.getInstance().commitAndClose(con);
+			DBManager.getInstance().closeStmt(pstmt);
+			DBManager.getInstance().close(con);
 		}
 	}
-	
-	
-    /**
-     * Returns all participants.
-     */
-    public List<Participant> getAllParticipants() {
-        List<Participant> participantList = new ArrayList<Participant>();
-        Statement stmt = null;
-        ResultSet rs = null;
-        Connection con = null;
-        try {
-            con = DBManager.getInstance().getConnection();
-            ParticipantMapper mapper = new ParticipantMapper();
-            stmt = con.createStatement();
-            rs = stmt.executeQuery(FIND_ALL_PARTICIPANTS);
-            while (rs.next())
-            	participantList.add(mapper.mapRow(rs));
-        } catch (SQLException ex) {
-            DBManager.getInstance().rollbackAndClose(con);
-            ex.printStackTrace();
-        } finally {
-            DBManager.getInstance().commitAndClose(con);
-        }
-        log.trace("participantList -> " + participantList);
-        return participantList;
-    }
-	
-	public Participant getParticipantByLogin(String login) {
+
+	/**
+	 * 
+	 * Returns all participants.
+	 * 
+	 *@throws DBException
+	 *  
+	 **/
+	public List<Participant> getAllParticipants() throws DBException {
+		List<Participant> participantList = new ArrayList<Participant>();
+		Statement stmt = null;
+		ResultSet rs = null;
+		Connection con = null;
+		try {
+			con = DBManager.getInstance().getConnection();
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(FIND_ALL_PARTICIPANTS);
+			while (rs.next())
+				participantList.add(extractParticipant(rs));
+			con.commit();
+		} catch (SQLException ex) {
+			log.error("Cannot get participants list ", ex);
+			ex.printStackTrace();
+			DBManager.getInstance().rollback(con);
+			throw new DBException("Cannot get participants list", ex);
+		} finally {
+			DBManager.getInstance().closeRs(rs);
+			DBManager.getInstance().closeStmt(stmt);
+			DBManager.getInstance().close(con);
+		}
+		return participantList;
+	}
+
+	/**
+	 * 
+	 * Returns participant of the given login.
+	 * 
+	 * @throws DBException
+	 * 
+	 */
+	public Participant getParticipantByLogin(String login) throws DBException {
 		Participant participant = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		Connection con = null;
 		try {
 			con = DBManager.getInstance().getConnection();
-			ParticipantMapper mapper = new ParticipantMapper();
 			pstmt = con.prepareStatement(FIND_PARTICIPANT_BY_LOGIN);
 			pstmt.setString(1, login);
 			rs = pstmt.executeQuery();
 			if (rs.next())
-				participant = mapper.mapRow(rs);
-			rs.close();
-			pstmt.close();
+				participant = extractParticipant(rs);
+			con.commit();
 		} catch (SQLException ex) {
-			DBManager.getInstance().rollbackAndClose(con);
+			log.error("Cannot get participant ", ex);
 			ex.printStackTrace();
+			DBManager.getInstance().rollback(con);
+			throw new DBException("Cannot get participant", ex);
 		} finally {
-			DBManager.getInstance().commitAndClose(con);
+			DBManager.getInstance().closeRs(rs);
+			DBManager.getInstance().closeStmt(pstmt);
+			DBManager.getInstance().close(con);
 		}
 		return participant;
 	}
 
-	
-	public void createParticipant(Participant participant) {
+	/**
+	 * 
+	 * Creates new participant.
+	 * 
+	 * @throws DBException
+	 * 
+	 */
+	public void createParticipant(Participant participant) throws DBException {
 		Connection con = null;
 		try {
 			con = DBManager.getInstance().getConnection();
 			createParticipant(con, participant);
+			con.commit();
 		} catch (SQLException ex) {
-			DBManager.getInstance().rollbackAndClose(con);
+			log.error("Cannot create participant ", ex);
 			ex.printStackTrace();
+			DBManager.getInstance().rollback(con);
+			throw new DBException("Cannot create participant", ex);
 		} finally {
-			DBManager.getInstance().commitAndClose(con);
+			DBManager.getInstance().close(con);
 		}
 	}
 
@@ -126,20 +162,30 @@ public class ParticipantManager {
 		savedParticipant.setPassword(participant.getPassword());
 		savedParticipant.setLocaleName(participant.getLocaleName());
 		savedParticipant.setRoleId(participant.getRoleId());
-		pstmt.close();
+		DBManager.getInstance().closeStmt(pstmt);
 		return savedParticipant;
 	}
 
-	public void updateParticipant(Participant participant) {
+	/**
+	 * 
+	 * Updates participant.
+	 * 
+	 * @throws DBException
+	 * 
+	 */
+	public void updateParticipant(Participant participant) throws DBException {
 		Connection con = null;
 		try {
 			con = DBManager.getInstance().getConnection();
 			updateParticipant(con, participant);
+			con.commit();
 		} catch (SQLException ex) {
-			DBManager.getInstance().rollbackAndClose(con);
+			log.error("Cannot update participant ", ex);
 			ex.printStackTrace();
+			DBManager.getInstance().rollback(con);
+			throw new DBException("Cannot update participant", ex);
 		} finally {
-			DBManager.getInstance().commitAndClose(con);
+			DBManager.getInstance().close(con);
 		}
 	}
 
@@ -153,29 +199,25 @@ public class ParticipantManager {
 		pstmt.setString(k++, participant.getLocaleName());
 		pstmt.setInt(k, participant.getId());
 		pstmt.executeUpdate();
-		pstmt.close();
+		DBManager.getInstance().closeStmt(pstmt);
 	}
 
 	/**
-	 * Extracts a user from the result set row.
+	 * 
+	 * Extracts participant from the result set row.
+	 * 
+	 * @throws SQLException
+	 * 
 	 */
-	private static class ParticipantMapper implements EntityMapper<Participant> {
-
-		@Override
-		public Participant mapRow(ResultSet rs) {
-			try {
-				Participant participant = new Participant();
-				participant.setId(rs.getInt(Fields.ENTITY__ID));
-				participant.setFirstName(rs.getString(Fields.PARTICIPANT_FIRST_NAME));
-				participant.setLastName(rs.getString(Fields.PARTICIPANT_LAST_NAME));
-				participant.setLogin(rs.getString(Fields.PARTICIPANT_LOGIN));
-				participant.setPassword(rs.getString(Fields.PARTICIPANT_PASSWORD));
-				participant.setLocaleName(rs.getString(Fields.PARTICIPANT_LOCALE_NAME));
-				participant.setRoleId(rs.getInt(Fields.PARTICIPANT_ROLE_ID));
-				return participant;
-			} catch (SQLException e) {
-				throw new IllegalStateException(e);
-			}
-		}
+	public Participant extractParticipant(ResultSet rs) throws SQLException {
+		Participant participant = new Participant();
+		participant.setId(rs.getInt(Fields.ENTITY__ID));
+		participant.setFirstName(rs.getString(Fields.PARTICIPANT_FIRST_NAME));
+		participant.setLastName(rs.getString(Fields.PARTICIPANT_LAST_NAME));
+		participant.setLogin(rs.getString(Fields.PARTICIPANT_LOGIN));
+		participant.setPassword(rs.getString(Fields.PARTICIPANT_PASSWORD));
+		participant.setLocaleName(rs.getString(Fields.PARTICIPANT_LOCALE_NAME));
+		participant.setRoleId(rs.getInt(Fields.PARTICIPANT_ROLE_ID));
+		return participant;
 	}
 }

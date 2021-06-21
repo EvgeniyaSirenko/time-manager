@@ -1,7 +1,9 @@
 package com.epam.db;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -36,19 +38,33 @@ public class DBManager {
 		return con;
 	}
 
-	public void commitAndClose(Connection con) {
+	public void close(Connection con) {
 		try {
-			con.commit();
 			con.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 	}
 
-	public void rollbackAndClose(Connection con) {
+	public void rollback(Connection con) {
 		try {
 			con.rollback();
-			con.close();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	public void closeRs(ResultSet rs) {
+		try {
+			rs.close();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	public void closeStmt(Statement stmt) {
+		try {
+			stmt.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}

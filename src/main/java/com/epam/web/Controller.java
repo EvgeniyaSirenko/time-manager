@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.epam.db.AppException;
 import com.epam.web.command.Command;
 import com.epam.web.command.CommandContainer;
 
@@ -22,7 +23,7 @@ public class Controller extends HttpServlet {
 	private static final Logger log = LogManager.getLogger(Controller.class);
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		log.debug("Controller#doGet");
 
 		String address = "error.jsp";
@@ -35,7 +36,7 @@ public class Controller extends HttpServlet {
 
 		try {
 			address = command.execute(req, resp);
-		} catch (IOException ex) {
+		} catch (AppException ex) {
 			req.setAttribute("error", ex);
 		}
 
@@ -57,9 +58,9 @@ public class Controller extends HttpServlet {
 
 		try {
 			address = command.execute(req, resp);
-		} catch (IOException ex) {
+		} catch (AppException ex) {
 			req.getSession().setAttribute("error", ex);
-
+			log.trace("error ==> " + ex);
 		}
 		log.trace("address == > " + address);
 		resp.sendRedirect(address);

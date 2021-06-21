@@ -2,14 +2,15 @@ package com.epam.db;
 
 import java.sql.SQLException;
 
-public class DBException extends AppException {
+public class AppException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 
-	public DBException(String message, SQLException ex) {
+	public AppException(String message, SQLException ex) {
 		super(message, ex);
 	}
-	public DBException(String message) {
+
+	public AppException(String message) {
 		super(message);
 	}
 

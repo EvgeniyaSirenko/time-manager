@@ -1,8 +1,5 @@
 package com.epam.web.command;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.epam.Path;
 import com.epam.db.ActivityManager;
+import com.epam.db.AppException;
 import com.epam.db.ParticipantActivityManager;
 import com.epam.db.ParticipantManager;
 import com.epam.db.entity.Activity;
@@ -23,7 +21,7 @@ public class AdminDeleteParticipantsActivityCommand extends Command {
 	private static final Logger log = LogManager.getLogger(AdminDeleteParticipantsActivityCommand.class);
 
 	@Override
-	public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+	public String execute(HttpServletRequest req, HttpServletResponse resp) throws AppException {
 		log.debug("Command starts");
 
 		String activityName = req.getParameter("activityName");

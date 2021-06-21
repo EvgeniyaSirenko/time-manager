@@ -1,8 +1,5 @@
 package com.epam.web.command;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -13,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.epam.Path;
 import com.epam.db.Role;
+import com.epam.db.AppException;
 import com.epam.db.ParticipantManager;
 import com.epam.db.entity.Participant;
 
@@ -23,7 +21,7 @@ public class LoginCommand extends Command {
 	private static final Logger log = LogManager.getLogger(LoginCommand.class);
 
 	@Override
-	public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+	public String execute(HttpServletRequest req, HttpServletResponse resp) throws AppException {
 		log.debug("Command starts");
 
 		HttpSession session = req.getSession();
@@ -37,10 +35,11 @@ public class LoginCommand extends Command {
 		String forward = Path.PAGE__ERROR_PAGE;
 
 		if (login == null || password == null || login.isEmpty() || password.isEmpty()) {
-			errorMessage = "Login/password cannot be empty";
-			req.getSession().setAttribute("errorMessage", errorMessage);
-			log.error("errorMessage --> " + errorMessage);
-			return forward;
+//			errorMessage = "Login/password cannot be empty";
+//			req.getSession().setAttribute("errorMessage", errorMessage);
+//			log.error("errorMessage --> " + errorMessage);
+//			return forward;
+			throw new AppException("Login/password cannot be empty");
 		}
 
 		Participant participant = new ParticipantManager().getParticipantByLogin(login);

@@ -1,9 +1,7 @@
 package com.epam.web.command;
 
-import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import com.epam.Path;
 import com.epam.bean.CategoryActivityParticipantBean;
 import com.epam.db.ActivityManager;
+import com.epam.db.AppException;
 
 public class ReportsSortActivitiesCommand extends Command {
 
@@ -21,7 +20,7 @@ public class ReportsSortActivitiesCommand extends Command {
 	private static final Logger log = LogManager.getLogger(ReportsSortActivitiesCommand.class);
 
 	@Override
-	public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+	public String execute(HttpServletRequest req, HttpServletResponse resp) throws AppException {
 
 		log.debug("Command starts");
 
