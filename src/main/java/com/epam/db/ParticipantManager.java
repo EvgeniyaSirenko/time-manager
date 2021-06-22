@@ -14,14 +14,14 @@ import org.apache.logging.log4j.Logger;
 import com.epam.db.entity.Participant;
 
 public class ParticipantManager {
-
+	
 	private static final Logger log = LogManager.getLogger(ParticipantManager.class);
-
+	
 	private static final String DELETE_PARTICIPANT = "DELETE FROM participant WHERE login=?";
 
 	private static final String FIND_PARTICIPANT_BY_LOGIN = "SELECT * FROM participant WHERE login=?";
 
-	private static final String FIND_ALL_PARTICIPANTS = "SELECT * FROM participant";
+	private static final String FIND_ALL_PARTICIPANTS = "SELECT * FROM participant WHERE role_id=1";
 
 	private static final String CREATE_PARTICIPANT = "INSERT INTO participant "
 			+ "(first_name, last_name, login, password, locale_name, role_id) VALUES (?, ?, ?, ?, ?, ?)";
@@ -87,6 +87,21 @@ public class ParticipantManager {
 			DBManager.getInstance().close(con);
 		}
 		return participantList;
+	}	
+	
+	/**
+	 * 
+	 * Returns all participants (for pagination).
+	 * 
+	 *@throws DBException
+	 *  
+	 **/
+	public List<Participant> getParticipants(int offset, int nOfParticipants) throws DBException {
+		return new ArrayList<>(getAllParticipants().subList(offset, offset + nOfParticipants));
+	}
+	
+	public int getNOfParticipants() throws DBException {
+		return getAllParticipants().size();
 	}
 
 	/**

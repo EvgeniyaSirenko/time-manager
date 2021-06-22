@@ -126,11 +126,11 @@ public class CategoryManager {
 	 * @throws DBException
 	 * 
 	 **/
-	public void createCategory(Category participant) throws DBException {
+	public void createCategory(Category category) throws DBException {
 		Connection con = null;
 		try {
 			con = DBManager.getInstance().getConnection();
-			createCategory(con, participant);
+			createCategory(con, category);
 			con.commit();
 		} catch (SQLException ex) {
 			log.error("Cannot create category ", ex);

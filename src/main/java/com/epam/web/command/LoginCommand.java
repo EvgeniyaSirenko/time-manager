@@ -35,11 +35,10 @@ public class LoginCommand extends Command {
 		String forward = Path.PAGE__ERROR_PAGE;
 
 		if (login == null || password == null || login.isEmpty() || password.isEmpty()) {
-//			errorMessage = "Login/password cannot be empty";
-//			req.getSession().setAttribute("errorMessage", errorMessage);
-//			log.error("errorMessage --> " + errorMessage);
-//			return forward;
-			throw new AppException("Login/password cannot be empty");
+			errorMessage = "Login/password cannot be empty";
+			req.getSession().setAttribute("errorMessage", errorMessage);
+			log.error("errorMessage --> " + errorMessage);
+			return forward;
 		}
 
 		Participant participant = new ParticipantManager().getParticipantByLogin(login);

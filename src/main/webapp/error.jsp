@@ -13,7 +13,11 @@
 </head>
 <body>
 	<div id="fixedHeader">
-		${errorMessage} <br /> <br />
+		<c:set var="message" value="${requestScope['javax.servlet.error.message']}"/>		
+		<c:if test="${not empty message}">
+			<p>${message}</p>
+		</c:if>
+		<p>${errorMessage}</p>
 		<form action="login.jsp" method="post">
 			<input type="submit" value="<fmt:message key="error_jsp.label.back_to_sign_in"/>" />
 		</form>
