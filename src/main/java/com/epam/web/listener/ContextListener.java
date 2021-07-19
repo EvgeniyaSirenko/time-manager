@@ -93,21 +93,3 @@ public class ContextListener implements ServletContextListener {
 		log.debug("Command container initialization finished");
 	}
 }
-
-//String localesValue = servletContext.getInitParameter("locales");
-//if (localesValue == null || localesValue.isEmpty()) {
-//log.warn("'locales' init parameter is empty, the default encoding will be used");
-//} else {
-//List<String> locales = new ArrayList<String>();
-//StringTokenizer st = new StringTokenizer(localesValue);
-//while (st.hasMoreTokens()) {
-//	String localeName = st.nextToken();
-//	locales.add(localeName);
-//}
-//
-//log.debug("Application attribute set: locales --> " + locales);
-//servletContext.setAttribute("locales", locales);
-//}
-//
-//log.debug("I18N subsystem initialization finished");
-//}

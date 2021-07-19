@@ -62,6 +62,7 @@ public class CommandAccessFilter implements Filter {
 			HttpServletRequest httpRequest = (HttpServletRequest) request;
 
 		String commandName = request.getParameter("command");
+
 		if (commandName == null || commandName.isEmpty())
 			return false;
 		
@@ -75,7 +76,6 @@ public class CommandAccessFilter implements Filter {
 		Role participantRole = (Role)session.getAttribute("participantRole");
 		if (participantRole == null)
 			return false;
-		
 		return accessMap.get(participantRole).contains(commandName)
 				|| commons.contains(commandName);
 	}
@@ -108,7 +108,7 @@ public class CommandAccessFilter implements Filter {
 	 */
 	private List<String> asList(String str) {
 		List<String> list = new ArrayList<String>();
-		StringTokenizer st = new StringTokenizer(str);
+		StringTokenizer st = new StringTokenizer(str);		
 		while (st.hasMoreTokens()) list.add(st.nextToken());
 		return list;		
 	}
