@@ -52,7 +52,7 @@
 		<filter-class>com.epam.web.filter.CommandAccessFilter</filter-class>
 		<init-param>
 			<param-name>admin</param-name>
-			<param-value>adminMainPage activitiesToApprove activitiesToDelete approveActivity rejectApproveActivity deleteParticipantsActivity rejectDeleteParticipantsActivity createCategory adminCreateNewActivity adminSaveCreatedActivity categories deleteCategory updateCategory saveUpdatedCategory activities deleteActivity updateActivity saveUpdatedActivity participants deleteParticipant reports reportsSortActivities reportsSortActivitiesByCategory reportsSortActivitiesByParticipantsQuantity reportsFilterActivities reportsFilterActivitiesByCategory</param-value>
+			<param-value>adminMainPage activitiesToApprove activitiesToDelete approveActivity rejectApproveActivity deleteParticipantsActivity rejectDeleteParticipantsActivity createCategory adminCreateNewActivity adminSaveCreatedActivity categories deleteCategory updateCategory saveUpdatedCategory activities deleteActivity updateActivity saveUpdatedActivity participants deleteParticipant reports reportOfParticipant reportsSortActivities reportsSortActivitiesByCategory reportsSortActivitiesByParticipantsQuantity reportsFilterActivities reportsFilterActivitiesByCategory</param-value>
 		</init-param>
 		<init-param>
 			<param-name>client</param-name>

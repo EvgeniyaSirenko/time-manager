@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.epam.bean.ParticipantActivityDurationBean;
 import com.epam.bean.CategoryActivityParticipantBean;
+import com.epam.bean.CategoryActivityStatusBean;
 import com.epam.bean.ParticipantActivityBean;
 import com.epam.db.entity.Activity;
 import com.epam.db.entity.Participant;
@@ -69,6 +70,11 @@ public class ActivityManager {
 			+ "c.name AS category_name, temp.participant AS participants FROM activity a JOIN (SELECT activity_id, "
 			+ "COUNT(participant_id) AS participant FROM participant_activity GROUP BY activity_id) temp ON temp.activity_id=a.id "
 			+ "JOIN category c ON c.id=a.category_id WHERE c.name=? ORDER BY participants";
+	
+	private final static String FIND_CATEGORY_ACTIVITY_STATUS_WITH_PARTICIPANT_ID = "SELECT c.name AS category_name, a.name AS activity_name, "
+			+ "s.name AS status_name, pa.participant_id FROM category c JOIN activity a ON c.id=a.category_id "
+			+ "JOIN participant_activity pa ON a.id=pa.activity_id JOIN status s ON s.id=pa.status_id "
+			+ "WHERE pa.participant_id=?";
 
 	/**
 	 * 
@@ -493,6 +499,39 @@ public class ActivityManager {
 
 	/**
 	 * 
+	 * Returns CategoryActivityStatusBean of the given participant_id
+	 * 
+	 * @throws DBException
+	 * 
+	 **/
+	public List<CategoryActivityStatusBean> getCategoryActivityStatusBeanOfParticipant(int participantId) throws DBException {
+		List<CategoryActivityStatusBean> categoryActivityStatusBeanList = new ArrayList<CategoryActivityStatusBean>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Connection con = null;
+		try {
+			con = DBManager.getInstance().getConnection();
+			pstmt = con.prepareStatement(FIND_CATEGORY_ACTIVITY_STATUS_WITH_PARTICIPANT_ID);			
+			pstmt.setInt(1, participantId);
+			rs = pstmt.executeQuery();
+			while (rs.next())
+				categoryActivityStatusBeanList.add(extractCategoryActivityStatusBean(rs));
+			con.commit();
+		} catch (SQLException ex) {
+			log.error("Cannot get beans ", ex);
+			ex.printStackTrace();
+			DBManager.getInstance().rollback(con);
+			throw new DBException("Cannot get beans", ex);
+		} finally {
+			DBManager.getInstance().closeRs(rs);
+			DBManager.getInstance().closeStmt(pstmt);
+			DBManager.getInstance().close(con);
+		}
+		return categoryActivityStatusBeanList;
+	}
+	
+	/**
+	 * 
 	 * Returns activities of the given participant with approved status only.
 	 * 
 	 * @throws DBException
@@ -543,7 +582,7 @@ public class ActivityManager {
 
 	/**
 	 * 
-	 * Extracts a CategoryActivityParticipantBean from the result set row.
+	 * Extracts a CategoryActivityDurationBean from the result set row.
 	 * 
 	 * @throws SQLException 
 	 * 
@@ -568,6 +607,22 @@ public class ActivityManager {
 		bean.setCategoryName(rs.getString(Fields.CATEGORY_ACTIVITY_PARTICIPANT_BEAN__CATEGORY_NAME));
 		bean.setActivityName(rs.getString(Fields.CATEGORY_ACTIVITY_PARTICIPANT_BEAN__ACTIVITY_NAME));
 		bean.setParticipantId(rs.getInt(Fields.CATEGORY_ACTIVITY_PARTICIPANT_BEAN__PARTICIPANT_ID));
+		return bean;
+	}
+	
+	/**
+	 * 
+	 * Extracts a CategoryActivityStatusBeann from the result set row.
+	 * 
+	 * @throws SQLException
+	 * 
+	 **/
+	public CategoryActivityStatusBean extractCategoryActivityStatusBean(ResultSet rs) throws SQLException {
+		CategoryActivityStatusBean bean = new CategoryActivityStatusBean();
+		bean.setCategoryName(rs.getString(Fields.CATEGORY_ACTIVITY_STATUS_BEAN__CATEGORY_NAME));
+		bean.setActivityName(rs.getString(Fields.CATEGORY_ACTIVITY_STATUS_BEAN__ACTIVITY_NAME));
+		bean.setStatusName(rs.getString(Fields.CATEGORY_ACTIVITY_STATUS_BEAN__STATUS_NAME));
+		bean.setParticipantId(rs.getInt(Fields.CATEGORY_ACTIVITY_STATUS_BEAN__PARTICIPANT_ID));
 		return bean;
 	}
 

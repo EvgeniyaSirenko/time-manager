@@ -27,6 +27,7 @@ public final class Path {
 	public static final String PAGE__PARTICIPANTS = "participants.jsp";
 	public static final String PAGE__UPDATE_ACTIVITY = "updateActivity.jsp";
 	public static final String PAGE__REPORTS = "reports.jsp";
+	public static final String PAGE__REPORT_OF_PARTICIPANT = "reportOfParticipant.jsp";
 	public static final String PAGE__ACTIVITIES_TO_SORT = "activitiesToSort.jsp";
 	public static final String PAGE__ACTIVITIES_TO_FILTER = "activitiesToFilter.jsp";
 

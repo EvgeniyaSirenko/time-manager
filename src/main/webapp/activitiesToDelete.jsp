@@ -39,7 +39,7 @@
 					<td><c:out value="${bean.activityName}" /></td>
 					<td>
 						<form action="controller" method="post">
-							<input type="hidden" name="command" value="approveActivity" />
+							<input type="hidden" name="command" value="deleteActivity" />
 							<input type=hidden name="activityName" value="${bean.activityName}" /> 
 							<input type=hidden name="participantLogin" value="${bean.participantLogin}" /> 
 							<input type="submit" value="<fmt:message key="admin_jsp.button.delete"/>" />

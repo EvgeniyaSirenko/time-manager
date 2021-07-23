@@ -41,6 +41,10 @@ public final class Fields {
 	public static final String CATEGORY_ACTIVITY_PARTICIPANT_BEAN__CATEGORY_NAME = "category_name";	
 	public static final String CATEGORY_ACTIVITY_PARTICIPANT_BEAN__ACTIVITY_NAME = "activity_name";	
 	public static final String CATEGORY_ACTIVITY_PARTICIPANT_BEAN__PARTICIPANT_ID = "participants";	
+	public static final String CATEGORY_ACTIVITY_STATUS_BEAN__CATEGORY_NAME = "category_name";		
+	public static final String CATEGORY_ACTIVITY_STATUS_BEAN__ACTIVITY_NAME = "activity_name";		
+	public static final String CATEGORY_ACTIVITY_STATUS_BEAN__STATUS_NAME = "status_name";		
+	public static final String CATEGORY_ACTIVITY_STATUS_BEAN__PARTICIPANT_ID = "participant_id";		
 
 
 

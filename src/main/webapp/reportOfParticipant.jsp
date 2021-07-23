@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Reports</title>
+<title>Report of participant</title>
 <h:head></h:head>
 </head>
 <c:if test="${not empty participant}">
@@ -20,40 +20,26 @@
 	</div>
 <body>
 	<div id="fixedHeader">
-		<fmt:message key="reports.label.table_head" /><br><br>
 			<table id="activities_table">
 				<thead>			
 					<tr>
 						<td>№</td>
-						<td><fmt:message key="reports.label.participant_login" /></td>
-						<td><fmt:message key="reports.label.activities_quantity" /></td>
-						<td><fmt:message key="reports.label.total_duration" /></td>
+						<td><fmt:message key="report_of_participant.category" /></td>
+						<td><fmt:message key="report_of_participant.activity" /></td>
+						<td><fmt:message key="report_of_participant.status" /></td>
 					</tr>
 				</thead>
 					<c:set var="k" value="0" />
-				<c:forEach var="bean" items="${participantActivityBeansList}">
+				<c:forEach var="bean" items="${categoryActivityStatusBeansList}">
 					<c:set var="k" value="${k+1}" />
 					<tr>
 						<td><c:out value="${k}" /></td>
-						<td>						
-							<form action="controller" method="get">
-							<input type="hidden" name="command" value="reportOfParticipant" />
-							<input type=hidden name="participantLogin" value="${bean.participantLogin}" /> 
-							<input type="submit" value="${bean.participantLogin}" />
-						</form>
-						<td><c:out value="${bean.activityId}" /></td>
-						<td><c:out value="${bean.activityDuration}" /></td>
+						<td><c:out value="${bean.categoryName}" /></td>
+						<td><c:out value="${bean.activityName}" /></td>
+						<td><c:out value="${bean.statusName}" /></td>
 					</tr>
 				</c:forEach>
 			</table> <br>
-			<p>
-				<a href="controller?command=reportsSortActivities"> 
-					<fmt:message key="reports.label.sort_activities" />
-				</a>
-			</p>
-				<a href="controller?command=reportsFilterActivities"> 
-					<fmt:message key="reports.label.filter_activities" />
-				</a>
 	</div>
 </c:if>
 <c:if test="${empty participant and title ne 'Login'}">

@@ -54,6 +54,7 @@ public class CommandContainer {
 		commands.put("participants", new ParticipantsCommand());
 		commands.put("deleteParticipant", new DeleteParticipantCommand());
 		commands.put("reports", new ReportsCommand());
+		commands.put("reportOfParticipant", new ReportOfParticipantCommand());
 		commands.put("reportsSortActivities", new ReportsSortActivitiesCommand());
 		commands.put("reportsSortActivitiesByCategory", new ReportsSortActivitiesByCategoryCommand());
 		commands.put("reportsSortActivitiesByParticipantsQuantity",
